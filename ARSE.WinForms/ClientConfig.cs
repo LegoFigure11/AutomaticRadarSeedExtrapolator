@@ -14,35 +14,4 @@ public class ClientConfig
     // Fields
     public int TID { get; set; } = 1337;
     public int SID { get; set; } = 1390;
-    public bool HasShinyCharm { get; set; } = false;
-    public bool HasMarkCharm { get; set; } = false;
-    public bool FocusWindow { get; set; } = false;
-    public bool PlayTone { get; set; } = false;
-
-    public int MaxSearchTasksNthPowerOfTwo { get; set; } = 2;
-
-    // Seed Reset
-    public int ExtraTimeReturnHome { get; set; } = 0;
-    public int ExtraTimeCloseGame { get; set; } = 0;
-
-    public int ExtraTimeLoadProfile { get; set; } = 0;
-    public bool AvoidSystemUpdate { get; set; } = false;
-    public int ExtraTimeLoadGame { get; set; } = 0;
-
-    public bool LogResultsWhileInProgress { get; set; } = true;
-
-    // Turbo
-    public bool LoopTurbo { get; set; } = false;
-    public List<string> TurboSequence { get; set; } = [];
-
-    public int InputSleepTime { get; set; } = 200;
-
-    public bool ResetTimeAfterDateSkipping { get; set; } = true;
-
-    // Webhook
-    public bool WebhookEnabled { get; set; } = false;
-    public string ResultNotificationURL { get; set; } = string.Empty;
-    public string ErrorNotificationURL { get; set; } = string.Empty;
-    public string ResultWebhookMessageContent { get; set; } = string.Empty;
-    public string ErrorWebhookMessageContent { get; set; } = string.Empty;
 }

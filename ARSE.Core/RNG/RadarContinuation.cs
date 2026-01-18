@@ -11,7 +11,7 @@ public static class RadarContinuation
     private static int GetRoll(ref XorShift128 rng) => rng.NextInt(0, 100);
 
     private static bool CheckSingle(int chk, int thresh = 93) => chk < thresh;
-    private static bool CheckSingle(ref XorShift128 rng, int thresh = 93) => rng.NextInt(0, 100) < thresh;
+    private static bool CheckSingle(ref XorShift128 rng, int thresh = 93) => GetRoll(ref rng) < thresh;
 
     public static Task<List<RadarContinuationFrame>> Generate(ulong s0, ulong s1, ulong start, ulong end, RadarContinuationConfig config)
     {
@@ -22,11 +22,9 @@ public static class RadarContinuation
             var outer = new XorShift128(s0, s1);
 
             for (ulong z = 0; z < start; z++)
-            {
                 outer.Next();
-            }
 
-            for (ulong i = start; i <= start + end; i++)
+            for (var i = start; i <= start + end; i++)
             {
                 var os = outer.GetState64();
                 var rng = new XorShift128(os.s0, os.s1);
@@ -34,7 +32,7 @@ public static class RadarContinuation
                 var roll = GetRoll(ref rng);
                 var chk = CheckSingle(roll, config.ContinueRate);
 
-                results.Add(new()
+                results.Add(new RadarContinuationFrame
                 {
                     Advances = $"{i:N0}",
                     Fail = chk ? ' ' : '*',

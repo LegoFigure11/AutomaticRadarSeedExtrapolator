@@ -1,7 +1,5 @@
 using System.Net.Sockets;
-using System.Text;
 using PKHeX.Core;
-using ARSE.Core.Interfaces;
 using ARSE.Core.Structures;
 using SysBot.Base;
 using static System.Buffers.Binary.BinaryPrimitives;
