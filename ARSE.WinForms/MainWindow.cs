@@ -32,7 +32,8 @@ public partial class MainWindow : Form
 
     private RadarContinuationConfig _cfg = new();
 
-    List<RadarContinuationFrame> Frames = [];
+    List<RadarContinuationFrame> ContinuationFrames = [];
+    List<PokemonFrame> PokemonFrames = [];
 
     private readonly Version CurrentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version!;
 
@@ -137,38 +138,9 @@ public partial class MainWindow : Form
 
                 UpdateStatus("Detecting game version...");
 
-                /*if (game is "")
-                {
-                    try
-                    {
-                        (bool success, string err) = await ConnectionWrapper
-                            .DisconnectAsync(token)
-                            .ConfigureAwait(false);
-                        if (!success)
-                        {
-                            SetControlEnabledState(true, B_Connect);
-                            this.DisplayMessageBox(err);
-                            return;
-                        }
-                    }
-                    catch
-                    {
-                        // ignored
-                    }
-                    finally
-                    {
-                        SetControlEnabledState(true, B_Connect);
-                        this.DisplayMessageBox("Unable to detect Pokémon Sword or Pokémon Shield running on your Switch!");
-                    }
-                    return;
-                }*/
-
-                // SetCheckBoxCheckedState(ConnectionWrapper.GetHasShinyCharm(), CB_ShinyCharm);
                 var (tid, sid) = ConnectionWrapper.GetIDs();
                 SetTextBoxText(tid, TB_TID);
                 SetTextBoxText(sid, TB_SID);
-
-                // SetComboBoxSelectedIndex(game == "Sword" ? (int)Game.Sword : (int)Game.Shield, CB_Game);
 
                 UpdateStatus("Reading RNG State...");
                 ulong _s0, _s1;
@@ -449,8 +421,8 @@ public partial class MainWindow : Form
         Task.Run(async () =>
         {
             results = await Core.RNG.RadarContinuation.Generate(s0, s1, initial, advances, cfg);
-            SetBindingSourceDataSource(results, ResultsSource);
-            Frames = results;
+            SetBindingSourceDataSource(results, ResultsSourceContinuation);
+            ContinuationFrames = results;
 
             var subset = results[..99];
             SetTextBoxText($"{subset.Count(x => x.Fail == '*')}", TB_FailsNext);
@@ -462,197 +434,43 @@ public partial class MainWindow : Form
         });
     }
 
-    private void DGV_Results_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+    private void DGV_ResultsContinuation_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
     {
         var index = e.RowIndex;
-        if (Frames.Count <= index) return;
-        var row = DGV_Results.Rows[index];
-        var result = Frames[index];
+        if (ContinuationFrames.Count <= index) return;
+        var row = DGV_ResultsContinuation.Rows[index];
+        var result = ContinuationFrames[index];
 
         if (result.Fail == '*') row.DefaultCellStyle.BackColor = Color.PaleVioletRed;
         else row.DefaultCellStyle.BackColor = row.Index % 2 == 0 ? Color.White : Color.WhiteSmoke;
     }
 
-    private void B_Up_Click(object sender, EventArgs e)
+    private void B_PokemonSearch_Click(object sender, EventArgs e)
     {
+        var initial = ulong.Parse(TB_Initial.Text);
+        var advances = ulong.Parse(TB_Advances.Text);
+
+        var s0 = ulong.Parse(TB_Seed0.Text, NumberStyles.AllowHexSpecifier);
+        var s1 = ulong.Parse(TB_Seed1.Text, NumberStyles.AllowHexSpecifier);
+
+        ChainPokemonConfig cfg = new()
+        {
+            ForceHiddenAbility = GetComboBoxSelectedIndex(CB_Patch) == 2,
+            IsShinyPatch = GetComboBoxSelectedIndex(CB_Patch) == 1,
+            TID = 49027,
+            SID = 34944,
+            ChainLength = 99,
+            Species = (ushort)Species.Larvitar,
+        };
+
+        List<PokemonFrame> results = [];
+
         Task.Run(async () =>
         {
-            if (ConnectionWrapper.Connected)
-            {
-                await ConnectionWrapper.DoTurboCommand("D-Pad Up", Source.Token).ConfigureAwait(false);
-            }
+            results = await Core.RNG.ChainPokemon.Generate(s0, s1, initial, advances, cfg);
+            SetBindingSourceDataSource(results, ResultsSourcePokemon);
+            PokemonFrames = results;
         });
-    }
-
-    private void button1_Click(object sender, EventArgs e)
-    {
-        Task.Run(async () =>
-        {
-            if (ConnectionWrapper.Connected)
-            {
-                await ConnectionWrapper.DoTurboCommand("D-Pad Down", Source.Token).ConfigureAwait(false);
-            }
-        });
-    }
-
-    private void button3_Click(object sender, EventArgs e)
-    {
-        Task.Run(async () =>
-        {
-            if (ConnectionWrapper.Connected)
-            {
-                await ConnectionWrapper.DoTurboCommand("D-Pad Left", Source.Token).ConfigureAwait(false);
-            }
-        });
-    }
-
-    private void button4_Click(object sender, EventArgs e)
-    {
-        Task.Run(async () =>
-        {
-            if (ConnectionWrapper.Connected)
-            {
-                await ConnectionWrapper.DoTurboCommand("D-Pad Right", Source.Token).ConfigureAwait(false);
-            }
-        });
-    }
-
-    private void button8_Click(object sender, EventArgs e)
-    {
-        Task.Run(async () =>
-        {
-            if (ConnectionWrapper.Connected)
-            {
-                await ConnectionWrapper.DoTurboCommand("-", Source.Token).ConfigureAwait(false);
-            }
-        });
-    }
-
-    private void button2_Click(object sender, EventArgs e)
-    {
-        Task.Run(async () =>
-        {
-            if (ConnectionWrapper.Connected)
-            {
-                await ConnectionWrapper.DoTurboCommand("A", Source.Token).ConfigureAwait(false);
-            }
-        });
-    }
-
-    private void button6_Click(object sender, EventArgs e)
-    {
-        Task.Run(async () =>
-        {
-            if (ConnectionWrapper.Connected)
-            {
-                await ConnectionWrapper.DoTurboCommand("B", Source.Token).ConfigureAwait(false);
-            }
-        });
-    }
-
-    private void button5_Click(object sender, EventArgs e)
-    {
-        Task.Run(async () =>
-        {
-            if (ConnectionWrapper.Connected)
-            {
-                await ConnectionWrapper.DoTurboCommand("X", Source.Token).ConfigureAwait(false);
-            }
-        });
-    }
-
-    private void button7_Click(object sender, EventArgs e)
-    {
-        Task.Run(async () =>
-        {
-            if (ConnectionWrapper.Connected)
-            {
-                await ConnectionWrapper.DoTurboCommand("Y", Source.Token).ConfigureAwait(false);
-            }
-        });
-    }
-
-    private void button9_Click(object sender, EventArgs e)
-    {
-        Task.Run(async () =>
-        {
-            if (ConnectionWrapper.Connected)
-            {
-                await ConnectionWrapper.DoTurboCommand("Up (Hold)", Source.Token).ConfigureAwait(false);
-                await ConnectionWrapper.DoTurboCommand("Release Stick", Source.Token).ConfigureAwait(false);
-            }
-        });
-    }
-
-    private void button10_Click(object sender, EventArgs e)
-    {
-        var t = textBox1.Text;
-        var h = Frames.Where(x => x.Seed0 == t || x.Seed1 == t).FirstOrDefault();
-        if (h is not null)
-        {
-            MessageBox.Show($"{h.Advances} ({h.Seed0} {h.Seed1})");
-        }
-        else
-            MessageBox.Show("No result found!")
-                ;
-    }
-
-    private void button11_Click(object sender, EventArgs e)
-    {
-        Task.Run(async () =>
-        {
-            if (ConnectionWrapper.Connected)
-            {
-                await ConnectionWrapper.DoTurboCommand("HOME", Source.Token).ConfigureAwait(false);
-            }
-        });
-    }
-
-    private void button12_Click(object sender, EventArgs e)
-    {
-        Task.Run(async () =>
-        {
-            if (ConnectionWrapper.Connected)
-            {
-                await ConnectionWrapper.DoTurboCommand("R", Source.Token).ConfigureAwait(false);
-            }
-        });
-    }
-
-    private void button13_Click(object sender, EventArgs e)
-    {
-        flipTarget = long.Parse(TB_FlipTarget.Text);
-        flipPause = false;
-        Task.Run(async () =>
-        {
-            try
-            {
-                await ConnectionWrapper.SetMainLoopSleepTime(39, CancellationToken.None).ConfigureAwait(false);
-
-                while (ConnectionWrapper.Connected && !flipPause)
-                {
-                    await ConnectionWrapper.DoTurboCommand("Right (Hold)", CancellationToken.None).ConfigureAwait(false);
-                    await Task.Delay(40, CancellationToken.None).ConfigureAwait(false);
-                    await ConnectionWrapper.DoTurboCommand("Left (Hold)", CancellationToken.None).ConfigureAwait(false);
-                    await Task.Delay(40, CancellationToken.None).ConfigureAwait(false);
-                }
-
-                await ConnectionWrapper.DoTurboCommand("Reset Stick", CancellationToken.None).ConfigureAwait(false);
-
-                await ConnectionWrapper.SetMainLoopSleepTime(49, CancellationToken.None).ConfigureAwait(false);
-
-            }
-            catch (Exception ex)
-            {
-                this.DisplayMessageBox(ex.Message);
-            }
-        });
-    }
-
-    private void button14_Click(object sender, EventArgs e)
-    {
-        flipPause = true;
-        flipTarget = 0;
     }
 }
 

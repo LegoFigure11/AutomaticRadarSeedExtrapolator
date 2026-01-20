@@ -30,6 +30,7 @@ namespace ARSE.WinForms;
     {
         components = new System.ComponentModel.Container();
         DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+        DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
         GB_Connection = new GroupBox();
         TB_AdvancesIncrease = new TextBox();
@@ -61,13 +62,13 @@ namespace ARSE.WinForms;
         NUD_SafeNum = new NumericUpDown();
         L_SafeNum = new Label();
         B_Forecast = new Button();
-        DGV_Results = new DataGridView();
+        DGV_ResultsContinuation = new DataGridView();
         advancesDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
         seed0DataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
         seed1DataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
         failDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
         rollDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-        ResultsSource = new BindingSource(components);
+        ResultsSourceContinuation = new BindingSource(components);
         B_Search = new Button();
         L_Static_Advances = new Label();
         L_Static_Initial = new Label();
@@ -85,32 +86,89 @@ namespace ARSE.WinForms;
         label5 = new Label();
         NUD_ActionTimes = new NumericUpDown();
         label6 = new Label();
-        B_Up = new Button();
-        button1 = new Button();
-        button3 = new Button();
-        button4 = new Button();
-        button2 = new Button();
-        button5 = new Button();
-        button6 = new Button();
-        button7 = new Button();
-        button8 = new Button();
-        button9 = new Button();
-        label7 = new Label();
-        textBox1 = new TextBox();
-        button10 = new Button();
-        button11 = new Button();
-        button12 = new Button();
-        button13 = new Button();
-        button14 = new Button();
-        TB_FlipTarget = new TextBox();
-        label8 = new Label();
+        CB_RareEC = new CheckBox();
+        CB_EnableFilters = new CheckBox();
+        L_Filter_Height = new Label();
+        CB_Filter_Height = new ComboBox();
+        L_Filter_Shiny = new Label();
+        CB_Filter_Shiny = new ComboBox();
+        B_Spe_Max = new Button();
+        B_Spe_Min = new Button();
+        L_Spe = new Label();
+        L_SpeSpacer = new Label();
+        NUD_Spe_Max = new NumericUpDown();
+        NUD_Spe_Min = new NumericUpDown();
+        B_SpD_Max = new Button();
+        B_SpD_Min = new Button();
+        L_SpD = new Label();
+        L_SpDSpacer = new Label();
+        NUD_SpD_Max = new NumericUpDown();
+        NUD_SpD_Min = new NumericUpDown();
+        B_SpA_Max = new Button();
+        B_SpA_Min = new Button();
+        L_SpA = new Label();
+        L_SpASpacer = new Label();
+        NUD_SpA_Max = new NumericUpDown();
+        NUD_SpA_Min = new NumericUpDown();
+        B_Def_Max = new Button();
+        B_Def_Min = new Button();
+        L_Def = new Label();
+        L_DefSpacer = new Label();
+        NUD_Def_Max = new NumericUpDown();
+        NUD_Def_Min = new NumericUpDown();
+        B_Atk_Max = new Button();
+        B_Atk_Min = new Button();
+        L_Atk = new Label();
+        L_AtkSpacer = new Label();
+        NUD_Atk_Max = new NumericUpDown();
+        NUD_Atk_Min = new NumericUpDown();
+        B_HP_Max = new Button();
+        B_HP_Min = new Button();
+        L_HP = new Label();
+        L_HPSpacer = new Label();
+        NUD_HP_Max = new NumericUpDown();
+        NUD_HP_Min = new NumericUpDown();
+        L_Patch = new Label();
+        CB_Patch = new ComboBox();
+        B_PokemonSearch = new Button();
+        DGV_ResultsPokemon = new DataGridView();
+        ResultsSourcePokemon = new BindingSource(components);
+        dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+        Shiny = new DataGridViewTextBoxColumn();
+        Ability = new DataGridViewTextBoxColumn();
+        Nature = new DataGridViewTextBoxColumn();
+        Gender = new DataGridViewTextBoxColumn();
+        H = new DataGridViewTextBoxColumn();
+        A = new DataGridViewTextBoxColumn();
+        B = new DataGridViewTextBoxColumn();
+        C = new DataGridViewTextBoxColumn();
+        D = new DataGridViewTextBoxColumn();
+        S = new DataGridViewTextBoxColumn();
+        EC = new DataGridViewTextBoxColumn();
+        PID = new DataGridViewTextBoxColumn();
+        dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+        dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
         GB_Connection.SuspendLayout();
         GB_Seed.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)NUD_SafeNum).BeginInit();
-        ((System.ComponentModel.ISupportInitialize)DGV_Results).BeginInit();
-        ((System.ComponentModel.ISupportInitialize)ResultsSource).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)DGV_ResultsContinuation).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)ResultsSourceContinuation).BeginInit();
         ((System.ComponentModel.ISupportInitialize)NUD_ActionTimes).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Spe_Max).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Spe_Min).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_SpD_Max).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_SpD_Min).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_SpA_Max).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_SpA_Min).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Def_Max).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Def_Min).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Atk_Max).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Atk_Min).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_HP_Max).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_HP_Min).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)DGV_ResultsPokemon).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)ResultsSourcePokemon).BeginInit();
         SuspendLayout();
         // 
         // GB_Connection
@@ -447,25 +505,25 @@ namespace ARSE.WinForms;
         B_Forecast.UseVisualStyleBackColor = true;
         B_Forecast.Click += B_Forecast_Click;
         // 
-        // DGV_Results
+        // DGV_ResultsContinuation
         // 
-        DGV_Results.AllowUserToAddRows = false;
-        DGV_Results.AllowUserToDeleteRows = false;
+        DGV_ResultsContinuation.AllowUserToAddRows = false;
+        DGV_ResultsContinuation.AllowUserToDeleteRows = false;
         dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
-        DGV_Results.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-        DGV_Results.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-        DGV_Results.AutoGenerateColumns = false;
-        DGV_Results.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        DGV_Results.Columns.AddRange(new DataGridViewColumn[] { advancesDataGridViewTextBoxColumn, seed0DataGridViewTextBoxColumn, seed1DataGridViewTextBoxColumn, failDataGridViewTextBoxColumn, rollDataGridViewTextBoxColumn });
-        DGV_Results.DataSource = ResultsSource;
-        DGV_Results.Location = new Point(12, 306);
-        DGV_Results.Name = "DGV_Results";
-        DGV_Results.ReadOnly = true;
-        DGV_Results.RowHeadersVisible = false;
-        DGV_Results.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        DGV_Results.Size = new Size(690, 309);
-        DGV_Results.TabIndex = 8;
-        DGV_Results.CellFormatting += DGV_Results_CellFormatting;
+        DGV_ResultsContinuation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+        DGV_ResultsContinuation.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        DGV_ResultsContinuation.AutoGenerateColumns = false;
+        DGV_ResultsContinuation.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+        DGV_ResultsContinuation.Columns.AddRange(new DataGridViewColumn[] { advancesDataGridViewTextBoxColumn, seed0DataGridViewTextBoxColumn, seed1DataGridViewTextBoxColumn, failDataGridViewTextBoxColumn, rollDataGridViewTextBoxColumn });
+        DGV_ResultsContinuation.DataSource = ResultsSourceContinuation;
+        DGV_ResultsContinuation.Location = new Point(12, 306);
+        DGV_ResultsContinuation.Name = "DGV_ResultsContinuation";
+        DGV_ResultsContinuation.ReadOnly = true;
+        DGV_ResultsContinuation.RowHeadersVisible = false;
+        DGV_ResultsContinuation.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        DGV_ResultsContinuation.Size = new Size(506, 309);
+        DGV_ResultsContinuation.TabIndex = 8;
+        DGV_ResultsContinuation.CellFormatting += DGV_ResultsContinuation_CellFormatting;
         // 
         // advancesDataGridViewTextBoxColumn
         // 
@@ -502,9 +560,9 @@ namespace ARSE.WinForms;
         rollDataGridViewTextBoxColumn.Name = "rollDataGridViewTextBoxColumn";
         rollDataGridViewTextBoxColumn.ReadOnly = true;
         // 
-        // ResultsSource
+        // ResultsSourceContinuation
         // 
-        ResultsSource.DataSource = typeof(Core.Interfaces.RadarContinuationFrame);
+        ResultsSourceContinuation.DataSource = typeof(Core.Interfaces.RadarContinuationFrame);
         // 
         // B_Search
         // 
@@ -675,221 +733,593 @@ namespace ARSE.WinForms;
         label6.TabIndex = 73;
         label6.Text = "x";
         // 
-        // B_Up
+        // CB_RareEC
         // 
-        B_Up.Location = new Point(554, 29);
-        B_Up.Name = "B_Up";
-        B_Up.Size = new Size(25, 25);
-        B_Up.TabIndex = 74;
-        B_Up.Text = "↑";
-        B_Up.UseVisualStyleBackColor = true;
-        B_Up.Click += B_Up_Click;
+        CB_RareEC.AutoSize = true;
+        CB_RareEC.CheckAlign = ContentAlignment.MiddleRight;
+        CB_RareEC.Location = new Point(553, 257);
+        CB_RareEC.Name = "CB_RareEC";
+        CB_RareEC.Size = new Size(71, 19);
+        CB_RareEC.TabIndex = 112;
+        CB_RareEC.Tag = "";
+        CB_RareEC.Text = "Rare EC?";
+        CB_RareEC.UseVisualStyleBackColor = true;
         // 
-        // button1
+        // CB_EnableFilters
         // 
-        button1.Location = new Point(554, 81);
-        button1.Name = "button1";
-        button1.Size = new Size(25, 25);
-        button1.TabIndex = 75;
-        button1.Text = "↓";
-        button1.UseVisualStyleBackColor = true;
-        button1.Click += button1_Click;
+        CB_EnableFilters.AutoSize = true;
+        CB_EnableFilters.CheckAlign = ContentAlignment.MiddleRight;
+        CB_EnableFilters.Checked = true;
+        CB_EnableFilters.CheckState = CheckState.Checked;
+        CB_EnableFilters.Location = new Point(627, 259);
+        CB_EnableFilters.Name = "CB_EnableFilters";
+        CB_EnableFilters.Size = new Size(107, 19);
+        CB_EnableFilters.TabIndex = 113;
+        CB_EnableFilters.Tag = "";
+        CB_EnableFilters.Text = "Filters Enabled?";
+        CB_EnableFilters.UseVisualStyleBackColor = true;
         // 
-        // button3
+        // L_Filter_Height
         // 
-        button3.Location = new Point(527, 55);
-        button3.Name = "button3";
-        button3.Size = new Size(25, 25);
-        button3.TabIndex = 77;
-        button3.Text = "←";
-        button3.UseVisualStyleBackColor = true;
-        button3.Click += button3_Click;
+        L_Filter_Height.AutoSize = true;
+        L_Filter_Height.Location = new Point(540, 233);
+        L_Filter_Height.Name = "L_Filter_Height";
+        L_Filter_Height.Size = new Size(46, 15);
+        L_Filter_Height.TabIndex = 121;
+        L_Filter_Height.Text = "Height:";
         // 
-        // button4
+        // CB_Filter_Height
         // 
-        button4.Location = new Point(580, 55);
-        button4.Name = "button4";
-        button4.Size = new Size(25, 25);
-        button4.TabIndex = 78;
-        button4.Text = "→";
-        button4.UseVisualStyleBackColor = true;
-        button4.Click += button4_Click;
+        CB_Filter_Height.FormattingEnabled = true;
+        CB_Filter_Height.Items.AddRange(new object[] { "Ignore", "XXXS", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXS or XXXL" });
+        CB_Filter_Height.Location = new Point(592, 230);
+        CB_Filter_Height.Name = "CB_Filter_Height";
+        CB_Filter_Height.Size = new Size(142, 23);
+        CB_Filter_Height.TabIndex = 111;
         // 
-        // button2
+        // L_Filter_Shiny
         // 
-        button2.Location = new Point(674, 55);
-        button2.Name = "button2";
-        button2.Size = new Size(25, 25);
-        button2.TabIndex = 82;
-        button2.Text = "A";
-        button2.UseVisualStyleBackColor = true;
-        button2.Click += button2_Click;
+        L_Filter_Shiny.AutoSize = true;
+        L_Filter_Shiny.Location = new Point(547, 208);
+        L_Filter_Shiny.Name = "L_Filter_Shiny";
+        L_Filter_Shiny.Size = new Size(39, 15);
+        L_Filter_Shiny.TabIndex = 118;
+        L_Filter_Shiny.Text = "Shiny:";
         // 
-        // button5
+        // CB_Filter_Shiny
         // 
-        button5.Location = new Point(648, 29);
-        button5.Name = "button5";
-        button5.Size = new Size(25, 25);
-        button5.TabIndex = 81;
-        button5.Text = "X";
-        button5.UseVisualStyleBackColor = true;
-        button5.Click += button5_Click;
+        CB_Filter_Shiny.FormattingEnabled = true;
+        CB_Filter_Shiny.Items.AddRange(new object[] { "Ignore", "Star/Square", "Square Only", "Star Only", "Not Shiny" });
+        CB_Filter_Shiny.Location = new Point(592, 205);
+        CB_Filter_Shiny.Name = "CB_Filter_Shiny";
+        CB_Filter_Shiny.Size = new Size(142, 23);
+        CB_Filter_Shiny.TabIndex = 107;
         // 
-        // button6
+        // B_Spe_Max
         // 
-        button6.Location = new Point(648, 81);
-        button6.Name = "button6";
-        button6.Size = new Size(25, 25);
-        button6.TabIndex = 80;
-        button6.Text = "B";
-        button6.UseVisualStyleBackColor = true;
-        button6.Click += button6_Click;
+        B_Spe_Max.Location = new Point(707, 179);
+        B_Spe_Max.Name = "B_Spe_Max";
+        B_Spe_Max.Size = new Size(27, 25);
+        B_Spe_Max.TabIndex = 106;
+        B_Spe_Max.Text = "31";
+        B_Spe_Max.UseVisualStyleBackColor = true;
         // 
-        // button7
+        // B_Spe_Min
         // 
-        button7.Location = new Point(621, 55);
-        button7.Name = "button7";
-        button7.Size = new Size(25, 25);
-        button7.TabIndex = 79;
-        button7.Text = "Y";
-        button7.UseVisualStyleBackColor = true;
-        button7.Click += button7_Click;
+        B_Spe_Min.Location = new Point(678, 179);
+        B_Spe_Min.Name = "B_Spe_Min";
+        B_Spe_Min.Size = new Size(27, 25);
+        B_Spe_Min.TabIndex = 105;
+        B_Spe_Min.Text = "0";
+        B_Spe_Min.UseVisualStyleBackColor = true;
         // 
-        // button8
+        // L_Spe
         // 
-        button8.Location = new Point(580, 1);
-        button8.Name = "button8";
-        button8.Size = new Size(25, 25);
-        button8.TabIndex = 83;
-        button8.Text = "-";
-        button8.UseVisualStyleBackColor = true;
-        button8.Click += button8_Click;
+        L_Spe.AutoSize = true;
+        L_Spe.Location = new Point(557, 184);
+        L_Spe.Name = "L_Spe";
+        L_Spe.Size = new Size(29, 15);
+        L_Spe.TabIndex = 117;
+        L_Spe.Text = "Spe:";
         // 
-        // button9
+        // L_SpeSpacer
         // 
-        button9.Location = new Point(554, 1);
-        button9.Name = "button9";
-        button9.Size = new Size(25, 25);
-        button9.TabIndex = 84;
-        button9.Text = "⇑";
-        button9.UseVisualStyleBackColor = true;
-        button9.Click += button9_Click;
+        L_SpeSpacer.AutoSize = true;
+        L_SpeSpacer.Location = new Point(625, 182);
+        L_SpeSpacer.Name = "L_SpeSpacer";
+        L_SpeSpacer.Size = new Size(15, 15);
+        L_SpeSpacer.TabIndex = 91;
+        L_SpeSpacer.Text = "~";
         // 
-        // label7
+        // NUD_Spe_Max
         // 
-        label7.AutoSize = true;
-        label7.Location = new Point(526, 256);
-        label7.Name = "label7";
-        label7.Size = new Size(49, 15);
-        label7.TabIndex = 86;
-        label7.Text = "Seed[0]:";
+        NUD_Spe_Max.Location = new Point(641, 180);
+        NUD_Spe_Max.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_Spe_Max.Name = "NUD_Spe_Max";
+        NUD_Spe_Max.Size = new Size(32, 23);
+        NUD_Spe_Max.TabIndex = 92;
+        NUD_Spe_Max.Value = new decimal(new int[] { 31, 0, 0, 0 });
         // 
-        // textBox1
+        // NUD_Spe_Min
         // 
-        textBox1.CharacterCasing = CharacterCasing.Upper;
-        textBox1.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        textBox1.Location = new Point(581, 254);
-        textBox1.MaxLength = 16;
-        textBox1.Name = "textBox1";
-        textBox1.Size = new Size(118, 22);
-        textBox1.TabIndex = 85;
-        textBox1.Text = "0123456789ABCDEF";
+        NUD_Spe_Min.Location = new Point(592, 180);
+        NUD_Spe_Min.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_Spe_Min.Name = "NUD_Spe_Min";
+        NUD_Spe_Min.Size = new Size(32, 23);
+        NUD_Spe_Min.TabIndex = 90;
         // 
-        // button10
+        // B_SpD_Max
         // 
-        button10.Location = new Point(524, 277);
-        button10.Name = "button10";
-        button10.Size = new Size(175, 25);
-        button10.TabIndex = 87;
-        button10.Text = "Search";
-        button10.UseVisualStyleBackColor = true;
-        button10.Click += button10_Click;
+        B_SpD_Max.Location = new Point(707, 154);
+        B_SpD_Max.Name = "B_SpD_Max";
+        B_SpD_Max.Size = new Size(27, 25);
+        B_SpD_Max.TabIndex = 104;
+        B_SpD_Max.Text = "31";
+        B_SpD_Max.UseVisualStyleBackColor = true;
         // 
-        // button11
+        // B_SpD_Min
         // 
-        button11.Location = new Point(600, 29);
-        button11.Name = "button11";
-        button11.Size = new Size(25, 25);
-        button11.TabIndex = 88;
-        button11.Text = "🏠";
-        button11.UseVisualStyleBackColor = true;
-        button11.Click += button11_Click;
+        B_SpD_Min.Location = new Point(678, 154);
+        B_SpD_Min.Name = "B_SpD_Min";
+        B_SpD_Min.Size = new Size(27, 25);
+        B_SpD_Min.TabIndex = 103;
+        B_SpD_Min.Text = "0";
+        B_SpD_Min.UseVisualStyleBackColor = true;
         // 
-        // button12
+        // L_SpD
         // 
-        button12.Location = new Point(674, 1);
-        button12.Name = "button12";
-        button12.Size = new Size(25, 25);
-        button12.TabIndex = 89;
-        button12.Text = "R";
-        button12.UseVisualStyleBackColor = true;
-        button12.Click += button12_Click;
+        L_SpD.AutoSize = true;
+        L_SpD.Location = new Point(555, 160);
+        L_SpD.Name = "L_SpD";
+        L_SpD.Size = new Size(31, 15);
+        L_SpD.TabIndex = 115;
+        L_SpD.Text = "SpD:";
         // 
-        // button13
+        // L_SpDSpacer
         // 
-        button13.Location = new Point(527, 142);
-        button13.Name = "button13";
-        button13.Size = new Size(78, 25);
-        button13.TabIndex = 90;
-        button13.Text = "Dex Flip";
-        button13.UseVisualStyleBackColor = true;
-        button13.Click += button13_Click;
+        L_SpDSpacer.AutoSize = true;
+        L_SpDSpacer.Location = new Point(625, 157);
+        L_SpDSpacer.Name = "L_SpDSpacer";
+        L_SpDSpacer.Size = new Size(15, 15);
+        L_SpDSpacer.TabIndex = 88;
+        L_SpDSpacer.Text = "~";
         // 
-        // button14
+        // NUD_SpD_Max
         // 
-        button14.Location = new Point(621, 142);
-        button14.Name = "button14";
-        button14.Size = new Size(78, 25);
-        button14.TabIndex = 91;
-        button14.Text = "Stop Flip";
-        button14.UseVisualStyleBackColor = true;
-        button14.Click += button14_Click;
+        NUD_SpD_Max.Location = new Point(641, 155);
+        NUD_SpD_Max.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_SpD_Max.Name = "NUD_SpD_Max";
+        NUD_SpD_Max.Size = new Size(32, 23);
+        NUD_SpD_Max.TabIndex = 89;
+        NUD_SpD_Max.Value = new decimal(new int[] { 31, 0, 0, 0 });
         // 
-        // TB_FlipTarget
+        // NUD_SpD_Min
         // 
-        TB_FlipTarget.CharacterCasing = CharacterCasing.Upper;
-        TB_FlipTarget.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        TB_FlipTarget.Location = new Point(600, 116);
-        TB_FlipTarget.MaxLength = 16;
-        TB_FlipTarget.Name = "TB_FlipTarget";
-        TB_FlipTarget.Size = new Size(99, 22);
-        TB_FlipTarget.TabIndex = 92;
-        TB_FlipTarget.Text = "0";
-        TB_FlipTarget.TextAlign = HorizontalAlignment.Right;
+        NUD_SpD_Min.Location = new Point(592, 155);
+        NUD_SpD_Min.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_SpD_Min.Name = "NUD_SpD_Min";
+        NUD_SpD_Min.Size = new Size(32, 23);
+        NUD_SpD_Min.TabIndex = 87;
         // 
-        // label8
+        // B_SpA_Max
         // 
-        label8.AutoSize = true;
-        label8.Location = new Point(530, 120);
-        label8.Name = "label8";
-        label8.Size = new Size(43, 15);
-        label8.TabIndex = 93;
-        label8.Text = "Flip to:";
+        B_SpA_Max.Location = new Point(707, 129);
+        B_SpA_Max.Name = "B_SpA_Max";
+        B_SpA_Max.Size = new Size(27, 25);
+        B_SpA_Max.TabIndex = 102;
+        B_SpA_Max.Text = "31";
+        B_SpA_Max.UseVisualStyleBackColor = true;
+        // 
+        // B_SpA_Min
+        // 
+        B_SpA_Min.Location = new Point(678, 129);
+        B_SpA_Min.Name = "B_SpA_Min";
+        B_SpA_Min.Size = new Size(27, 25);
+        B_SpA_Min.TabIndex = 100;
+        B_SpA_Min.Text = "0";
+        B_SpA_Min.UseVisualStyleBackColor = true;
+        // 
+        // L_SpA
+        // 
+        L_SpA.AutoSize = true;
+        L_SpA.Location = new Point(555, 132);
+        L_SpA.Name = "L_SpA";
+        L_SpA.Size = new Size(31, 15);
+        L_SpA.TabIndex = 108;
+        L_SpA.Text = "SpA:";
+        // 
+        // L_SpASpacer
+        // 
+        L_SpASpacer.AutoSize = true;
+        L_SpASpacer.Location = new Point(625, 132);
+        L_SpASpacer.Name = "L_SpASpacer";
+        L_SpASpacer.Size = new Size(15, 15);
+        L_SpASpacer.TabIndex = 86;
+        L_SpASpacer.Text = "~";
+        // 
+        // NUD_SpA_Max
+        // 
+        NUD_SpA_Max.Location = new Point(641, 130);
+        NUD_SpA_Max.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_SpA_Max.Name = "NUD_SpA_Max";
+        NUD_SpA_Max.Size = new Size(32, 23);
+        NUD_SpA_Max.TabIndex = 85;
+        NUD_SpA_Max.Value = new decimal(new int[] { 31, 0, 0, 0 });
+        // 
+        // NUD_SpA_Min
+        // 
+        NUD_SpA_Min.Location = new Point(592, 130);
+        NUD_SpA_Min.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_SpA_Min.Name = "NUD_SpA_Min";
+        NUD_SpA_Min.Size = new Size(32, 23);
+        NUD_SpA_Min.TabIndex = 83;
+        // 
+        // B_Def_Max
+        // 
+        B_Def_Max.Location = new Point(707, 104);
+        B_Def_Max.Name = "B_Def_Max";
+        B_Def_Max.Size = new Size(27, 25);
+        B_Def_Max.TabIndex = 99;
+        B_Def_Max.Text = "31";
+        B_Def_Max.UseVisualStyleBackColor = true;
+        // 
+        // B_Def_Min
+        // 
+        B_Def_Min.Location = new Point(678, 104);
+        B_Def_Min.Name = "B_Def_Min";
+        B_Def_Min.Size = new Size(27, 25);
+        B_Def_Min.TabIndex = 98;
+        B_Def_Min.Text = "0";
+        B_Def_Min.UseVisualStyleBackColor = true;
+        // 
+        // L_Def
+        // 
+        L_Def.AutoSize = true;
+        L_Def.Location = new Point(558, 107);
+        L_Def.Name = "L_Def";
+        L_Def.Size = new Size(28, 15);
+        L_Def.TabIndex = 101;
+        L_Def.Text = "Def:";
+        // 
+        // L_DefSpacer
+        // 
+        L_DefSpacer.AutoSize = true;
+        L_DefSpacer.Location = new Point(625, 107);
+        L_DefSpacer.Name = "L_DefSpacer";
+        L_DefSpacer.Size = new Size(15, 15);
+        L_DefSpacer.TabIndex = 81;
+        L_DefSpacer.Text = "~";
+        // 
+        // NUD_Def_Max
+        // 
+        NUD_Def_Max.Location = new Point(641, 105);
+        NUD_Def_Max.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_Def_Max.Name = "NUD_Def_Max";
+        NUD_Def_Max.Size = new Size(32, 23);
+        NUD_Def_Max.TabIndex = 80;
+        NUD_Def_Max.Value = new decimal(new int[] { 31, 0, 0, 0 });
+        // 
+        // NUD_Def_Min
+        // 
+        NUD_Def_Min.Location = new Point(592, 105);
+        NUD_Def_Min.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_Def_Min.Name = "NUD_Def_Min";
+        NUD_Def_Min.Size = new Size(32, 23);
+        NUD_Def_Min.TabIndex = 79;
+        // 
+        // B_Atk_Max
+        // 
+        B_Atk_Max.Location = new Point(707, 79);
+        B_Atk_Max.Name = "B_Atk_Max";
+        B_Atk_Max.Size = new Size(27, 25);
+        B_Atk_Max.TabIndex = 97;
+        B_Atk_Max.Text = "31";
+        B_Atk_Max.UseVisualStyleBackColor = true;
+        // 
+        // B_Atk_Min
+        // 
+        B_Atk_Min.Location = new Point(678, 79);
+        B_Atk_Min.Name = "B_Atk_Min";
+        B_Atk_Min.Size = new Size(27, 25);
+        B_Atk_Min.TabIndex = 96;
+        B_Atk_Min.Text = "0";
+        B_Atk_Min.UseVisualStyleBackColor = true;
+        // 
+        // L_Atk
+        // 
+        L_Atk.AutoSize = true;
+        L_Atk.Location = new Point(558, 82);
+        L_Atk.Name = "L_Atk";
+        L_Atk.Size = new Size(28, 15);
+        L_Atk.TabIndex = 94;
+        L_Atk.Text = "Atk:";
+        // 
+        // L_AtkSpacer
+        // 
+        L_AtkSpacer.AutoSize = true;
+        L_AtkSpacer.Location = new Point(625, 82);
+        L_AtkSpacer.Name = "L_AtkSpacer";
+        L_AtkSpacer.Size = new Size(15, 15);
+        L_AtkSpacer.TabIndex = 78;
+        L_AtkSpacer.Text = "~";
+        // 
+        // NUD_Atk_Max
+        // 
+        NUD_Atk_Max.Location = new Point(641, 80);
+        NUD_Atk_Max.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_Atk_Max.Name = "NUD_Atk_Max";
+        NUD_Atk_Max.Size = new Size(32, 23);
+        NUD_Atk_Max.TabIndex = 77;
+        NUD_Atk_Max.Value = new decimal(new int[] { 31, 0, 0, 0 });
+        // 
+        // NUD_Atk_Min
+        // 
+        NUD_Atk_Min.Location = new Point(592, 80);
+        NUD_Atk_Min.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_Atk_Min.Name = "NUD_Atk_Min";
+        NUD_Atk_Min.Size = new Size(32, 23);
+        NUD_Atk_Min.TabIndex = 76;
+        // 
+        // B_HP_Max
+        // 
+        B_HP_Max.Location = new Point(707, 54);
+        B_HP_Max.Name = "B_HP_Max";
+        B_HP_Max.Size = new Size(27, 25);
+        B_HP_Max.TabIndex = 95;
+        B_HP_Max.Text = "31";
+        B_HP_Max.UseVisualStyleBackColor = true;
+        // 
+        // B_HP_Min
+        // 
+        B_HP_Min.Location = new Point(678, 54);
+        B_HP_Min.Name = "B_HP_Min";
+        B_HP_Min.Size = new Size(27, 25);
+        B_HP_Min.TabIndex = 93;
+        B_HP_Min.Text = "0";
+        B_HP_Min.UseVisualStyleBackColor = true;
+        // 
+        // L_HP
+        // 
+        L_HP.AutoSize = true;
+        L_HP.Location = new Point(560, 57);
+        L_HP.Name = "L_HP";
+        L_HP.Size = new Size(26, 15);
+        L_HP.TabIndex = 84;
+        L_HP.Text = "HP:";
+        // 
+        // L_HPSpacer
+        // 
+        L_HPSpacer.AutoSize = true;
+        L_HPSpacer.Location = new Point(625, 57);
+        L_HPSpacer.Name = "L_HPSpacer";
+        L_HPSpacer.Size = new Size(15, 15);
+        L_HPSpacer.TabIndex = 82;
+        L_HPSpacer.Text = "~";
+        // 
+        // NUD_HP_Max
+        // 
+        NUD_HP_Max.Location = new Point(641, 55);
+        NUD_HP_Max.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_HP_Max.Name = "NUD_HP_Max";
+        NUD_HP_Max.Size = new Size(32, 23);
+        NUD_HP_Max.TabIndex = 75;
+        NUD_HP_Max.Value = new decimal(new int[] { 31, 0, 0, 0 });
+        // 
+        // NUD_HP_Min
+        // 
+        NUD_HP_Min.Location = new Point(592, 55);
+        NUD_HP_Min.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+        NUD_HP_Min.Name = "NUD_HP_Min";
+        NUD_HP_Min.Size = new Size(32, 23);
+        NUD_HP_Min.TabIndex = 74;
+        // 
+        // L_Patch
+        // 
+        L_Patch.AutoSize = true;
+        L_Patch.Location = new Point(545, 32);
+        L_Patch.Name = "L_Patch";
+        L_Patch.Size = new Size(40, 15);
+        L_Patch.TabIndex = 123;
+        L_Patch.Text = "Patch:";
+        // 
+        // CB_Patch
+        // 
+        CB_Patch.FormattingEnabled = true;
+        CB_Patch.Items.AddRange(new object[] { "Normal", "Shiny", "Hidden Ability" });
+        CB_Patch.Location = new Point(591, 29);
+        CB_Patch.Name = "CB_Patch";
+        CB_Patch.Size = new Size(142, 23);
+        CB_Patch.TabIndex = 122;
+        // 
+        // B_PokemonSearch
+        // 
+        B_PokemonSearch.Location = new Point(545, 280);
+        B_PokemonSearch.Name = "B_PokemonSearch";
+        B_PokemonSearch.Size = new Size(189, 25);
+        B_PokemonSearch.TabIndex = 124;
+        B_PokemonSearch.Text = "Generate";
+        B_PokemonSearch.UseVisualStyleBackColor = true;
+        B_PokemonSearch.Click += B_PokemonSearch_Click;
+        // 
+        // DGV_ResultsPokemon
+        // 
+        DGV_ResultsPokemon.AllowUserToAddRows = false;
+        DGV_ResultsPokemon.AllowUserToDeleteRows = false;
+        dataGridViewCellStyle2.BackColor = Color.FromArgb(224, 224, 224);
+        DGV_ResultsPokemon.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+        DGV_ResultsPokemon.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        DGV_ResultsPokemon.AutoGenerateColumns = false;
+        DGV_ResultsPokemon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+        DGV_ResultsPokemon.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, Shiny, Ability, Nature, Gender, H, A, B, C, D, S, EC, PID, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3 });
+        DGV_ResultsPokemon.DataSource = ResultsSourcePokemon;
+        DGV_ResultsPokemon.Location = new Point(545, 306);
+        DGV_ResultsPokemon.Name = "DGV_ResultsPokemon";
+        DGV_ResultsPokemon.ReadOnly = true;
+        DGV_ResultsPokemon.RowHeadersVisible = false;
+        DGV_ResultsPokemon.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        DGV_ResultsPokemon.Size = new Size(821, 309);
+        DGV_ResultsPokemon.TabIndex = 125;
+        // 
+        // ResultsSourcePokemon
+        // 
+        ResultsSourcePokemon.DataSource = typeof(Core.Interfaces.PokemonFrame);
+        // 
+        // dataGridViewTextBoxColumn1
+        // 
+        dataGridViewTextBoxColumn1.DataPropertyName = "Advances";
+        dataGridViewTextBoxColumn1.HeaderText = "Advances";
+        dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+        dataGridViewTextBoxColumn1.ReadOnly = true;
+        // 
+        // Shiny
+        // 
+        Shiny.DataPropertyName = "Shiny";
+        Shiny.HeaderText = "Shiny";
+        Shiny.Name = "Shiny";
+        Shiny.ReadOnly = true;
+        // 
+        // Ability
+        // 
+        Ability.DataPropertyName = "Ability";
+        Ability.HeaderText = "Ability";
+        Ability.Name = "Ability";
+        Ability.ReadOnly = true;
+        // 
+        // Nature
+        // 
+        Nature.DataPropertyName = "Nature";
+        Nature.HeaderText = "Nature";
+        Nature.Name = "Nature";
+        Nature.ReadOnly = true;
+        // 
+        // Gender
+        // 
+        Gender.DataPropertyName = "Gender";
+        Gender.HeaderText = "Gender";
+        Gender.Name = "Gender";
+        Gender.ReadOnly = true;
+        // 
+        // H
+        // 
+        H.DataPropertyName = "H";
+        H.HeaderText = "H";
+        H.Name = "H";
+        H.ReadOnly = true;
+        // 
+        // A
+        // 
+        A.DataPropertyName = "A";
+        A.HeaderText = "A";
+        A.Name = "A";
+        A.ReadOnly = true;
+        // 
+        // B
+        // 
+        B.DataPropertyName = "B";
+        B.HeaderText = "B";
+        B.Name = "B";
+        B.ReadOnly = true;
+        // 
+        // C
+        // 
+        C.DataPropertyName = "C";
+        C.HeaderText = "C";
+        C.Name = "C";
+        C.ReadOnly = true;
+        // 
+        // D
+        // 
+        D.DataPropertyName = "D";
+        D.HeaderText = "D";
+        D.Name = "D";
+        D.ReadOnly = true;
+        // 
+        // S
+        // 
+        S.DataPropertyName = "S";
+        S.HeaderText = "S";
+        S.Name = "S";
+        S.ReadOnly = true;
+        // 
+        // EC
+        // 
+        EC.DataPropertyName = "EC";
+        EC.HeaderText = "EC";
+        EC.Name = "EC";
+        EC.ReadOnly = true;
+        // 
+        // PID
+        // 
+        PID.DataPropertyName = "PID";
+        PID.HeaderText = "PID";
+        PID.Name = "PID";
+        PID.ReadOnly = true;
+        // 
+        // dataGridViewTextBoxColumn2
+        // 
+        dataGridViewTextBoxColumn2.DataPropertyName = "Seed0";
+        dataGridViewTextBoxColumn2.HeaderText = "Seed0";
+        dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+        dataGridViewTextBoxColumn2.ReadOnly = true;
+        // 
+        // dataGridViewTextBoxColumn3
+        // 
+        dataGridViewTextBoxColumn3.DataPropertyName = "Seed1";
+        dataGridViewTextBoxColumn3.HeaderText = "Seed1";
+        dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+        dataGridViewTextBoxColumn3.ReadOnly = true;
         // 
         // MainWindow
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(714, 627);
-        Controls.Add(label8);
-        Controls.Add(TB_FlipTarget);
-        Controls.Add(button14);
-        Controls.Add(button13);
-        Controls.Add(button12);
-        Controls.Add(button11);
-        Controls.Add(button10);
-        Controls.Add(label7);
-        Controls.Add(textBox1);
-        Controls.Add(button9);
-        Controls.Add(button8);
-        Controls.Add(button2);
-        Controls.Add(button5);
-        Controls.Add(button6);
-        Controls.Add(button7);
-        Controls.Add(button4);
-        Controls.Add(button3);
-        Controls.Add(button1);
-        Controls.Add(B_Up);
+        ClientSize = new Size(1378, 627);
+        Controls.Add(DGV_ResultsPokemon);
+        Controls.Add(B_PokemonSearch);
+        Controls.Add(L_Patch);
+        Controls.Add(CB_Patch);
+        Controls.Add(CB_RareEC);
+        Controls.Add(CB_EnableFilters);
+        Controls.Add(L_Filter_Height);
+        Controls.Add(CB_Filter_Height);
+        Controls.Add(L_Filter_Shiny);
+        Controls.Add(CB_Filter_Shiny);
+        Controls.Add(B_Spe_Max);
+        Controls.Add(B_Spe_Min);
+        Controls.Add(L_Spe);
+        Controls.Add(L_SpeSpacer);
+        Controls.Add(NUD_Spe_Max);
+        Controls.Add(NUD_Spe_Min);
+        Controls.Add(B_SpD_Max);
+        Controls.Add(B_SpD_Min);
+        Controls.Add(L_SpD);
+        Controls.Add(L_SpDSpacer);
+        Controls.Add(NUD_SpD_Max);
+        Controls.Add(NUD_SpD_Min);
+        Controls.Add(B_SpA_Max);
+        Controls.Add(B_SpA_Min);
+        Controls.Add(L_SpA);
+        Controls.Add(L_SpASpacer);
+        Controls.Add(NUD_SpA_Max);
+        Controls.Add(NUD_SpA_Min);
+        Controls.Add(B_Def_Max);
+        Controls.Add(B_Def_Min);
+        Controls.Add(L_Def);
+        Controls.Add(L_DefSpacer);
+        Controls.Add(NUD_Def_Max);
+        Controls.Add(NUD_Def_Min);
+        Controls.Add(B_Atk_Max);
+        Controls.Add(B_Atk_Min);
+        Controls.Add(L_Atk);
+        Controls.Add(L_AtkSpacer);
+        Controls.Add(NUD_Atk_Max);
+        Controls.Add(NUD_Atk_Min);
+        Controls.Add(B_HP_Max);
+        Controls.Add(B_HP_Min);
+        Controls.Add(L_HP);
+        Controls.Add(L_HPSpacer);
+        Controls.Add(NUD_HP_Max);
+        Controls.Add(NUD_HP_Min);
         Controls.Add(label6);
         Controls.Add(NUD_ActionTimes);
         Controls.Add(label5);
@@ -907,7 +1337,7 @@ namespace ARSE.WinForms;
         Controls.Add(TB_Advances);
         Controls.Add(TB_Initial);
         Controls.Add(B_Search);
-        Controls.Add(DGV_Results);
+        Controls.Add(DGV_ResultsContinuation);
         Controls.Add(B_Forecast);
         Controls.Add(L_SafeNum);
         Controls.Add(NUD_SafeNum);
@@ -925,9 +1355,23 @@ namespace ARSE.WinForms;
         GB_SAVInfo.ResumeLayout(false);
         GB_SAVInfo.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)NUD_SafeNum).EndInit();
-        ((System.ComponentModel.ISupportInitialize)DGV_Results).EndInit();
-        ((System.ComponentModel.ISupportInitialize)ResultsSource).EndInit();
+        ((System.ComponentModel.ISupportInitialize)DGV_ResultsContinuation).EndInit();
+        ((System.ComponentModel.ISupportInitialize)ResultsSourceContinuation).EndInit();
         ((System.ComponentModel.ISupportInitialize)NUD_ActionTimes).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Spe_Max).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Spe_Min).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_SpD_Max).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_SpD_Min).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_SpA_Max).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_SpA_Min).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Def_Max).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Def_Min).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Atk_Max).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Atk_Min).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_HP_Max).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_HP_Min).EndInit();
+        ((System.ComponentModel.ISupportInitialize)DGV_ResultsPokemon).EndInit();
+        ((System.ComponentModel.ISupportInitialize)ResultsSourcePokemon).EndInit();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -964,8 +1408,8 @@ namespace ARSE.WinForms;
     private NumericUpDown NUD_SafeNum;
     private Label L_SafeNum;
     private Button B_Forecast;
-    private DataGridView DGV_Results;
-    private BindingSource ResultsSource;
+    private DataGridView DGV_ResultsContinuation;
+    private BindingSource ResultsSourceContinuation;
     private DataGridViewTextBoxColumn advancesDataGridViewTextBoxColumn;
     private DataGridViewTextBoxColumn seed0DataGridViewTextBoxColumn;
     private DataGridViewTextBoxColumn seed1DataGridViewTextBoxColumn;
@@ -988,24 +1432,67 @@ namespace ARSE.WinForms;
     private Label label5;
     private NumericUpDown NUD_ActionTimes;
     private Label label6;
-    private Button B_Up;
-    private Button button1;
-    private Button button3;
-    private Button button4;
-    private Button button2;
-    private Button button5;
-    private Button button6;
-    private Button button7;
-    private Button button8;
-    private Button button9;
-    private Label label7;
-    public TextBox textBox1;
-    private Button button10;
-    private Button button11;
-    private Button button12;
-    private Button button13;
-    private Button button14;
-    private TextBox TB_FlipTarget;
-    private Label label8;
+    public CheckBox CB_RareEC;
+    private CheckBox CB_EnableFilters;
+    private Label L_Filter_Height;
+    public ComboBox CB_Filter_Height;
+    private Label L_Filter_Shiny;
+    private ComboBox CB_Filter_Shiny;
+    private Button B_Spe_Max;
+    private Button B_Spe_Min;
+    private Label L_Spe;
+    private Label L_SpeSpacer;
+    private NumericUpDown NUD_Spe_Max;
+    private NumericUpDown NUD_Spe_Min;
+    private Button B_SpD_Max;
+    private Button B_SpD_Min;
+    private Label L_SpD;
+    private Label L_SpDSpacer;
+    private NumericUpDown NUD_SpD_Max;
+    private NumericUpDown NUD_SpD_Min;
+    private Button B_SpA_Max;
+    private Button B_SpA_Min;
+    private Label L_SpA;
+    private Label L_SpASpacer;
+    private NumericUpDown NUD_SpA_Max;
+    private NumericUpDown NUD_SpA_Min;
+    private Button B_Def_Max;
+    private Button B_Def_Min;
+    private Label L_Def;
+    private Label L_DefSpacer;
+    private NumericUpDown NUD_Def_Max;
+    private NumericUpDown NUD_Def_Min;
+    private Button B_Atk_Max;
+    private Button B_Atk_Min;
+    private Label L_Atk;
+    private Label L_AtkSpacer;
+    private NumericUpDown NUD_Atk_Max;
+    private NumericUpDown NUD_Atk_Min;
+    private Button B_HP_Max;
+    private Button B_HP_Min;
+    private Label L_HP;
+    private Label L_HPSpacer;
+    private NumericUpDown NUD_HP_Max;
+    private NumericUpDown NUD_HP_Min;
+    private Label L_Patch;
+    private ComboBox CB_Patch;
+    private Button B_PokemonSearch;
+    private DataGridView DGV_ResultsPokemon;
+    private BindingSource ResultsSourcePokemon;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+    private DataGridViewTextBoxColumn Shiny;
+    private DataGridViewTextBoxColumn Ability;
+    private DataGridViewTextBoxColumn Nature;
+    private DataGridViewTextBoxColumn Gender;
+    private DataGridViewTextBoxColumn H;
+    private DataGridViewTextBoxColumn A;
+    private DataGridViewTextBoxColumn B;
+    private DataGridViewTextBoxColumn C;
+    private DataGridViewTextBoxColumn D;
+    private DataGridViewTextBoxColumn S;
+    private DataGridViewTextBoxColumn EC;
+    private DataGridViewTextBoxColumn PID;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
 }
 
