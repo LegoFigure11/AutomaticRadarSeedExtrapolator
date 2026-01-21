@@ -8,6 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Encounters\BrilliantDiamond.json" />
+    <None Remove="Encounters\ShiningPearl.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Encounters\BrilliantDiamond.json" />
+    <EmbeddedResource Include="Encounters\ShiningPearl.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="LibUsbDotNet" Version="2.2.29" />
     <PackageReference Include="NLog" Version="5.4.0" />
     <PackageReference Include="PKHeX.Core" Version="25.8.31" />
