@@ -3,7 +3,7 @@ using System.Text.Json;
 using ARSE.Core.Enums;
 using PKHeX.Core;
 
-namespace ARSE.Core.Encounters;
+namespace ARSE.Core;
 
 public static class Encounters
 {

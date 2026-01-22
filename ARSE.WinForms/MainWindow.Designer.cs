@@ -150,18 +150,18 @@ namespace ARSE.WinForms;
         button1 = new Button();
         button2 = new Button();
         groupBox1 = new GroupBox();
-        label7 = new Label();
-        comboBox1 = new ComboBox();
+        button4 = new Button();
+        button3 = new Button();
+        L_Area = new Label();
+        CB_Area = new ComboBox();
+        L_Species = new Label();
+        CB_Species = new ComboBox();
         L_Lead = new Label();
         CB_Lead = new ComboBox();
         L_ChainCount = new Label();
         NUD_ChainCount = new NumericUpDown();
         L_Patch = new Label();
         CB_Patch = new ComboBox();
-        label8 = new Label();
-        comboBox2 = new ComboBox();
-        button3 = new Button();
-        button4 = new Button();
         GB_Connection.SuspendLayout();
         GB_Seed.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
@@ -452,6 +452,7 @@ namespace ARSE.WinForms;
         CB_Game.Name = "CB_Game";
         CB_Game.Size = new Size(135, 23);
         CB_Game.TabIndex = 4;
+        CB_Game.SelectedIndexChanged += CB_Game_SelectedIndexChanged;
         // 
         // L_SID
         // 
@@ -1365,10 +1366,10 @@ namespace ARSE.WinForms;
         // 
         groupBox1.Controls.Add(button4);
         groupBox1.Controls.Add(button3);
-        groupBox1.Controls.Add(label8);
-        groupBox1.Controls.Add(comboBox2);
-        groupBox1.Controls.Add(label7);
-        groupBox1.Controls.Add(comboBox1);
+        groupBox1.Controls.Add(L_Area);
+        groupBox1.Controls.Add(CB_Area);
+        groupBox1.Controls.Add(L_Species);
+        groupBox1.Controls.Add(CB_Species);
         groupBox1.Controls.Add(L_Lead);
         groupBox1.Controls.Add(CB_Lead);
         groupBox1.Controls.Add(L_ChainCount);
@@ -1382,23 +1383,62 @@ namespace ARSE.WinForms;
         groupBox1.TabStop = false;
         groupBox1.Text = "Generation Criteria";
         // 
-        // label7
+        // button4
         // 
-        label7.AutoSize = true;
-        label7.Location = new Point(8, 127);
-        label7.Name = "label7";
-        label7.Size = new Size(49, 15);
-        label7.TabIndex = 131;
-        label7.Text = "Species:";
+        button4.Enabled = false;
+        button4.Location = new Point(8, 149);
+        button4.Name = "button4";
+        button4.Size = new Size(213, 25);
+        button4.TabIndex = 135;
+        button4.Text = "Read Species from RAM";
+        button4.UseVisualStyleBackColor = true;
         // 
-        // comboBox1
+        // button3
         // 
-        comboBox1.FormattingEnabled = true;
-        comboBox1.Items.AddRange(new object[] { "(None)", "Synchronize", "Other" });
-        comboBox1.Location = new Point(70, 124);
-        comboBox1.Name = "comboBox1";
-        comboBox1.Size = new Size(151, 23);
-        comboBox1.TabIndex = 130;
+        button3.Enabled = false;
+        button3.Location = new Point(8, 72);
+        button3.Name = "button3";
+        button3.Size = new Size(213, 25);
+        button3.TabIndex = 134;
+        button3.Text = "Read Chain Count from RAM";
+        button3.UseVisualStyleBackColor = true;
+        // 
+        // L_Area
+        // 
+        L_Area.AutoSize = true;
+        L_Area.Location = new Point(8, 102);
+        L_Area.Name = "L_Area";
+        L_Area.Size = new Size(56, 15);
+        L_Area.TabIndex = 133;
+        L_Area.Text = "Location:";
+        // 
+        // CB_Area
+        // 
+        CB_Area.FormattingEnabled = true;
+        CB_Area.Items.AddRange(new object[] { "(None)", "Synchronize", "Other" });
+        CB_Area.Location = new Point(70, 99);
+        CB_Area.Name = "CB_Area";
+        CB_Area.Size = new Size(151, 23);
+        CB_Area.TabIndex = 132;
+        CB_Area.SelectedIndexChanged += CB_Area_SelectedIndexChanged;
+        // 
+        // L_Species
+        // 
+        L_Species.AutoSize = true;
+        L_Species.Location = new Point(8, 127);
+        L_Species.Name = "L_Species";
+        L_Species.Size = new Size(49, 15);
+        L_Species.TabIndex = 131;
+        L_Species.Text = "Species:";
+        // 
+        // CB_Species
+        // 
+        CB_Species.FormattingEnabled = true;
+        CB_Species.Items.AddRange(new object[] { "(None)", "Synchronize", "Other" });
+        CB_Species.Location = new Point(70, 124);
+        CB_Species.Name = "CB_Species";
+        CB_Species.Size = new Size(151, 23);
+        CB_Species.TabIndex = 130;
         // 
         // L_Lead
         // 
@@ -1453,44 +1493,6 @@ namespace ARSE.WinForms;
         CB_Patch.Name = "CB_Patch";
         CB_Patch.Size = new Size(151, 23);
         CB_Patch.TabIndex = 124;
-        // 
-        // label8
-        // 
-        label8.AutoSize = true;
-        label8.Location = new Point(8, 102);
-        label8.Name = "label8";
-        label8.Size = new Size(56, 15);
-        label8.TabIndex = 133;
-        label8.Text = "Location:";
-        // 
-        // comboBox2
-        // 
-        comboBox2.FormattingEnabled = true;
-        comboBox2.Items.AddRange(new object[] { "(None)", "Synchronize", "Other" });
-        comboBox2.Location = new Point(70, 99);
-        comboBox2.Name = "comboBox2";
-        comboBox2.Size = new Size(151, 23);
-        comboBox2.TabIndex = 132;
-        // 
-        // button3
-        // 
-        button3.Enabled = false;
-        button3.Location = new Point(8, 72);
-        button3.Name = "button3";
-        button3.Size = new Size(213, 25);
-        button3.TabIndex = 134;
-        button3.Text = "Read Chain Count from RAM";
-        button3.UseVisualStyleBackColor = true;
-        // 
-        // button4
-        // 
-        button4.Enabled = false;
-        button4.Location = new Point(8, 149);
-        button4.Name = "button4";
-        button4.Size = new Size(213, 25);
-        button4.TabIndex = 135;
-        button4.Text = "Read Species from RAM";
-        button4.UseVisualStyleBackColor = true;
         // 
         // MainWindow
         // 
@@ -1690,10 +1692,10 @@ namespace ARSE.WinForms;
     private NumericUpDown NUD_ChainCount;
     private Label L_Lead;
     private ComboBox CB_Lead;
-    private Label label7;
-    private ComboBox comboBox1;
-    private Label label8;
-    private ComboBox comboBox2;
+    private Label L_Species;
+    private ComboBox CB_Species;
+    private Label L_Area;
+    private ComboBox CB_Area;
     private Button button3;
     private Button button4;
 }

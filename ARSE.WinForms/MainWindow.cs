@@ -3,9 +3,11 @@ using ARSE.Core.Connection;
 using SysBot.Base;
 using System.Globalization;
 using System.Text.Json;
-using Microsoft.VisualBasic;
+using ARSE.Core;
+using ARSE.Core.Enums;
 using ARSE.Core.Interfaces;
 using static ARSE.Core.RNG.Util;
+using static ARSE.Core.Encounters;
 
 namespace ARSE.WinForms;
 
@@ -98,6 +100,7 @@ public partial class MainWindow : Form
         TB_SID.Text = $"{Config.SID:D5}";
 
         CB_Game.SelectedIndex = Config.Game;
+        UpdateEncounterSlotsAreas();
 
         CB_Rate.SelectedIndex = 4;
         CB_Action.SelectedIndex = 1;
@@ -471,6 +474,94 @@ public partial class MainWindow : Form
             SetBindingSourceDataSource(results, ResultsSourcePokemon);
             PokemonFrames = results;
         });
+    }
+
+    private void B_IV_Max_Click(object sender, EventArgs e)
+    {
+        var st = ((Button)sender).Name.Replace("B_", string.Empty).Replace("_Max", string.Empty);
+        List<string> stats = ModifierKeys == Keys.Shift ? ["HP", "Atk", "Def", "SpA", "SpD", "Spe"] : [st];
+        foreach (var stat in stats)
+        {
+            var min = (NumericUpDown)Controls.Find($"NUD_{stat}_Min", true).FirstOrDefault()!;
+            var max = (NumericUpDown)Controls.Find($"NUD_{stat}_Max", true).FirstOrDefault()!;
+            min.Value = 31;
+            max.Value = 31;
+        }
+    }
+
+    private void B_IV_Min_Click(object sender, EventArgs e)
+    {
+        var st = ((Button)sender).Name.Replace("B_", string.Empty).Replace("_Min", string.Empty);
+        List<string> stats = ModifierKeys == Keys.Shift ? ["HP", "Atk", "Def", "SpA", "SpD", "Spe"] : [st];
+        foreach (var stat in stats)
+        {
+            var min = (NumericUpDown)Controls.Find($"NUD_{stat}_Min", true).FirstOrDefault()!;
+            var max = (NumericUpDown)Controls.Find($"NUD_{stat}_Max", true).FirstOrDefault()!;
+            min.Value = 0;
+            max.Value = 0;
+        }
+    }
+
+    private void IV_Label_Click(object sender, EventArgs e)
+    {
+        var st = ((Label)sender).Name.Replace("L_", string.Empty);
+        List<string> stats = ModifierKeys == Keys.Shift ? ["HP", "Atk", "Def", "SpA", "SpD", "Spe"] : [st];
+        foreach (var stat in stats)
+        {
+            var min = (NumericUpDown)Controls.Find($"NUD_{stat}_Min", true).FirstOrDefault()!;
+            var max = (NumericUpDown)Controls.Find($"NUD_{stat}_Max", true).FirstOrDefault()!;
+            var lab = (Label)Controls.Find($"L_{stat}Spacer", true).FirstOrDefault()!;
+            min.Value = 0;
+            max.Value = 31;
+            if (lab.Text == "||")
+            {
+                lab.Text = "~";
+                lab.Location = lab.Location with { X = lab.Location.X - 1 };
+            }
+        }
+    }
+
+    private void IV_Spacer_Click(object sender, EventArgs e)
+    {
+        var l = (Label)sender;
+        if (l.Text == "~")
+        {
+            l.Text = "||";
+            l.Location = l.Location with { X = l.Location.X + 1 };
+        }
+        else
+        {
+            l.Text = "~";
+            l.Location = l.Location with { X = l.Location.X - 1 };
+        }
+    }
+
+    private void CB_Game_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        UpdateEncounterSlotsAreas();
+    }
+
+    private void UpdateEncounterSlotsAreas()
+    {
+        var game = (Game)CB_Game.SelectedIndex;
+        var areas = GetAreaList(game);
+        CB_Area.DataSource = areas;
+        CB_Area.SelectedIndex = 0;
+
+        UpdateEncounterSlotsSpecies();
+    }
+
+    private void UpdateEncounterSlotsSpecies()
+    {
+        var game = (Game)CB_Game.SelectedIndex;
+        var area = CB_Area.SelectedItem;
+        var species = GetEncountersForArea(game, $"{area}");
+        CB_Species.DataSource = species;
+    }
+
+    private void CB_Area_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        UpdateEncounterSlotsSpecies();
     }
 }
 
