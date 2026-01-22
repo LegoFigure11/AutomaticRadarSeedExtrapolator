@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Encounters\BrilliantDiamond.json" />
-    <EmbeddedResource Include="Encounters\ShiningPearl.json" />
+    <EmbeddedResource Include="Encounters\brilliantdiamond.json" />
+    <EmbeddedResource Include="Encounters\shiningpearl.json" />
   </ItemGroup>
 
   <ItemGroup>
