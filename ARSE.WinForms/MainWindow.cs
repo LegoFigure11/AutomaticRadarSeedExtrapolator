@@ -337,6 +337,16 @@ public partial class MainWindow : Form
         return (InvokeRequired ? Invoke(() => c.SelectedIndex) : c.SelectedIndex);
     }
 
+    public string GetComboBoxSelectedText(ComboBox c)
+    {
+        return (InvokeRequired ? Invoke(() => c.SelectedText) : c.SelectedText);
+    }
+
+    public string GetControlText(Control c)
+    {
+        return (InvokeRequired ? Invoke(() => c.Text) : c.Text);
+    }
+
     private void B_Connect_Click(object sender, EventArgs e)
     {
         lock (_connectLock)
@@ -460,10 +470,11 @@ public partial class MainWindow : Form
         {
             ForceHiddenAbility = GetComboBoxSelectedIndex(CB_Patch) == 2,
             IsShinyPatch = GetComboBoxSelectedIndex(CB_Patch) == 1,
-            TID = 49027,
-            SID = 34944,
-            ChainLength = 99,
-            Species = (ushort)Species.Larvitar,
+            TID = uint.Parse(GetControlText(TB_TID)),
+            SID = uint.Parse(GetControlText(TB_SID)),
+            ChainLength = (int)GetNUDValue(NUD_ChainCount),
+            Species = SpeciesNameToValue(GetControlText(CB_Species)),
+            IsSync = GetComboBoxSelectedIndex(CB_Lead) == 1,
         };
 
         List<PokemonFrame> results = [];

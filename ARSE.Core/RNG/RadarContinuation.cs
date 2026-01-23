@@ -50,23 +50,6 @@ public static class RadarContinuation
         });
     }
 
-    public static bool Forecast(ulong s0, ulong s1, decimal min)
-    {
-        var outer = new XorShift128(s0, s1);
-        for (var i = 0; i < min; i++)
-        {
-            var inner = outer.GetState64();
-            var rng = new XorShift128(inner.s0, inner.s1);
-            if (!CheckSingle(ref rng))
-            {
-                if (i >= 80) Debug.Print($"{i}");
-                return false;
-            }
-            outer.Next();
-        }
-        return true;
-    }
-
     public static (bool found, ulong advances) Forecast(ulong s0, ulong s1, int target, RadarContinuationConfig cfg, ulong init, ulong advances = 0xFFFFFFFF)
     {
         var outer = new XorShift128(s0, s1);
@@ -93,38 +76,5 @@ public static class RadarContinuation
 
         return (false, 0);
     }
-
-    /*public static void Generate(ulong s0 = 1, ulong s1 = 1)
-    {
-        var rng = new XorShift128(s0, s1);
-        var consecutivefails = 250;
-        List<(ulong, ulong)> fails = [];
-
-        while (fails.Count < consecutivefails)
-        {
-            var (_s0, _s1) = rng.GetState64();
-            var chk = CheckSingle(ref rng);
-            if (chk)
-            {
-                fails.Add((_s0, _s1));
-            }
-            else
-            {
-                if (fails.Count >= 150)
-                {
-                    Debug.Print($"{fails.Count} | {fails[0].Item1:X16} {fails[0].Item2:X16}");
-                }
-
-                fails.Clear();
-            }
-        }
-
-        Debug.Print($"{consecutivefails} consecutive successes found!");
-        foreach (var (x, y) in fails)
-        {
-            Debug.Print($"{x:X16} {y:X16}");
-        }
-    }*/
-
 }
 

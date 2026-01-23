@@ -81,9 +81,9 @@ public static class Util
             return pid;
 
         var isShiny = xor < 16;
-        if (isShiny) return pid ^ 0x1000_0000;
+        if (isShiny && shinyType is Shiny.Never) return pid ^ 0x1000_0000;
         var low = pid & 0xFFFF;
-        return (((shinyType == Shiny.Always ? 0u : 1) ^ tid ^ sid ^ low) << 16) | low;
+        return (((fakeRare == Shiny.AlwaysStar ? 1 : 0u) ^ tid ^ sid ^ low) << 16) | low;
     }
 
     public static uint GenerateGuaranteedIVIndex(ref XorShift128 rng)
@@ -135,11 +135,9 @@ public static class Util
         return (true, ivs);
     }
 
-    public static string GenerateNature(ref XorShift128 rng, bool sync)
+    public static string GenerateNature(ref XorShift128 rng)
     {
-        var nature = Natures[(int)rng.NextUInt(25)];
-        if (sync) nature = "Sync";
-        return nature;
+        return Natures[(int)rng.NextUInt(25)];
     }
 
     public static IVSearchType GetIVSearchType(string labelText) =>

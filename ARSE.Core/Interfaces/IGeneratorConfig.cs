@@ -38,6 +38,7 @@ public class ChainPokemonConfig : IGeneratorConfig
     };
 
     public bool IsSync { get; set; } = false;
+    public bool GenerateNature => !IsSync; // Sync causes Nature generation to be skipped, matters for H/W
     public Nature TargetNature { get; set; } = Nature.Random;
     public bool IsShinyPatch { get; set; } = false;
     public Shiny Shiny => IsShinyPatch ? Shiny.Always : Shiny.Random;

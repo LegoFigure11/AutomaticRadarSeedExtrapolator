@@ -88,21 +88,6 @@ namespace ARSE.WinForms;
         label6 = new Label();
         B_PokemonSearch = new Button();
         DGV_ResultsPokemon = new DataGridView();
-        dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-        Shiny = new DataGridViewTextBoxColumn();
-        Ability = new DataGridViewTextBoxColumn();
-        Nature = new DataGridViewTextBoxColumn();
-        Gender = new DataGridViewTextBoxColumn();
-        H = new DataGridViewTextBoxColumn();
-        A = new DataGridViewTextBoxColumn();
-        B = new DataGridViewTextBoxColumn();
-        C = new DataGridViewTextBoxColumn();
-        D = new DataGridViewTextBoxColumn();
-        S = new DataGridViewTextBoxColumn();
-        EC = new DataGridViewTextBoxColumn();
-        PID = new DataGridViewTextBoxColumn();
-        dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
-        dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
         ResultsSourcePokemon = new BindingSource(components);
         GB_Filters = new GroupBox();
         CB_RareEC = new CheckBox();
@@ -162,6 +147,22 @@ namespace ARSE.WinForms;
         NUD_ChainCount = new NumericUpDown();
         L_Patch = new Label();
         CB_Patch = new ComboBox();
+        dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+        Shiny = new DataGridViewTextBoxColumn();
+        Ability = new DataGridViewTextBoxColumn();
+        Nature = new DataGridViewTextBoxColumn();
+        Gender = new DataGridViewTextBoxColumn();
+        H = new DataGridViewTextBoxColumn();
+        A = new DataGridViewTextBoxColumn();
+        B = new DataGridViewTextBoxColumn();
+        C = new DataGridViewTextBoxColumn();
+        D = new DataGridViewTextBoxColumn();
+        S = new DataGridViewTextBoxColumn();
+        EC = new DataGridViewTextBoxColumn();
+        PID = new DataGridViewTextBoxColumn();
+        Height = new DataGridViewTextBoxColumn();
+        dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+        dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
         GB_Connection.SuspendLayout();
         GB_Seed.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
@@ -770,7 +771,7 @@ namespace ARSE.WinForms;
         DGV_ResultsPokemon.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         DGV_ResultsPokemon.AutoGenerateColumns = false;
         DGV_ResultsPokemon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        DGV_ResultsPokemon.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, Shiny, Ability, Nature, Gender, H, A, B, C, D, S, EC, PID, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3 });
+        DGV_ResultsPokemon.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, Shiny, Ability, Nature, Gender, H, A, B, C, D, S, EC, PID, Height, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3 });
         DGV_ResultsPokemon.DataSource = ResultsSourcePokemon;
         DGV_ResultsPokemon.Location = new Point(545, 306);
         DGV_ResultsPokemon.Name = "DGV_ResultsPokemon";
@@ -779,111 +780,6 @@ namespace ARSE.WinForms;
         DGV_ResultsPokemon.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         DGV_ResultsPokemon.Size = new Size(821, 309);
         DGV_ResultsPokemon.TabIndex = 125;
-        // 
-        // dataGridViewTextBoxColumn1
-        // 
-        dataGridViewTextBoxColumn1.DataPropertyName = "Advances";
-        dataGridViewTextBoxColumn1.HeaderText = "Advances";
-        dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-        dataGridViewTextBoxColumn1.ReadOnly = true;
-        // 
-        // Shiny
-        // 
-        Shiny.DataPropertyName = "Shiny";
-        Shiny.HeaderText = "Shiny";
-        Shiny.Name = "Shiny";
-        Shiny.ReadOnly = true;
-        // 
-        // Ability
-        // 
-        Ability.DataPropertyName = "Ability";
-        Ability.HeaderText = "Ability";
-        Ability.Name = "Ability";
-        Ability.ReadOnly = true;
-        // 
-        // Nature
-        // 
-        Nature.DataPropertyName = "Nature";
-        Nature.HeaderText = "Nature";
-        Nature.Name = "Nature";
-        Nature.ReadOnly = true;
-        // 
-        // Gender
-        // 
-        Gender.DataPropertyName = "Gender";
-        Gender.HeaderText = "Gender";
-        Gender.Name = "Gender";
-        Gender.ReadOnly = true;
-        // 
-        // H
-        // 
-        H.DataPropertyName = "H";
-        H.HeaderText = "H";
-        H.Name = "H";
-        H.ReadOnly = true;
-        // 
-        // A
-        // 
-        A.DataPropertyName = "A";
-        A.HeaderText = "A";
-        A.Name = "A";
-        A.ReadOnly = true;
-        // 
-        // B
-        // 
-        B.DataPropertyName = "B";
-        B.HeaderText = "B";
-        B.Name = "B";
-        B.ReadOnly = true;
-        // 
-        // C
-        // 
-        C.DataPropertyName = "C";
-        C.HeaderText = "C";
-        C.Name = "C";
-        C.ReadOnly = true;
-        // 
-        // D
-        // 
-        D.DataPropertyName = "D";
-        D.HeaderText = "D";
-        D.Name = "D";
-        D.ReadOnly = true;
-        // 
-        // S
-        // 
-        S.DataPropertyName = "S";
-        S.HeaderText = "S";
-        S.Name = "S";
-        S.ReadOnly = true;
-        // 
-        // EC
-        // 
-        EC.DataPropertyName = "EC";
-        EC.HeaderText = "EC";
-        EC.Name = "EC";
-        EC.ReadOnly = true;
-        // 
-        // PID
-        // 
-        PID.DataPropertyName = "PID";
-        PID.HeaderText = "PID";
-        PID.Name = "PID";
-        PID.ReadOnly = true;
-        // 
-        // dataGridViewTextBoxColumn2
-        // 
-        dataGridViewTextBoxColumn2.DataPropertyName = "Seed0";
-        dataGridViewTextBoxColumn2.HeaderText = "Seed0";
-        dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-        dataGridViewTextBoxColumn2.ReadOnly = true;
-        // 
-        // dataGridViewTextBoxColumn3
-        // 
-        dataGridViewTextBoxColumn3.DataPropertyName = "Seed1";
-        dataGridViewTextBoxColumn3.HeaderText = "Seed1";
-        dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-        dataGridViewTextBoxColumn3.ReadOnly = true;
         // 
         // ResultsSourcePokemon
         // 
@@ -1494,6 +1390,118 @@ namespace ARSE.WinForms;
         CB_Patch.Size = new Size(151, 23);
         CB_Patch.TabIndex = 124;
         // 
+        // dataGridViewTextBoxColumn1
+        // 
+        dataGridViewTextBoxColumn1.DataPropertyName = "Advances";
+        dataGridViewTextBoxColumn1.HeaderText = "Advances";
+        dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+        dataGridViewTextBoxColumn1.ReadOnly = true;
+        // 
+        // Shiny
+        // 
+        Shiny.DataPropertyName = "Shiny";
+        Shiny.HeaderText = "Shiny";
+        Shiny.Name = "Shiny";
+        Shiny.ReadOnly = true;
+        // 
+        // Ability
+        // 
+        Ability.DataPropertyName = "Ability";
+        Ability.HeaderText = "Ability";
+        Ability.Name = "Ability";
+        Ability.ReadOnly = true;
+        // 
+        // Nature
+        // 
+        Nature.DataPropertyName = "Nature";
+        Nature.HeaderText = "Nature";
+        Nature.Name = "Nature";
+        Nature.ReadOnly = true;
+        // 
+        // Gender
+        // 
+        Gender.DataPropertyName = "Gender";
+        Gender.HeaderText = "Gender";
+        Gender.Name = "Gender";
+        Gender.ReadOnly = true;
+        // 
+        // H
+        // 
+        H.DataPropertyName = "H";
+        H.HeaderText = "H";
+        H.Name = "H";
+        H.ReadOnly = true;
+        // 
+        // A
+        // 
+        A.DataPropertyName = "A";
+        A.HeaderText = "A";
+        A.Name = "A";
+        A.ReadOnly = true;
+        // 
+        // B
+        // 
+        B.DataPropertyName = "B";
+        B.HeaderText = "B";
+        B.Name = "B";
+        B.ReadOnly = true;
+        // 
+        // C
+        // 
+        C.DataPropertyName = "C";
+        C.HeaderText = "C";
+        C.Name = "C";
+        C.ReadOnly = true;
+        // 
+        // D
+        // 
+        D.DataPropertyName = "D";
+        D.HeaderText = "D";
+        D.Name = "D";
+        D.ReadOnly = true;
+        // 
+        // S
+        // 
+        S.DataPropertyName = "S";
+        S.HeaderText = "S";
+        S.Name = "S";
+        S.ReadOnly = true;
+        // 
+        // EC
+        // 
+        EC.DataPropertyName = "EC";
+        EC.HeaderText = "EC";
+        EC.Name = "EC";
+        EC.ReadOnly = true;
+        // 
+        // PID
+        // 
+        PID.DataPropertyName = "PID";
+        PID.HeaderText = "PID";
+        PID.Name = "PID";
+        PID.ReadOnly = true;
+        // 
+        // Height
+        // 
+        Height.DataPropertyName = "Height";
+        Height.HeaderText = "Height";
+        Height.Name = "Height";
+        Height.ReadOnly = true;
+        // 
+        // dataGridViewTextBoxColumn2
+        // 
+        dataGridViewTextBoxColumn2.DataPropertyName = "Seed0";
+        dataGridViewTextBoxColumn2.HeaderText = "Seed0";
+        dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+        dataGridViewTextBoxColumn2.ReadOnly = true;
+        // 
+        // dataGridViewTextBoxColumn3
+        // 
+        dataGridViewTextBoxColumn3.DataPropertyName = "Seed1";
+        dataGridViewTextBoxColumn3.HeaderText = "Seed1";
+        dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+        dataGridViewTextBoxColumn3.ReadOnly = true;
+        // 
         // MainWindow
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1625,21 +1633,6 @@ namespace ARSE.WinForms;
     private Button B_PokemonSearch;
     private DataGridView DGV_ResultsPokemon;
     private BindingSource ResultsSourcePokemon;
-    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-    private DataGridViewTextBoxColumn Shiny;
-    private DataGridViewTextBoxColumn Ability;
-    private DataGridViewTextBoxColumn Nature;
-    private DataGridViewTextBoxColumn Gender;
-    private DataGridViewTextBoxColumn H;
-    private DataGridViewTextBoxColumn A;
-    private DataGridViewTextBoxColumn B;
-    private DataGridViewTextBoxColumn C;
-    private DataGridViewTextBoxColumn D;
-    private DataGridViewTextBoxColumn S;
-    private DataGridViewTextBoxColumn EC;
-    private DataGridViewTextBoxColumn PID;
-    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     private GroupBox GB_Filters;
     public CheckBox CB_RareEC;
     private CheckBox CB_EnableFilters;
@@ -1698,5 +1691,21 @@ namespace ARSE.WinForms;
     private ComboBox CB_Area;
     private Button button3;
     private Button button4;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+    private DataGridViewTextBoxColumn Shiny;
+    private DataGridViewTextBoxColumn Ability;
+    private DataGridViewTextBoxColumn Nature;
+    private DataGridViewTextBoxColumn Gender;
+    private DataGridViewTextBoxColumn H;
+    private DataGridViewTextBoxColumn A;
+    private DataGridViewTextBoxColumn B;
+    private DataGridViewTextBoxColumn C;
+    private DataGridViewTextBoxColumn D;
+    private DataGridViewTextBoxColumn S;
+    private DataGridViewTextBoxColumn EC;
+    private DataGridViewTextBoxColumn PID;
+    private DataGridViewTextBoxColumn Height;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
 }
 

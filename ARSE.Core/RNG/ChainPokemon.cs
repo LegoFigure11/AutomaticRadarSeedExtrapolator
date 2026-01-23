@@ -78,7 +78,7 @@ public static class ChainPokemon
                 Gender = config.RollGender ? ((rng.NextUInt(253) + 1) < config.GenderRatio ? 'F' : 'M') : config.Gender;
 
                 // Nature
-                Nature = Util.GenerateNature(ref rng, config.IsSync);
+                Nature = config.GenerateNature ? Util.GenerateNature(ref rng) : "Sync";
                 if (config.FiltersEnabled && !CheckNature(Nature, config.TargetNature))
                 {
                     outer.Next();
