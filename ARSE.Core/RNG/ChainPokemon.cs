@@ -1,9 +1,5 @@
 using ARSE.Core.Interfaces;
 using PKHeX.Core;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Security.Cryptography;
 using static ARSE.Core.RNG.Validator;
 
 namespace ARSE.Core.RNG;
@@ -98,6 +94,7 @@ public static class ChainPokemon
 
                 results.Add(new PokemonFrame
                 {
+                    _adv = i,
                     Advances = $"{i:N0}",
 
                     PID = $"{pid:X8}",
@@ -131,8 +128,37 @@ public static class ChainPokemon
                 outer.Next();
             }
 
+            var len = config.Cluster;
+            if (len == 1) return results;
 
-            return results;
+            List<PokemonFrame> newResults = [];
+            for (var i = 0; i < results.Count; i++)
+            {
+                var thisResult = results[i];
+                var testStartIndex = i;
+                var testStartValue = thisResult._adv;
+
+                byte cluster = 0;
+                for (var j = testStartIndex; j < results.Count; j++)
+                {
+                    if (results[j]._adv != testStartValue++) break;
+                    cluster++;
+                }
+
+                if (cluster >= len)
+                {
+                    thisResult.Advances = $"{thisResult._adv:N0} - {(thisResult._adv + cluster - 1u):N0}";
+                    thisResult.Cluster = cluster;
+                    newResults.Add(thisResult);
+                    thisResult.PID = "Cluster";
+                    thisResult.EC = "Cluster";
+                    thisResult.Height = "Cluster";
+                }
+
+                i += cluster - 1;
+            }
+
+            return newResults;
         });
     }
 }

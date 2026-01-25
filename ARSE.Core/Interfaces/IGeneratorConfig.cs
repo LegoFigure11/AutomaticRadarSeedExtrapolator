@@ -16,6 +16,7 @@ public class ChainPokemonConfig : IGeneratorConfig
     private const byte Female = 0xFE;
     private const byte Genderless = 0xFF;
 
+    public byte Cluster { get; set; } = 0;
     public ushort Species { get; set; } = 0;
     public byte GenderRatio => EntityGender.GetGenderRatio(Species);
     public bool RollGender => GenderRatio is not (Male or Female or Genderless);

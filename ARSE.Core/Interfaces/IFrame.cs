@@ -26,8 +26,9 @@ public class RadarContinuationFrame : IBasicFrame, IRadarContinuationFrame
 
 public class PokemonFrame : IBasicFrame
 {
+    public ulong _adv { get; set; } = 0;
+    public uint Cluster { get; set; } = 0;
     public string Advances { get; set; } = string.Empty;
-    public string Species { get; set; } = string.Empty;
     public string Shiny { get; set; } = string.Empty;
 
     public char Ability { get; set; } = ' ';

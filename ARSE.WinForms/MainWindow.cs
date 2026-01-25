@@ -347,6 +347,11 @@ public partial class MainWindow : Form
         return (InvokeRequired ? Invoke(() => c.Text) : c.Text);
     }
 
+    public bool GetCheckBoxCheckedState(CheckBox c)
+    {
+        return (InvokeRequired ? Invoke(() => c.Checked) : c.Checked);
+    }
+
     private void B_Connect_Click(object sender, EventArgs e)
     {
         lock (_connectLock)
@@ -468,6 +473,7 @@ public partial class MainWindow : Form
 
         ChainPokemonConfig cfg = new()
         {
+            Cluster = (byte)GetNUDValue(NUD_Cluster),
             ForceHiddenAbility = GetComboBoxSelectedIndex(CB_Patch) == 2,
             IsShinyPatch = GetComboBoxSelectedIndex(CB_Patch) == 1,
             TID = uint.Parse(GetControlText(TB_TID)),
@@ -475,6 +481,16 @@ public partial class MainWindow : Form
             ChainLength = (int)GetNUDValue(NUD_ChainCount),
             Species = SpeciesNameToValue(GetControlText(CB_Species)),
             IsSync = GetComboBoxSelectedIndex(CB_Lead) == 1,
+
+            TargetMinIVs = [GetNUDValue(NUD_HP_Min), GetNUDValue(NUD_Atk_Min), GetNUDValue(NUD_Def_Min), GetNUDValue(NUD_SpA_Min), GetNUDValue(NUD_SpD_Min), GetNUDValue(NUD_Spe_Min)],
+            TargetMaxIVs = [GetNUDValue(NUD_HP_Max), GetNUDValue(NUD_Atk_Max), GetNUDValue(NUD_Def_Max), GetNUDValue(NUD_SpA_Max), GetNUDValue(NUD_SpD_Max), GetNUDValue(NUD_Spe_Max)],
+            SearchTypes = [GetIVSearchType(GetControlText(L_HPSpacer)), GetIVSearchType(GetControlText(L_AtkSpacer)), GetIVSearchType(GetControlText(L_DefSpacer)), GetIVSearchType(GetControlText(L_SpASpacer)), GetIVSearchType(GetControlText(L_SpDSpacer)), GetIVSearchType(GetControlText(L_SpeSpacer))],
+            RareEC = GetCheckBoxCheckedState(CB_RareEC),
+
+            TargetShiny = GetFilterShinyType(GetComboBoxSelectedIndex(CB_Filter_Shiny)),
+            TargetScale = (ScaleType)(GetComboBoxSelectedIndex(CB_Filter_Height)),
+
+            FiltersEnabled = GetCheckBoxCheckedState(CB_EnableFilters),
         };
 
         List<PokemonFrame> results = [];
@@ -486,6 +502,15 @@ public partial class MainWindow : Form
             PokemonFrames = results;
         });
     }
+
+    private static ShinyType GetFilterShinyType(int selected) => selected switch
+    {
+        1 => ShinyType.Either,
+        2 => ShinyType.Square,
+        3 => ShinyType.Star,
+        4 => ShinyType.None,
+        _ => ShinyType.Any,
+    };
 
     private void B_IV_Max_Click(object sender, EventArgs e)
     {
@@ -573,6 +598,78 @@ public partial class MainWindow : Form
     private void CB_Area_SelectedIndexChanged(object sender, EventArgs e)
     {
         UpdateEncounterSlotsSpecies();
+    }
+
+    private void TB_TID_TextChanged(object sender, EventArgs e)
+    {
+        if (TB_TID.Text.Length > 0)
+        {
+            var tid = int.Parse(TB_TID.Text);
+            if (tid > 0xFFFF)
+            {
+                tid = 0xFFFF;
+                SetTextBoxText($"{tid}", TB_TID);
+            }
+            Config.TID = tid;
+        }
+    }
+
+    private void TB_SID_TextChanged(object sender, EventArgs e)
+    {
+        if (TB_SID.Text.Length > 0)
+        {
+            var sid = int.Parse(TB_SID.Text);
+            if (sid > 0xFFFF)
+            {
+                sid = 0xFFFF;
+                SetTextBoxText($"{sid}", TB_SID);
+            }
+            Config.SID = sid;
+        }
+    }
+
+    private void TB_SwitchIP_TextChanged(object sender, EventArgs e)
+    {
+        if (Config.Protocol is SwitchProtocol.WiFi)
+        {
+            Config.IP = TB_SwitchIP.Text;
+            ConnectionConfig.IP = TB_SwitchIP.Text;
+        }
+        else
+        {
+            if (int.TryParse(TB_SwitchIP.Text, out var port) && port >= 0)
+            {
+                Config.UsbPort = port;
+                ConnectionConfig.Port = port;
+                return;
+            }
+
+            MessageBox.Show("Please enter a valid numerical USB port.");
+        }
+    }
+
+    private readonly JsonSerializerOptions options = new() { WriteIndented = true };
+    private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+    {
+        var configpath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
+        string output = JsonSerializer.Serialize(Config, options);
+        using StreamWriter sw = new(configpath);
+        sw.Write(output);
+
+        if (ConnectionWrapper is { Connected: true })
+        {
+            try
+            {
+                _ = ConnectionWrapper.DisconnectAsync(Source.Token).ConfigureAwait(false);
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
+        Source.Cancel();
+        Source = new();
     }
 }
 
