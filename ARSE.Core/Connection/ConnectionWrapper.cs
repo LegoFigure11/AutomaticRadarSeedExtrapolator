@@ -24,6 +24,8 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
 
     private ulong MainRNGOffset;
     private ulong MyStatusOffset;
+    private ulong SwayGrassOffset;
+    private ulong WildPokemonOffset;
 
     public async Task<(bool, string)> Connect(CancellationToken token)
     {
@@ -45,9 +47,26 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
                 _                  => throw new Exception("Cannot detect Brilliant Diamond or Shining Pearl running on your switch!")
             };
 
+            var swayGrassPointer = title switch
+            {
+                BrilliantDiamondID => SwayGrassPoinerBD,
+                ShiningPearlID     => SwayGrassPoinerSP,
+                _                  => throw new Exception("Cannot detect Brilliant Diamond or Shining Pearl running on your switch!")
+            };
+
+            var wildPokemonPointer = title switch
+            {
+                BrilliantDiamondID => WildPokemonPointerBD,
+                ShiningPearlID     => WildPokemonPointerSP,
+                _                  => throw new Exception("Cannot detect Brilliant Diamond or Shining Pearl running on your switch!")
+            };
+
             StatusUpdate("Caching Pointers...");
+
             MainRNGOffset = await Connection.PointerAll(MainRNGPointer, token).ConfigureAwait(false);
             MyStatusOffset = await Connection.PointerAll(myStatusPointer,  token).ConfigureAwait(false);
+            SwayGrassOffset = await Connection.PointerAll(swayGrassPointer, token).ConfigureAwait(false);
+            WildPokemonOffset = await Connection.PointerAll(wildPokemonPointer, token).ConfigureAwait(false);
 
             StatusUpdate("Reading SAV...");
             var tid = await Connection.ReadBytesAbsoluteAsync(MyStatusOffset, 2, token).ConfigureAwait(false);
@@ -102,6 +121,31 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
         await Connection.WriteBytesAbsoluteAsync(s1, MainRNGOffset + (MainRNG_SIZE / 2), token).ConfigureAwait(false);
     }
 
+    public async Task<SwayGrass> ReadSwayGrass(CancellationToken token)
+    {
+        var data = await Connection.ReadBytesAbsoluteAsync(SwayGrassOffset, SwayGrass.SIZE, token)
+            .ConfigureAwait(false);
+        return new SwayGrass(data);
+    }
+
+    public async Task<ushort> GetChainSpecies(CancellationToken token)
+    {
+        var block = await ReadSwayGrass(token).ConfigureAwait(false);
+        return (ushort)block.ChainEncounterSpecies;
+    }
+
+    public async Task<decimal> GetChainLength(CancellationToken token)
+    {
+        var block = await ReadSwayGrass(token).ConfigureAwait(false);
+        return block.ChainCount;
+    }
+
+    public async Task<PB8> ReadWildPokemon(CancellationToken token)
+    {
+        var data = await Connection.ReadBytesAbsoluteAsync(WildPokemonOffset, 0x168, token).ConfigureAwait(false);
+        return new PB8(data);
+    }
+
     public async Task<ulong> ResolvePointer(IReadOnlyList<long> jumps, CancellationToken token)
     {
         var command = PointerAll(jumps, CRLF);
@@ -110,9 +154,10 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
         return BitConverter.ToUInt64(res, 0);
     }
 
-    public async Task PressL3(CancellationToken token)
+    public async Task PressHOME(int sleep, CancellationToken token)
     {
-        await Connection.SendAsync(Click(LSTICK, CRLF), token).ConfigureAwait(false);
+        await Connection.SendAsync(Click(HOME, CRLF), token).ConfigureAwait(false);
+        await Task.Delay(sleep, token).ConfigureAwait(false);
     }
 
     public async Task SetMainLoopSleepTime(int ms, CancellationToken token)

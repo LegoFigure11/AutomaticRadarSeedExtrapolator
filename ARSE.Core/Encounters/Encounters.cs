@@ -47,4 +47,9 @@ public static class Encounters
         SpeciesName.TryGetSpecies(n, 2, out var species);
         return species;
     }
+
+    public static string ValueToSpeciesName(ushort s)
+    {
+        return SpeciesName.GetSpeciesName(s, 2);
+    }
 }

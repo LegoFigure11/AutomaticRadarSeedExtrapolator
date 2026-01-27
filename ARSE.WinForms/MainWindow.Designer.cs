@@ -154,8 +154,8 @@ namespace ARSE.WinForms;
         button1 = new Button();
         button2 = new Button();
         groupBox1 = new GroupBox();
-        button4 = new Button();
-        button3 = new Button();
+        B_ReadChainSpecies = new Button();
+        B_ReadChainCount = new Button();
         L_Area = new Label();
         CB_Area = new ComboBox();
         L_Species = new Label();
@@ -166,6 +166,8 @@ namespace ARSE.WinForms;
         NUD_ChainCount = new NumericUpDown();
         L_Patch = new Label();
         CB_Patch = new ComboBox();
+        B_ReadWildPokemon = new Button();
+        TB_Wild = new TextBox();
         GB_Connection.SuspendLayout();
         GB_Seed.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
@@ -1408,8 +1410,8 @@ namespace ARSE.WinForms;
         // 
         // groupBox1
         // 
-        groupBox1.Controls.Add(button4);
-        groupBox1.Controls.Add(button3);
+        groupBox1.Controls.Add(B_ReadChainSpecies);
+        groupBox1.Controls.Add(B_ReadChainCount);
         groupBox1.Controls.Add(L_Area);
         groupBox1.Controls.Add(CB_Area);
         groupBox1.Controls.Add(L_Species);
@@ -1427,25 +1429,27 @@ namespace ARSE.WinForms;
         groupBox1.TabStop = false;
         groupBox1.Text = "Generation Criteria";
         // 
-        // button4
+        // B_ReadChainSpecies
         // 
-        button4.Enabled = false;
-        button4.Location = new Point(8, 149);
-        button4.Name = "button4";
-        button4.Size = new Size(213, 25);
-        button4.TabIndex = 135;
-        button4.Text = "Read Species from RAM";
-        button4.UseVisualStyleBackColor = true;
+        B_ReadChainSpecies.Enabled = false;
+        B_ReadChainSpecies.Location = new Point(8, 149);
+        B_ReadChainSpecies.Name = "B_ReadChainSpecies";
+        B_ReadChainSpecies.Size = new Size(213, 25);
+        B_ReadChainSpecies.TabIndex = 135;
+        B_ReadChainSpecies.Text = "Read Species from RAM";
+        B_ReadChainSpecies.UseVisualStyleBackColor = true;
+        B_ReadChainSpecies.Click += B_ReadChainSpecies_Click;
         // 
-        // button3
+        // B_ReadChainCount
         // 
-        button3.Enabled = false;
-        button3.Location = new Point(8, 72);
-        button3.Name = "button3";
-        button3.Size = new Size(213, 25);
-        button3.TabIndex = 134;
-        button3.Text = "Read Chain Count from RAM";
-        button3.UseVisualStyleBackColor = true;
+        B_ReadChainCount.Enabled = false;
+        B_ReadChainCount.Location = new Point(8, 72);
+        B_ReadChainCount.Name = "B_ReadChainCount";
+        B_ReadChainCount.Size = new Size(213, 25);
+        B_ReadChainCount.TabIndex = 134;
+        B_ReadChainCount.Text = "Read Chain Count from RAM";
+        B_ReadChainCount.UseVisualStyleBackColor = true;
+        B_ReadChainCount.Click += B_ReadChainCount_Click;
         // 
         // L_Area
         // 
@@ -1538,11 +1542,34 @@ namespace ARSE.WinForms;
         CB_Patch.Size = new Size(151, 23);
         CB_Patch.TabIndex = 124;
         // 
+        // B_ReadWildPokemon
+        // 
+        B_ReadWildPokemon.Location = new Point(1119, 275);
+        B_ReadWildPokemon.Name = "B_ReadWildPokemon";
+        B_ReadWildPokemon.Size = new Size(181, 25);
+        B_ReadWildPokemon.TabIndex = 130;
+        B_ReadWildPokemon.Text = "Read Encounter";
+        B_ReadWildPokemon.UseVisualStyleBackColor = true;
+        B_ReadWildPokemon.Click += B_ReadWildPokemon_Click;
+        // 
+        // TB_Wild
+        // 
+        TB_Wild.Location = new Point(1119, 40);
+        TB_Wild.Multiline = true;
+        TB_Wild.Name = "TB_Wild";
+        TB_Wild.ReadOnly = true;
+        TB_Wild.Size = new Size(181, 186);
+        TB_Wild.TabIndex = 131;
+        TB_Wild.TabStop = false;
+        TB_Wild.Text = "Shiny - Species (Gender) @ Item\r\nEC: WWWWWWWW\r\nPID: WWWWWWWW\r\nWWWWWWW Nature\r\nAbility: WWWWWWWWWW\r\nIVs: 22/22/22/22/22/22\r\nHeight: 255 (XXXL)\r\nMark: WWWWWWWWWW\r\n- Move 1\r\n- Move 2\r\n- Move 3\r\n- Move 4";
+        // 
         // MainWindow
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(1378, 627);
+        Controls.Add(TB_Wild);
+        Controls.Add(B_ReadWildPokemon);
         Controls.Add(groupBox1);
         Controls.Add(button2);
         Controls.Add(button1);
@@ -1727,8 +1754,8 @@ namespace ARSE.WinForms;
     private ComboBox CB_Species;
     private Label L_Area;
     private ComboBox CB_Area;
-    private Button button3;
-    private Button button4;
+    private Button B_ReadChainCount;
+    private Button B_ReadChainSpecies;
     private Label L_Cluster;
     private NumericUpDown NUD_Cluster;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
@@ -1748,5 +1775,7 @@ namespace ARSE.WinForms;
     private DataGridViewTextBoxColumn Height;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+    private Button B_ReadWildPokemon;
+    private TextBox TB_Wild;
 }
 

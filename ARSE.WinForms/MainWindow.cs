@@ -20,13 +20,9 @@ public partial class MainWindow : Form
     private ConnectionWrapperAsync ConnectionWrapper = default!;
     private readonly SwitchConnectionConfig ConnectionConfig;
 
-    public readonly GameStrings Strings = GameInfo.GetStrings("en");
-
     private bool stop;
     private bool reset;
     private bool readPause;
-    private bool flipPause;
-    private long flipTarget;
     private bool forecast;
     private long total;
     private bool found;
@@ -36,6 +32,8 @@ public partial class MainWindow : Form
 
     List<RadarContinuationFrame> ContinuationFrames = [];
     List<PokemonFrame> PokemonFrames = [];
+
+    public readonly GameStrings Strings = GameInfo.GetStrings("en");
 
     private readonly Version CurrentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version!;
 
@@ -109,6 +107,7 @@ public partial class MainWindow : Form
         SetTextBoxText(string.Empty, TB_CurrentAdvances, TB_AdvancesIncrease, TB_CurrentS0, TB_CurrentS1);
 
         TB_Status.Text = "Not Connected.";
+        TB_Wild.Text = string.Empty;
 
         // CheckForUpdates();
     }
@@ -161,7 +160,7 @@ public partial class MainWindow : Form
                     return;
                 }
 
-                SetControlEnabledState(true, B_Disconnect, B_CopyToInitial, B_Forecast);
+                SetControlEnabledState(true, B_Disconnect, B_CopyToInitial, B_Forecast, B_ReadChainCount, B_ReadChainSpecies);
 
                 UpdateStatus("Monitoring RNG State...");
                 try
@@ -175,7 +174,6 @@ public partial class MainWindow : Form
                     {
                         if (ConnectionWrapper.Connected && !readPause)
                         {
-                            if (total >= flipTarget) flipPause = true;
                             var (s0, s1) = await ConnectionWrapper.ReadRNGState(token).ConfigureAwait(false);
                             if (forecast && !found)
                             {
@@ -201,8 +199,6 @@ public partial class MainWindow : Form
                                     adv = 0;
                                     remaining = 0;
                                     found = false;
-                                    flipPause = true;
-                                    flipTarget = 0;
                                 }
                                 else
                                 {
@@ -332,9 +328,36 @@ public partial class MainWindow : Form
         return (uint)(InvokeRequired ? Invoke(() => c.Value) : c.Value);
     }
 
+    public void SetNUDValue(decimal val, params NumericUpDown[] nuds)
+    {
+        foreach (var nud in nuds)
+        {
+            if (InvokeRequired) Invoke(() => nud.Value = val);
+            else nud.Value = val;
+        }
+    }
+
     public int GetComboBoxSelectedIndex(ComboBox c)
     {
         return (InvokeRequired ? Invoke(() => c.SelectedIndex) : c.SelectedIndex);
+    }
+
+    public void SetComboBoxOption(string opt, params ComboBox[] cbs)
+    {
+        foreach (var cb in cbs)
+        {
+            if (InvokeRequired) Invoke(() => cb.SelectedIndex = cb.Items.IndexOf(opt));
+            else cb.SelectedIndex = cb.Items.IndexOf(opt);
+        }
+    }
+
+    public void SetComboBoxSelectedIndex(int idx, params ComboBox[] cbs)
+    {
+        foreach (var cb in cbs)
+        {
+            if (InvokeRequired) Invoke(() => cb.SelectedIndex = idx);
+            else cb.SelectedIndex = idx;
+        }
     }
 
     public string GetComboBoxSelectedText(ComboBox c)
@@ -408,6 +431,21 @@ public partial class MainWindow : Form
                 SetTextBoxText(s0, TB_Seed0);
                 SetTextBoxText(s1, TB_Seed1);
 
+                try
+                {
+                    Task.Run(async () =>
+                    {
+                        await ConnectionWrapper.PressHOME(2000, Source.Token).ConfigureAwait(false);
+                        reset = true;
+                        await ConnectionWrapper.PressHOME(0, Source.Token).ConfigureAwait(false);
+                    });
+                }
+                catch (Exception ex)
+                {
+                    this.DisplayMessageBox(ex.Message);
+                }
+
+
                 reset = true;
             }
 #if DEBUG
@@ -417,8 +455,24 @@ public partial class MainWindow : Form
 
     private void B_Forecast_Click(object sender, EventArgs e)
     {
-        forecast = true;
-        found = false;
+        Task.Run(async () =>
+        {
+            try
+            {
+                if (ConnectionWrapper.Connected)
+                {
+                    await ConnectionWrapper.PressHOME(2_000, Source.Token).ConfigureAwait(false);
+                    forecast = true;
+                    found = false;
+                    // Task.Delay(2000, Source.Token).ConfigureAwait(false);
+                    await ConnectionWrapper.PressHOME(0, Source.Token).ConfigureAwait(false);
+                }
+            }
+            catch (Exception ex)
+            {
+                this.DisplayMessageBox(ex.Message);
+            }
+        });
     }
 
     private void B_Search_Click(object sender, EventArgs e)
@@ -670,6 +724,128 @@ public partial class MainWindow : Form
 
         Source.Cancel();
         Source = new();
+    }
+
+    private void B_ReadChainCount_Click(object sender, EventArgs e)
+    {
+        if (ConnectionWrapper.Connected)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    readPause = true;
+                    await Task.Delay(100, Source.Token).ConfigureAwait(false);
+                    var count = await ConnectionWrapper.GetChainLength(Source.Token).ConfigureAwait(false);
+                    readPause = false;
+                    SetNUDValue(count, NUD_ChainCount);
+                }
+                catch (Exception ex)
+                {
+                    this.DisplayMessageBox(ex.Message);
+                }
+            });
+        }
+    }
+
+    private void B_ReadChainSpecies_Click(object sender, EventArgs e)
+    {
+        if (ConnectionWrapper.Connected)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    readPause = true;
+                    await Task.Delay(100, Source.Token).ConfigureAwait(false);
+                    var val = await ConnectionWrapper.GetChainSpecies(Source.Token).ConfigureAwait(false);
+                    readPause = false;
+                    var species = ValueToSpeciesName(val);
+                    var lastIndex = GetComboBoxSelectedIndex(CB_Species);
+                    SetComboBoxOption(species, CB_Species);
+                    if (GetComboBoxSelectedIndex(CB_Species) == -1)
+                    {
+                        this.DisplayMessageBox($"{species} was not found in the current encounter table! Have you selected the right area?");
+                        SetComboBoxSelectedIndex(lastIndex, CB_Species);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    this.DisplayMessageBox(ex.Message);
+                }
+            });
+        }
+    }
+
+    private void B_ReadWildPokemon_Click(object sender, EventArgs e)
+    {
+        if (ConnectionWrapper.Connected)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    readPause = true;
+                    await Task.Delay(100, Source.Token).ConfigureAwait(false);
+                    var pk = await ConnectionWrapper.ReadWildPokemon(Source.Token).ConfigureAwait(false);
+                    readPause = false;
+                    if (pk is { Valid: true, Species: > 0 })
+                    {
+                        // CachedEncounter = pk;
+
+                        var n = Environment.NewLine;
+
+                        string form = pk.Form == 0 ? string.Empty : $"-{pk.Form}";
+                        string gender = pk.Gender switch
+                        {
+                            0 => " (M)",
+                            1 => " (F)",
+                            _ => string.Empty,
+                        };
+                        string shiny = pk.ShinyXor switch
+                        {
+                            0    => "■ - ",
+                            < 16 => "★ - ",
+                            _    => string.Empty,
+                        };
+
+
+                        string item = pk.HeldItem > 0 ? $" @ {Strings.Item[pk.HeldItem]}" : string.Empty;
+
+                        string scale = $"Height: {PokeSizeDetailedUtil.GetSizeRating(pk.HeightScalar)} ({pk.HeightScalar})";
+
+                        string moves = string.Empty;
+
+
+                        foreach (int move in pk.Moves)
+                        {
+                            if (move == 0) break;
+                            moves += $"{n}- {Strings.Move[move]}";
+                        }
+
+                        string output = $"{shiny}{(Species)pk.Species}{form}{gender}{item}{n}EC: {pk.EncryptionConstant:X8}{n}PID: {pk.PID:X8}{n}{Strings.Natures[(int)pk.Nature]} Nature{n}Ability: {Strings.Ability[pk.Ability]}{n}IVs: {pk.IV_HP}/{pk.IV_ATK}/{pk.IV_DEF}/{pk.IV_SPA}/{pk.IV_SPD}/{pk.IV_SPE}{n}{scale}{moves}";
+
+                        readPause = false;
+                        /*SetPictureBoxImage(pk.Sprite(), PB_PokemonSprite);
+                        if (HasRibbon)
+                        {
+                            SetPictureBoxImage(RibbonSpriteUtil.GetRibbonSprite(mark)!, PB_MarkSprite);
+                        }
+                        else
+                        {
+                            PB_MarkSprite.Image = null;
+                        }*/
+                        SetTextBoxText(output, TB_Wild);
+                        //SetControlEnabledState(true, B_CopyToFilter);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    this.DisplayMessageBox(ex.Message);
+                }
+            });
+        }
     }
 }
 
