@@ -1102,22 +1102,32 @@ public partial class MainWindow : Form
             {
                 try
                 {
-                    if (e.KeyCode == Keys.Enter) B_Forecast_Click(sender, EventArgs.Empty);
-                    else if (e.KeyCode == Keys.M) await ConnectionWrapper.DoTurboCommand("A", Source.Token).ConfigureAwait(false);
-                    else if (e.KeyCode == Keys.P)
+                    switch (e.KeyCode)
                     {
-                        readPause = true;
-                        await Task.Delay(200, Source.Token).ConfigureAwait(false);
-                        await ConnectionWrapper.RechargeRadar(Source.Token).ConfigureAwait(false);
-                        readPause = false;
+                        case Keys.Enter:
+                            B_Forecast_Click(sender, EventArgs.Empty);
+                            break;
+                        case Keys.M:
+                            await ConnectionWrapper.DoTurboCommand("A", Source.Token).ConfigureAwait(false);
+                            break;
+                        case Keys.P:
+                            readPause = true;
+                            await Task.Delay(200, Source.Token).ConfigureAwait(false);
+                            await ConnectionWrapper.RechargeRadar(Source.Token).ConfigureAwait(false);
+                            readPause = false;
+                            break;
+                        case Keys.Space:
+                            await ConnectionWrapper.DoTurboCommand("X", Source.Token).ConfigureAwait(false);
+                            await Task.Delay(1_000, Source.Token).ConfigureAwait(false);
+                            await ConnectionWrapper.DoTurboCommand("A", Source.Token).ConfigureAwait(false);
+                            await Task.Delay(16_500, Source.Token).ConfigureAwait(false);
+                            await ConnectionWrapper.DoTurboCommand("A", Source.Token).ConfigureAwait(false);
+                            B_Forecast_Click(sender, EventArgs.Empty);
+                            break;
+                        default:
+                            await ConnectionWrapper.DoTurboCommand(GetTurboCommandFromKey(e.KeyCode), Source.Token).ConfigureAwait(false);
+                            break;
                     }
-                    else if (e.KeyCode == Keys.Space)
-                    {
-                        await ConnectionWrapper.DoTurboCommand("X", Source.Token).ConfigureAwait(false);
-                        await Task.Delay(1_000, Source.Token).ConfigureAwait(false);
-                        await ConnectionWrapper.DoTurboCommand("A", Source.Token).ConfigureAwait(false);
-                    }
-                    else await ConnectionWrapper.DoTurboCommand(GetTurboCommandFromKey(e.KeyCode), Source.Token).ConfigureAwait(false);
                 }
                 catch
                 {
