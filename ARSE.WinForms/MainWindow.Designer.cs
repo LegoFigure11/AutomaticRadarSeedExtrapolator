@@ -168,6 +168,24 @@ namespace ARSE.WinForms;
         CB_Patch = new ComboBox();
         B_ReadWildPokemon = new Button();
         TB_Wild = new TextBox();
+        B_Calibrate = new Button();
+        CB_CaliDir = new ComboBox();
+        L_CaliDir = new Label();
+        L_Delay = new Label();
+        NUD_Delay = new NumericUpDown();
+        label7 = new Label();
+        TB_Target = new TextBox();
+        B_HitTarget = new Button();
+        button3 = new Button();
+        button5 = new Button();
+        button6 = new Button();
+        button7 = new Button();
+        button4 = new Button();
+        button8 = new Button();
+        button9 = new Button();
+        button10 = new Button();
+        button12 = new Button();
+        TB_Input = new TextBox();
         GB_Connection.SuspendLayout();
         GB_Seed.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
@@ -193,6 +211,7 @@ namespace ARSE.WinForms;
         ((System.ComponentModel.ISupportInitialize)NUD_HP_Min).BeginInit();
         groupBox1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)NUD_ChainCount).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Delay).BeginInit();
         SuspendLayout();
         // 
         // GB_Connection
@@ -787,7 +806,7 @@ namespace ARSE.WinForms;
         DGV_ResultsPokemon.ReadOnly = true;
         DGV_ResultsPokemon.RowHeadersVisible = false;
         DGV_ResultsPokemon.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        DGV_ResultsPokemon.Size = new Size(821, 309);
+        DGV_ResultsPokemon.Size = new Size(922, 309);
         DGV_ResultsPokemon.TabIndex = 125;
         // 
         // dataGridViewTextBoxColumn1
@@ -961,14 +980,14 @@ namespace ARSE.WinForms;
         GB_Filters.Controls.Add(NUD_HP_Min);
         GB_Filters.Location = new Point(799, 27);
         GB_Filters.Name = "GB_Filters";
-        GB_Filters.Size = new Size(314, 273);
+        GB_Filters.Size = new Size(229, 273);
         GB_Filters.TabIndex = 126;
         GB_Filters.TabStop = false;
         GB_Filters.Text = "Search Filters";
         // 
         // NUD_Cluster
         // 
-        NUD_Cluster.Location = new Point(112, 218);
+        NUD_Cluster.Location = new Point(82, 218);
         NUD_Cluster.Maximum = new decimal(new int[] { 50, 0, 0, 0 });
         NUD_Cluster.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
         NUD_Cluster.Name = "NUD_Cluster";
@@ -980,7 +999,7 @@ namespace ARSE.WinForms;
         // L_Cluster
         // 
         L_Cluster.AutoSize = true;
-        L_Cluster.Location = new Point(32, 220);
+        L_Cluster.Location = new Point(2, 220);
         L_Cluster.Name = "L_Cluster";
         L_Cluster.Size = new Size(74, 15);
         L_Cluster.TabIndex = 165;
@@ -990,7 +1009,7 @@ namespace ARSE.WinForms;
         // 
         CB_RareEC.AutoSize = true;
         CB_RareEC.CheckAlign = ContentAlignment.MiddleRight;
-        CB_RareEC.Location = new Point(73, 246);
+        CB_RareEC.Location = new Point(43, 246);
         CB_RareEC.Name = "CB_RareEC";
         CB_RareEC.Size = new Size(71, 19);
         CB_RareEC.TabIndex = 158;
@@ -1004,7 +1023,7 @@ namespace ARSE.WinForms;
         CB_EnableFilters.CheckAlign = ContentAlignment.MiddleRight;
         CB_EnableFilters.Checked = true;
         CB_EnableFilters.CheckState = CheckState.Checked;
-        CB_EnableFilters.Location = new Point(147, 248);
+        CB_EnableFilters.Location = new Point(117, 248);
         CB_EnableFilters.Name = "CB_EnableFilters";
         CB_EnableFilters.Size = new Size(107, 19);
         CB_EnableFilters.TabIndex = 159;
@@ -1015,7 +1034,7 @@ namespace ARSE.WinForms;
         // L_Filter_Height
         // 
         L_Filter_Height.AutoSize = true;
-        L_Filter_Height.Location = new Point(60, 196);
+        L_Filter_Height.Location = new Point(30, 196);
         L_Filter_Height.Name = "L_Filter_Height";
         L_Filter_Height.Size = new Size(46, 15);
         L_Filter_Height.TabIndex = 163;
@@ -1025,7 +1044,7 @@ namespace ARSE.WinForms;
         // 
         CB_Filter_Height.FormattingEnabled = true;
         CB_Filter_Height.Items.AddRange(new object[] { "Ignore", "XXXS", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXS or XXXL" });
-        CB_Filter_Height.Location = new Point(112, 193);
+        CB_Filter_Height.Location = new Point(82, 193);
         CB_Filter_Height.Name = "CB_Filter_Height";
         CB_Filter_Height.Size = new Size(142, 23);
         CB_Filter_Height.TabIndex = 157;
@@ -1033,7 +1052,7 @@ namespace ARSE.WinForms;
         // L_Filter_Shiny
         // 
         L_Filter_Shiny.AutoSize = true;
-        L_Filter_Shiny.Location = new Point(67, 171);
+        L_Filter_Shiny.Location = new Point(37, 171);
         L_Filter_Shiny.Name = "L_Filter_Shiny";
         L_Filter_Shiny.Size = new Size(39, 15);
         L_Filter_Shiny.TabIndex = 162;
@@ -1043,14 +1062,14 @@ namespace ARSE.WinForms;
         // 
         CB_Filter_Shiny.FormattingEnabled = true;
         CB_Filter_Shiny.Items.AddRange(new object[] { "Ignore", "Star/Square", "Square Only", "Star Only", "Not Shiny" });
-        CB_Filter_Shiny.Location = new Point(112, 168);
+        CB_Filter_Shiny.Location = new Point(82, 168);
         CB_Filter_Shiny.Name = "CB_Filter_Shiny";
         CB_Filter_Shiny.Size = new Size(142, 23);
         CB_Filter_Shiny.TabIndex = 155;
         // 
         // B_Spe_Max
         // 
-        B_Spe_Max.Location = new Point(227, 142);
+        B_Spe_Max.Location = new Point(197, 142);
         B_Spe_Max.Name = "B_Spe_Max";
         B_Spe_Max.Size = new Size(27, 25);
         B_Spe_Max.TabIndex = 154;
@@ -1060,7 +1079,7 @@ namespace ARSE.WinForms;
         // 
         // B_Spe_Min
         // 
-        B_Spe_Min.Location = new Point(198, 142);
+        B_Spe_Min.Location = new Point(168, 142);
         B_Spe_Min.Name = "B_Spe_Min";
         B_Spe_Min.Size = new Size(27, 25);
         B_Spe_Min.TabIndex = 153;
@@ -1071,7 +1090,7 @@ namespace ARSE.WinForms;
         // L_Spe
         // 
         L_Spe.AutoSize = true;
-        L_Spe.Location = new Point(77, 147);
+        L_Spe.Location = new Point(47, 147);
         L_Spe.Name = "L_Spe";
         L_Spe.Size = new Size(29, 15);
         L_Spe.TabIndex = 161;
@@ -1081,7 +1100,7 @@ namespace ARSE.WinForms;
         // L_SpeSpacer
         // 
         L_SpeSpacer.AutoSize = true;
-        L_SpeSpacer.Location = new Point(145, 145);
+        L_SpeSpacer.Location = new Point(115, 145);
         L_SpeSpacer.Name = "L_SpeSpacer";
         L_SpeSpacer.Size = new Size(15, 15);
         L_SpeSpacer.TabIndex = 139;
@@ -1090,7 +1109,7 @@ namespace ARSE.WinForms;
         // 
         // NUD_Spe_Max
         // 
-        NUD_Spe_Max.Location = new Point(161, 143);
+        NUD_Spe_Max.Location = new Point(131, 143);
         NUD_Spe_Max.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
         NUD_Spe_Max.Name = "NUD_Spe_Max";
         NUD_Spe_Max.Size = new Size(32, 23);
@@ -1099,7 +1118,7 @@ namespace ARSE.WinForms;
         // 
         // NUD_Spe_Min
         // 
-        NUD_Spe_Min.Location = new Point(112, 143);
+        NUD_Spe_Min.Location = new Point(82, 143);
         NUD_Spe_Min.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
         NUD_Spe_Min.Name = "NUD_Spe_Min";
         NUD_Spe_Min.Size = new Size(32, 23);
@@ -1107,7 +1126,7 @@ namespace ARSE.WinForms;
         // 
         // B_SpD_Max
         // 
-        B_SpD_Max.Location = new Point(227, 117);
+        B_SpD_Max.Location = new Point(197, 117);
         B_SpD_Max.Name = "B_SpD_Max";
         B_SpD_Max.Size = new Size(27, 25);
         B_SpD_Max.TabIndex = 152;
@@ -1117,7 +1136,7 @@ namespace ARSE.WinForms;
         // 
         // B_SpD_Min
         // 
-        B_SpD_Min.Location = new Point(198, 117);
+        B_SpD_Min.Location = new Point(168, 117);
         B_SpD_Min.Name = "B_SpD_Min";
         B_SpD_Min.Size = new Size(27, 25);
         B_SpD_Min.TabIndex = 151;
@@ -1128,7 +1147,7 @@ namespace ARSE.WinForms;
         // L_SpD
         // 
         L_SpD.AutoSize = true;
-        L_SpD.Location = new Point(75, 123);
+        L_SpD.Location = new Point(45, 123);
         L_SpD.Name = "L_SpD";
         L_SpD.Size = new Size(31, 15);
         L_SpD.TabIndex = 160;
@@ -1138,7 +1157,7 @@ namespace ARSE.WinForms;
         // L_SpDSpacer
         // 
         L_SpDSpacer.AutoSize = true;
-        L_SpDSpacer.Location = new Point(145, 120);
+        L_SpDSpacer.Location = new Point(115, 120);
         L_SpDSpacer.Name = "L_SpDSpacer";
         L_SpDSpacer.Size = new Size(15, 15);
         L_SpDSpacer.TabIndex = 136;
@@ -1147,7 +1166,7 @@ namespace ARSE.WinForms;
         // 
         // NUD_SpD_Max
         // 
-        NUD_SpD_Max.Location = new Point(161, 118);
+        NUD_SpD_Max.Location = new Point(131, 118);
         NUD_SpD_Max.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
         NUD_SpD_Max.Name = "NUD_SpD_Max";
         NUD_SpD_Max.Size = new Size(32, 23);
@@ -1156,7 +1175,7 @@ namespace ARSE.WinForms;
         // 
         // NUD_SpD_Min
         // 
-        NUD_SpD_Min.Location = new Point(112, 118);
+        NUD_SpD_Min.Location = new Point(82, 118);
         NUD_SpD_Min.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
         NUD_SpD_Min.Name = "NUD_SpD_Min";
         NUD_SpD_Min.Size = new Size(32, 23);
@@ -1164,7 +1183,7 @@ namespace ARSE.WinForms;
         // 
         // B_SpA_Max
         // 
-        B_SpA_Max.Location = new Point(227, 92);
+        B_SpA_Max.Location = new Point(197, 92);
         B_SpA_Max.Name = "B_SpA_Max";
         B_SpA_Max.Size = new Size(27, 25);
         B_SpA_Max.TabIndex = 150;
@@ -1174,7 +1193,7 @@ namespace ARSE.WinForms;
         // 
         // B_SpA_Min
         // 
-        B_SpA_Min.Location = new Point(198, 92);
+        B_SpA_Min.Location = new Point(168, 92);
         B_SpA_Min.Name = "B_SpA_Min";
         B_SpA_Min.Size = new Size(27, 25);
         B_SpA_Min.TabIndex = 148;
@@ -1185,7 +1204,7 @@ namespace ARSE.WinForms;
         // L_SpA
         // 
         L_SpA.AutoSize = true;
-        L_SpA.Location = new Point(75, 95);
+        L_SpA.Location = new Point(45, 95);
         L_SpA.Name = "L_SpA";
         L_SpA.Size = new Size(31, 15);
         L_SpA.TabIndex = 156;
@@ -1195,7 +1214,7 @@ namespace ARSE.WinForms;
         // L_SpASpacer
         // 
         L_SpASpacer.AutoSize = true;
-        L_SpASpacer.Location = new Point(145, 95);
+        L_SpASpacer.Location = new Point(115, 95);
         L_SpASpacer.Name = "L_SpASpacer";
         L_SpASpacer.Size = new Size(15, 15);
         L_SpASpacer.TabIndex = 134;
@@ -1204,7 +1223,7 @@ namespace ARSE.WinForms;
         // 
         // NUD_SpA_Max
         // 
-        NUD_SpA_Max.Location = new Point(161, 93);
+        NUD_SpA_Max.Location = new Point(131, 93);
         NUD_SpA_Max.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
         NUD_SpA_Max.Name = "NUD_SpA_Max";
         NUD_SpA_Max.Size = new Size(32, 23);
@@ -1213,7 +1232,7 @@ namespace ARSE.WinForms;
         // 
         // NUD_SpA_Min
         // 
-        NUD_SpA_Min.Location = new Point(112, 93);
+        NUD_SpA_Min.Location = new Point(82, 93);
         NUD_SpA_Min.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
         NUD_SpA_Min.Name = "NUD_SpA_Min";
         NUD_SpA_Min.Size = new Size(32, 23);
@@ -1221,7 +1240,7 @@ namespace ARSE.WinForms;
         // 
         // B_Def_Max
         // 
-        B_Def_Max.Location = new Point(227, 67);
+        B_Def_Max.Location = new Point(197, 67);
         B_Def_Max.Name = "B_Def_Max";
         B_Def_Max.Size = new Size(27, 25);
         B_Def_Max.TabIndex = 147;
@@ -1231,7 +1250,7 @@ namespace ARSE.WinForms;
         // 
         // B_Def_Min
         // 
-        B_Def_Min.Location = new Point(198, 67);
+        B_Def_Min.Location = new Point(168, 67);
         B_Def_Min.Name = "B_Def_Min";
         B_Def_Min.Size = new Size(27, 25);
         B_Def_Min.TabIndex = 146;
@@ -1242,7 +1261,7 @@ namespace ARSE.WinForms;
         // L_Def
         // 
         L_Def.AutoSize = true;
-        L_Def.Location = new Point(78, 70);
+        L_Def.Location = new Point(48, 70);
         L_Def.Name = "L_Def";
         L_Def.Size = new Size(28, 15);
         L_Def.TabIndex = 149;
@@ -1252,7 +1271,7 @@ namespace ARSE.WinForms;
         // L_DefSpacer
         // 
         L_DefSpacer.AutoSize = true;
-        L_DefSpacer.Location = new Point(145, 70);
+        L_DefSpacer.Location = new Point(115, 70);
         L_DefSpacer.Name = "L_DefSpacer";
         L_DefSpacer.Size = new Size(15, 15);
         L_DefSpacer.TabIndex = 129;
@@ -1261,7 +1280,7 @@ namespace ARSE.WinForms;
         // 
         // NUD_Def_Max
         // 
-        NUD_Def_Max.Location = new Point(161, 68);
+        NUD_Def_Max.Location = new Point(131, 68);
         NUD_Def_Max.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
         NUD_Def_Max.Name = "NUD_Def_Max";
         NUD_Def_Max.Size = new Size(32, 23);
@@ -1270,7 +1289,7 @@ namespace ARSE.WinForms;
         // 
         // NUD_Def_Min
         // 
-        NUD_Def_Min.Location = new Point(112, 68);
+        NUD_Def_Min.Location = new Point(82, 68);
         NUD_Def_Min.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
         NUD_Def_Min.Name = "NUD_Def_Min";
         NUD_Def_Min.Size = new Size(32, 23);
@@ -1278,7 +1297,7 @@ namespace ARSE.WinForms;
         // 
         // B_Atk_Max
         // 
-        B_Atk_Max.Location = new Point(227, 42);
+        B_Atk_Max.Location = new Point(197, 42);
         B_Atk_Max.Name = "B_Atk_Max";
         B_Atk_Max.Size = new Size(27, 25);
         B_Atk_Max.TabIndex = 145;
@@ -1288,7 +1307,7 @@ namespace ARSE.WinForms;
         // 
         // B_Atk_Min
         // 
-        B_Atk_Min.Location = new Point(198, 42);
+        B_Atk_Min.Location = new Point(168, 42);
         B_Atk_Min.Name = "B_Atk_Min";
         B_Atk_Min.Size = new Size(27, 25);
         B_Atk_Min.TabIndex = 144;
@@ -1299,7 +1318,7 @@ namespace ARSE.WinForms;
         // L_Atk
         // 
         L_Atk.AutoSize = true;
-        L_Atk.Location = new Point(78, 45);
+        L_Atk.Location = new Point(48, 45);
         L_Atk.Name = "L_Atk";
         L_Atk.Size = new Size(28, 15);
         L_Atk.TabIndex = 142;
@@ -1309,7 +1328,7 @@ namespace ARSE.WinForms;
         // L_AtkSpacer
         // 
         L_AtkSpacer.AutoSize = true;
-        L_AtkSpacer.Location = new Point(145, 45);
+        L_AtkSpacer.Location = new Point(115, 45);
         L_AtkSpacer.Name = "L_AtkSpacer";
         L_AtkSpacer.Size = new Size(15, 15);
         L_AtkSpacer.TabIndex = 126;
@@ -1318,7 +1337,7 @@ namespace ARSE.WinForms;
         // 
         // NUD_Atk_Max
         // 
-        NUD_Atk_Max.Location = new Point(161, 43);
+        NUD_Atk_Max.Location = new Point(131, 43);
         NUD_Atk_Max.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
         NUD_Atk_Max.Name = "NUD_Atk_Max";
         NUD_Atk_Max.Size = new Size(32, 23);
@@ -1327,7 +1346,7 @@ namespace ARSE.WinForms;
         // 
         // NUD_Atk_Min
         // 
-        NUD_Atk_Min.Location = new Point(112, 43);
+        NUD_Atk_Min.Location = new Point(82, 43);
         NUD_Atk_Min.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
         NUD_Atk_Min.Name = "NUD_Atk_Min";
         NUD_Atk_Min.Size = new Size(32, 23);
@@ -1335,7 +1354,7 @@ namespace ARSE.WinForms;
         // 
         // B_HP_Max
         // 
-        B_HP_Max.Location = new Point(227, 17);
+        B_HP_Max.Location = new Point(197, 17);
         B_HP_Max.Name = "B_HP_Max";
         B_HP_Max.Size = new Size(27, 25);
         B_HP_Max.TabIndex = 143;
@@ -1345,7 +1364,7 @@ namespace ARSE.WinForms;
         // 
         // B_HP_Min
         // 
-        B_HP_Min.Location = new Point(198, 17);
+        B_HP_Min.Location = new Point(168, 17);
         B_HP_Min.Name = "B_HP_Min";
         B_HP_Min.Size = new Size(27, 25);
         B_HP_Min.TabIndex = 141;
@@ -1356,7 +1375,7 @@ namespace ARSE.WinForms;
         // L_HP
         // 
         L_HP.AutoSize = true;
-        L_HP.Location = new Point(80, 20);
+        L_HP.Location = new Point(50, 20);
         L_HP.Name = "L_HP";
         L_HP.Size = new Size(26, 15);
         L_HP.TabIndex = 132;
@@ -1366,7 +1385,7 @@ namespace ARSE.WinForms;
         // L_HPSpacer
         // 
         L_HPSpacer.AutoSize = true;
-        L_HPSpacer.Location = new Point(145, 20);
+        L_HPSpacer.Location = new Point(115, 20);
         L_HPSpacer.Name = "L_HPSpacer";
         L_HPSpacer.Size = new Size(15, 15);
         L_HPSpacer.TabIndex = 130;
@@ -1375,7 +1394,7 @@ namespace ARSE.WinForms;
         // 
         // NUD_HP_Max
         // 
-        NUD_HP_Max.Location = new Point(161, 18);
+        NUD_HP_Max.Location = new Point(131, 18);
         NUD_HP_Max.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
         NUD_HP_Max.Name = "NUD_HP_Max";
         NUD_HP_Max.Size = new Size(32, 23);
@@ -1384,7 +1403,7 @@ namespace ARSE.WinForms;
         // 
         // NUD_HP_Min
         // 
-        NUD_HP_Min.Location = new Point(112, 18);
+        NUD_HP_Min.Location = new Point(82, 18);
         NUD_HP_Min.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
         NUD_HP_Min.Name = "NUD_HP_Min";
         NUD_HP_Min.Size = new Size(32, 23);
@@ -1544,7 +1563,7 @@ namespace ARSE.WinForms;
         // 
         // B_ReadWildPokemon
         // 
-        B_ReadWildPokemon.Location = new Point(1119, 275);
+        B_ReadWildPokemon.Location = new Point(1034, 226);
         B_ReadWildPokemon.Name = "B_ReadWildPokemon";
         B_ReadWildPokemon.Size = new Size(181, 25);
         B_ReadWildPokemon.TabIndex = 130;
@@ -1554,7 +1573,7 @@ namespace ARSE.WinForms;
         // 
         // TB_Wild
         // 
-        TB_Wild.Location = new Point(1119, 40);
+        TB_Wild.Location = new Point(1034, 36);
         TB_Wild.Multiline = true;
         TB_Wild.Name = "TB_Wild";
         TB_Wild.ReadOnly = true;
@@ -1563,11 +1582,208 @@ namespace ARSE.WinForms;
         TB_Wild.TabStop = false;
         TB_Wild.Text = "Shiny - Species (Gender) @ Item\r\nEC: WWWWWWWW\r\nPID: WWWWWWWW\r\nWWWWWWW Nature\r\nAbility: WWWWWWWWWW\r\nIVs: 22/22/22/22/22/22\r\nHeight: 255 (XXXL)\r\nMark: WWWWWWWWWW\r\n- Move 1\r\n- Move 2\r\n- Move 3\r\n- Move 4";
         // 
+        // B_Calibrate
+        // 
+        B_Calibrate.Location = new Point(1233, 56);
+        B_Calibrate.Name = "B_Calibrate";
+        B_Calibrate.Size = new Size(181, 25);
+        B_Calibrate.TabIndex = 132;
+        B_Calibrate.Text = "Calibrate Delay";
+        B_Calibrate.UseVisualStyleBackColor = true;
+        B_Calibrate.Click += B_Calibrate_Click;
+        // 
+        // CB_CaliDir
+        // 
+        CB_CaliDir.FormattingEnabled = true;
+        CB_CaliDir.Items.AddRange(new object[] { "Up", "Down", "Left", "Right" });
+        CB_CaliDir.Location = new Point(1298, 31);
+        CB_CaliDir.Name = "CB_CaliDir";
+        CB_CaliDir.Size = new Size(116, 23);
+        CB_CaliDir.TabIndex = 133;
+        // 
+        // L_CaliDir
+        // 
+        L_CaliDir.AutoSize = true;
+        L_CaliDir.Location = new Point(1233, 34);
+        L_CaliDir.Name = "L_CaliDir";
+        L_CaliDir.Size = new Size(40, 15);
+        L_CaliDir.TabIndex = 134;
+        L_CaliDir.Text = "Move:";
+        // 
+        // L_Delay
+        // 
+        L_Delay.AutoSize = true;
+        L_Delay.Location = new Point(1234, 85);
+        L_Delay.Name = "L_Delay";
+        L_Delay.Size = new Size(39, 15);
+        L_Delay.TabIndex = 136;
+        L_Delay.Text = "Delay:";
+        // 
+        // NUD_Delay
+        // 
+        NUD_Delay.Location = new Point(1376, 83);
+        NUD_Delay.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
+        NUD_Delay.Name = "NUD_Delay";
+        NUD_Delay.Size = new Size(38, 23);
+        NUD_Delay.TabIndex = 135;
+        NUD_Delay.Value = new decimal(new int[] { 100, 0, 0, 0 });
+        // 
+        // label7
+        // 
+        label7.AutoSize = true;
+        label7.Location = new Point(1231, 110);
+        label7.Name = "label7";
+        label7.Size = new Size(42, 15);
+        label7.TabIndex = 138;
+        label7.Text = "Target:";
+        // 
+        // TB_Target
+        // 
+        TB_Target.CharacterCasing = CharacterCasing.Upper;
+        TB_Target.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        TB_Target.Location = new Point(1298, 108);
+        TB_Target.MaxLength = 16;
+        TB_Target.Name = "TB_Target";
+        TB_Target.Size = new Size(116, 22);
+        TB_Target.TabIndex = 137;
+        TB_Target.Text = "0";
+        TB_Target.TextAlign = HorizontalAlignment.Right;
+        // 
+        // B_HitTarget
+        // 
+        B_HitTarget.Location = new Point(1233, 132);
+        B_HitTarget.Name = "B_HitTarget";
+        B_HitTarget.Size = new Size(181, 25);
+        B_HitTarget.TabIndex = 139;
+        B_HitTarget.Text = "Do Encounter";
+        B_HitTarget.UseVisualStyleBackColor = true;
+        B_HitTarget.Click += B_HitTarget_Click;
+        // 
+        // button3
+        // 
+        button3.Location = new Point(1234, 226);
+        button3.Name = "button3";
+        button3.Size = new Size(25, 25);
+        button3.TabIndex = 140;
+        button3.Text = "←";
+        button3.UseVisualStyleBackColor = true;
+        button3.Click += button3_Click;
+        // 
+        // button5
+        // 
+        button5.Location = new Point(1280, 226);
+        button5.Name = "button5";
+        button5.Size = new Size(25, 25);
+        button5.TabIndex = 142;
+        button5.Text = "→";
+        button5.UseVisualStyleBackColor = true;
+        button5.Click += button5_Click;
+        // 
+        // button6
+        // 
+        button6.Location = new Point(1257, 203);
+        button6.Name = "button6";
+        button6.Size = new Size(25, 25);
+        button6.TabIndex = 143;
+        button6.Text = "↑";
+        button6.UseVisualStyleBackColor = true;
+        button6.Click += button6_Click;
+        // 
+        // button7
+        // 
+        button7.Location = new Point(1257, 249);
+        button7.Name = "button7";
+        button7.Size = new Size(25, 25);
+        button7.TabIndex = 144;
+        button7.Text = "↓";
+        button7.UseVisualStyleBackColor = true;
+        button7.Click += button7_Click;
+        // 
+        // button4
+        // 
+        button4.Location = new Point(1334, 249);
+        button4.Name = "button4";
+        button4.Size = new Size(25, 25);
+        button4.TabIndex = 148;
+        button4.Text = "B";
+        button4.UseVisualStyleBackColor = true;
+        button4.Click += button4_Click;
+        // 
+        // button8
+        // 
+        button8.Location = new Point(1334, 203);
+        button8.Name = "button8";
+        button8.Size = new Size(25, 25);
+        button8.TabIndex = 147;
+        button8.Text = "X";
+        button8.UseVisualStyleBackColor = true;
+        button8.Click += button8_Click;
+        // 
+        // button9
+        // 
+        button9.Location = new Point(1357, 226);
+        button9.Name = "button9";
+        button9.Size = new Size(25, 25);
+        button9.TabIndex = 146;
+        button9.Text = "A";
+        button9.UseVisualStyleBackColor = true;
+        button9.Click += button9_Click;
+        // 
+        // button10
+        // 
+        button10.Location = new Point(1311, 226);
+        button10.Name = "button10";
+        button10.Size = new Size(25, 25);
+        button10.TabIndex = 145;
+        button10.Text = "Y";
+        button10.UseVisualStyleBackColor = true;
+        button10.Click += button10_Click;
+        // 
+        // button12
+        // 
+        button12.Location = new Point(1234, 180);
+        button12.Name = "button12";
+        button12.Size = new Size(25, 25);
+        button12.TabIndex = 150;
+        button12.Text = "-";
+        button12.UseVisualStyleBackColor = true;
+        button12.Click += button12_Click_1;
+        // 
+        // TB_Input
+        // 
+        TB_Input.CharacterCasing = CharacterCasing.Upper;
+        TB_Input.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        TB_Input.Location = new Point(1234, 278);
+        TB_Input.MaxLength = 16;
+        TB_Input.Name = "TB_Input";
+        TB_Input.Size = new Size(148, 22);
+        TB_Input.TabIndex = 151;
+        TB_Input.TextAlign = HorizontalAlignment.Right;
+        TB_Input.KeyDown += TB_Input_KeyDown;
+        // 
         // MainWindow
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(1378, 627);
+        ClientSize = new Size(1479, 627);
+        Controls.Add(TB_Input);
+        Controls.Add(button12);
+        Controls.Add(button4);
+        Controls.Add(button8);
+        Controls.Add(button9);
+        Controls.Add(button10);
+        Controls.Add(button7);
+        Controls.Add(button6);
+        Controls.Add(button5);
+        Controls.Add(button3);
+        Controls.Add(B_HitTarget);
+        Controls.Add(label7);
+        Controls.Add(TB_Target);
+        Controls.Add(L_Delay);
+        Controls.Add(NUD_Delay);
+        Controls.Add(L_CaliDir);
+        Controls.Add(CB_CaliDir);
+        Controls.Add(B_Calibrate);
         Controls.Add(TB_Wild);
         Controls.Add(B_ReadWildPokemon);
         Controls.Add(groupBox1);
@@ -1635,6 +1851,7 @@ namespace ARSE.WinForms;
         groupBox1.ResumeLayout(false);
         groupBox1.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)NUD_ChainCount).EndInit();
+        ((System.ComponentModel.ISupportInitialize)NUD_Delay).EndInit();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -1777,5 +1994,23 @@ namespace ARSE.WinForms;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     private Button B_ReadWildPokemon;
     private TextBox TB_Wild;
+    private Button B_Calibrate;
+    public ComboBox CB_CaliDir;
+    private Label L_CaliDir;
+    private Label L_Delay;
+    private NumericUpDown NUD_Delay;
+    private Label label7;
+    private TextBox TB_Target;
+    private Button B_HitTarget;
+    private Button button3;
+    private Button button5;
+    private Button button6;
+    private Button button7;
+    private Button button4;
+    private Button button8;
+    private Button button9;
+    private Button button10;
+    private Button button12;
+    private TextBox TB_Input;
 }
 

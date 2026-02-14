@@ -1,9 +1,9 @@
+using System.Diagnostics;
 using PKHeX.Core;
 using ARSE.Core.Connection;
 using SysBot.Base;
 using System.Globalization;
 using System.Text.Json;
-using ARSE.Core;
 using ARSE.Core.Enums;
 using ARSE.Core.Interfaces;
 using static ARSE.Core.RNG.Util;
@@ -27,6 +27,9 @@ public partial class MainWindow : Form
     private long total;
     private bool found;
     private ulong remaining;
+    private bool cali;
+    private bool auto;
+    private ulong targetAdvance;
 
     private RadarContinuationConfig _cfg = new();
 
@@ -160,6 +163,8 @@ public partial class MainWindow : Form
                     return;
                 }
 
+                await ConnectionWrapper.DoTurboCommand("Release Stick", token).ConfigureAwait(false);
+
                 SetControlEnabledState(true, B_Disconnect, B_CopyToInitial, B_Forecast, B_ReadChainCount, B_ReadChainSpecies);
 
                 UpdateStatus("Monitoring RNG State...");
@@ -169,12 +174,35 @@ public partial class MainWindow : Form
                     stop = false;
                     remaining = 0;
                     long target = 0;
-
+                    string dir = string.Empty;
                     while (!stop)
                     {
                         if (ConnectionWrapper.Connected && !readPause)
                         {
                             var (s0, s1) = await ConnectionWrapper.ReadRNGState(token).ConfigureAwait(false);
+                            if (auto)
+                            {
+                                UpdateStatus($"Primed! {targetAdvance:N0}");
+                                dir = GetTurboCommandFromComboBox(GetComboBoxSelectedIndex(CB_CaliDir) + 3);
+                            }
+                            if (cali)
+                            {
+                                var action = GetTurboCommandFromComboBox(GetComboBoxSelectedIndex(CB_CaliDir) + 3);
+                                await ConnectionWrapper.DoTurboCommand(action, token).ConfigureAwait(false);
+                                var ecs = await Core.RNG.ChainPokemon.GenerateECs(s0, s1);
+                                var pk = new PB8();
+                                do
+                                {
+                                    await Task.Delay(2_000, token).ConfigureAwait(false);
+                                    pk = await ConnectionWrapper.ReadWildPokemon(token).ConfigureAwait(false);
+                                } while (pk.Species <= 0);
+
+                                var ec = pk.EncryptionConstant;
+                                var idx = ecs.IndexOf(ec);
+                                SetNUDValue(Math.Max(0, idx), NUD_Delay);
+                                this.DisplayMessageBox(idx == -1 ? "EC not found!" : $"EC was generated after {idx} advances.", "Calibration Result");
+                                cali = false;
+                            }
                             if (forecast && !found)
                             {
                                 UpdateStatus("Forecasting...");
@@ -203,7 +231,34 @@ public partial class MainWindow : Form
                                 else
                                 {
                                     total += adv;
-                                    if (found)
+                                    if (auto)
+                                    {
+                                        if ((ulong)total >= targetAdvance)
+                                        {
+                                            readPause = true;
+                                            await ConnectionWrapper.DoTurboCommand(dir, token).ConfigureAwait(false);
+                                            UpdateStatus("Monitoring RNG State...");
+
+                                            var __s0 = ulong.Parse(TB_Seed0.Text, NumberStyles.AllowHexSpecifier);
+                                            var __s1 = ulong.Parse(TB_Seed1.Text, NumberStyles.AllowHexSpecifier);
+                                            var d = GetNUDValue(NUD_Delay);
+                                            var ecs = await Core.RNG.ChainPokemon.GenerateECs(__s0, __s1, (uint)targetAdvance + 2000);
+                                            var pk = new PB8();
+                                            do
+                                            {
+                                                await Task.Delay(2_000, token).ConfigureAwait(false);
+                                                pk = await ConnectionWrapper.ReadWildPokemon(token).ConfigureAwait(false);
+                                            } while (pk.Species <= 0);
+
+                                            var ec = pk.EncryptionConstant;
+                                            var idx = ecs.IndexOf(ec);
+                                            this.DisplayMessageBox(idx == -1 ? "EC not found!" : $"Target {targetAdvance + d} was {(targetAdvance + d == (ulong)idx ? "Hit" : "Missed")}!\n\nEC was on advance {idx}, after {(uint)idx - targetAdvance} advances. \"{dir}\" happened on advance {total}, while aiming for {targetAdvance}.", "Calibration Result");
+                                            SetNUDValue(Math.Max(0, (uint)idx - targetAdvance), NUD_Delay);
+                                            readPause = false;
+                                            auto = false;
+                                        }
+                                    }
+                                    else if (found)
                                     {
                                         if (remaining <= adv)
                                         {
@@ -804,9 +859,9 @@ public partial class MainWindow : Form
                         };
                         string shiny = pk.ShinyXor switch
                         {
-                            0    => "■ - ",
+                            0 => "■ - ",
                             < 16 => "★ - ",
-                            _    => string.Empty,
+                            _ => string.Empty,
                         };
 
 
@@ -843,6 +898,230 @@ public partial class MainWindow : Form
                 catch (Exception ex)
                 {
                     this.DisplayMessageBox(ex.Message);
+                }
+            });
+        }
+    }
+
+    private void B_Calibrate_Click(object sender, EventArgs e)
+    {
+        cali = true;
+    }
+
+    private void B_HitTarget_Click(object sender, EventArgs e)
+    {
+        var t = ulong.Parse(GetControlText(TB_Target));
+        var d = GetNUDValue(NUD_Delay);
+        targetAdvance = t - d;
+        auto = true;
+    }
+
+    private void button6_Click(object sender, EventArgs e)
+    {
+        if (ConnectionWrapper.Connected)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    await ConnectionWrapper.DoTurboCommand("D-Pad Up", Source.Token).ConfigureAwait(false);
+                }
+                catch
+                {
+                    // Ignore
+                }
+            });
+        }
+    }
+
+    private void button3_Click(object sender, EventArgs e)
+    {
+        if (ConnectionWrapper.Connected)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    await ConnectionWrapper.DoTurboCommand("D-Pad Left", Source.Token).ConfigureAwait(false);
+                }
+                catch
+                {
+                    // Ignore
+                }
+            });
+        }
+    }
+
+    private void button7_Click(object sender, EventArgs e)
+    {
+        if (ConnectionWrapper.Connected)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    await ConnectionWrapper.DoTurboCommand("D-Pad Down", Source.Token).ConfigureAwait(false);
+                }
+                catch
+                {
+                    // Ignore
+                }
+            });
+        }
+    }
+
+    private void button5_Click(object sender, EventArgs e)
+    {
+        if (ConnectionWrapper.Connected)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    await ConnectionWrapper.DoTurboCommand("D-Pad Right", Source.Token).ConfigureAwait(false);
+                }
+                catch
+                {
+                    // Ignore
+                }
+            });
+        }
+    }
+
+    private void button12_Click_1(object sender, EventArgs e)
+    {
+        if (ConnectionWrapper.Connected)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    await ConnectionWrapper.DoTurboCommand("-", Source.Token).ConfigureAwait(false);
+                }
+                catch
+                {
+                    // Ignore
+                }
+            });
+        }
+    }
+
+    private void button9_Click(object sender, EventArgs e)
+    {
+        if (ConnectionWrapper.Connected)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    await ConnectionWrapper.DoTurboCommand("A", Source.Token).ConfigureAwait(false);
+                }
+                catch
+                {
+                    // Ignore
+                }
+            });
+        }
+    }
+
+    private void button4_Click(object sender, EventArgs e)
+    {
+        if (ConnectionWrapper.Connected)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    await ConnectionWrapper.DoTurboCommand("B", Source.Token).ConfigureAwait(false);
+                }
+                catch
+                {
+                    // Ignore
+                }
+            });
+        }
+    }
+
+    private void button8_Click(object sender, EventArgs e)
+    {
+        if (ConnectionWrapper.Connected)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    await ConnectionWrapper.DoTurboCommand("X", Source.Token).ConfigureAwait(false);
+                }
+                catch
+                {
+                    // Ignore
+                }
+            });
+        }
+    }
+
+    private void button10_Click(object sender, EventArgs e)
+    {
+        if (ConnectionWrapper.Connected)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    await ConnectionWrapper.DoTurboCommand("Y", Source.Token).ConfigureAwait(false);
+                }
+                catch
+                {
+                    // Ignore
+                }
+            });
+        }
+    }
+
+    private string GetTurboCommandFromKey(Keys key) => key switch
+    {
+        Keys.Left => "D-Pad Left",
+        Keys.Right => "D-Pad Right",
+        Keys.Up => "D-Pad Up",
+        Keys.Down => "D-Pad Down",
+        Keys.Z => "A",
+        Keys.X => "B",
+        Keys.A => "X",
+        Keys.S => "Y",
+        Keys.Q => "-",
+        _ => "",
+    };
+
+    private void TB_Input_KeyDown(object sender, KeyEventArgs e)
+    {
+        e.Handled = true;
+        TB_Input.Text = "";
+        if (ConnectionWrapper.Connected)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    if (e.KeyCode == Keys.Enter) B_Forecast_Click(sender, EventArgs.Empty);
+                    else if (e.KeyCode == Keys.M) await ConnectionWrapper.DoTurboCommand("A", Source.Token).ConfigureAwait(false);
+                    else if (e.KeyCode == Keys.P)
+                    {
+                        readPause = true;
+                        await Task.Delay(200, Source.Token).ConfigureAwait(false);
+                        await ConnectionWrapper.RechargeRadar(Source.Token).ConfigureAwait(false);
+                        readPause = false;
+                    }
+                    else if (e.KeyCode == Keys.Space)
+                    {
+                        await ConnectionWrapper.DoTurboCommand("X", Source.Token).ConfigureAwait(false);
+                        await Task.Delay(1_000, Source.Token).ConfigureAwait(false);
+                        await ConnectionWrapper.DoTurboCommand("A", Source.Token).ConfigureAwait(false);
+                    }
+                    else await ConnectionWrapper.DoTurboCommand(GetTurboCommandFromKey(e.KeyCode), Source.Token).ConfigureAwait(false);
+                }
+                catch
+                {
+                    // Ignore
                 }
             });
         }

@@ -161,5 +161,25 @@ public static class ChainPokemon
             return newResults;
         });
     }
+
+    public static Task<List<uint>> GenerateECs(ulong s0, ulong s1, uint ct = 5000)
+    {
+        return Task.Run(() =>
+        {
+            List<uint> ECs = [];
+
+            var outer = new XorShift128(s0, s1);
+
+            for (var i = 0u; i < ct; i++)
+            {
+                var os = outer.GetState64();
+                var rng = new XorShift128(os.s0, os.s1);
+                ECs.Add(rng.NextUInt());
+                outer.Next();
+            }
+
+            return ECs;
+        });
+    }
 }
 

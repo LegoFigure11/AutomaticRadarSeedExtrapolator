@@ -41,6 +41,10 @@ public static class Util
     {
         1 => "A",
         2 => "HOME",
+        3 => "D-Pad Up",
+        4 => "D-Pad Down",
+        5 => "D-Pad Left",
+        6 => "D-Pad Right",
         _ => string.Empty,
     };
 
