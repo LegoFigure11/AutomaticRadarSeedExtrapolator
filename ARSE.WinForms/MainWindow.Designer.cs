@@ -187,6 +187,9 @@ namespace ARSE.WinForms;
         B_Y = new Button();
         B_Minus = new Button();
         TB_Input = new TextBox();
+        menuStrip1 = new MenuStrip();
+        shortcutsToolStripMenuItem = new ToolStripMenuItem();
+        findSafeAdvanceToolStripMenuItem = new ToolStripMenuItem();
         GB_Connection.SuspendLayout();
         GB_Seed.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
@@ -213,6 +216,7 @@ namespace ARSE.WinForms;
         groupBox1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)NUD_ChainCount).BeginInit();
         ((System.ComponentModel.ISupportInitialize)NUD_Delay).BeginInit();
+        menuStrip1.SuspendLayout();
         SuspendLayout();
         // 
         // GB_Connection
@@ -569,7 +573,7 @@ namespace ARSE.WinForms;
         DGV_ResultsContinuation.ReadOnly = true;
         DGV_ResultsContinuation.RowHeadersVisible = false;
         DGV_ResultsContinuation.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        DGV_ResultsContinuation.Size = new Size(506, 309);
+        DGV_ResultsContinuation.Size = new Size(506, 293);
         DGV_ResultsContinuation.TabIndex = 8;
         DGV_ResultsContinuation.CellFormatting += DGV_ResultsContinuation_CellFormatting;
         // 
@@ -815,7 +819,7 @@ namespace ARSE.WinForms;
         DGV_ResultsPokemon.ReadOnly = true;
         DGV_ResultsPokemon.RowHeadersVisible = false;
         DGV_ResultsPokemon.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        DGV_ResultsPokemon.Size = new Size(922, 309);
+        DGV_ResultsPokemon.Size = new Size(922, 293);
         DGV_ResultsPokemon.TabIndex = 125;
         DGV_ResultsPokemon.CellFormatting += DGV_ResultsPokemon_CellFormatting;
         // 
@@ -1833,6 +1837,32 @@ namespace ARSE.WinForms;
         TB_Input.Visible = false;
         TB_Input.KeyDown += TB_Input_KeyDown;
         // 
+        // menuStrip1
+        // 
+        menuStrip1.Dock = DockStyle.Bottom;
+        menuStrip1.Items.AddRange(new ToolStripItem[] { shortcutsToolStripMenuItem });
+        menuStrip1.Location = new Point(0, 603);
+        menuStrip1.Name = "menuStrip1";
+        menuStrip1.Size = new Size(1479, 24);
+        menuStrip1.TabIndex = 139;
+        menuStrip1.Text = "menuStrip1";
+        // 
+        // shortcutsToolStripMenuItem
+        // 
+        shortcutsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { findSafeAdvanceToolStripMenuItem });
+        shortcutsToolStripMenuItem.Name = "shortcutsToolStripMenuItem";
+        shortcutsToolStripMenuItem.Size = new Size(69, 20);
+        shortcutsToolStripMenuItem.Text = "Shortcuts";
+        // 
+        // findSafeAdvanceToolStripMenuItem
+        // 
+        findSafeAdvanceToolStripMenuItem.Enabled = false;
+        findSafeAdvanceToolStripMenuItem.Name = "findSafeAdvanceToolStripMenuItem";
+        findSafeAdvanceToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Q;
+        findSafeAdvanceToolStripMenuItem.Size = new Size(214, 22);
+        findSafeAdvanceToolStripMenuItem.Text = "Find Safe Advance";
+        findSafeAdvanceToolStripMenuItem.Click += findSafeAdvanceToolStripMenuItem_Click;
+        // 
         // MainWindow
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1885,7 +1915,9 @@ namespace ARSE.WinForms;
         Controls.Add(GB_Seed);
         Controls.Add(GB_Connection);
         Controls.Add(GB_SAVInfo);
+        Controls.Add(menuStrip1);
         Icon = (Icon)resources.GetObject("$this.Icon");
+        MainMenuStrip = menuStrip1;
         Name = "MainWindow";
         Text = "Automatic Radar Seed Extrapolator";
         FormClosing += MainWindow_FormClosing;
@@ -1921,6 +1953,8 @@ namespace ARSE.WinForms;
         groupBox1.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)NUD_ChainCount).EndInit();
         ((System.ComponentModel.ISupportInitialize)NUD_Delay).EndInit();
+        menuStrip1.ResumeLayout(false);
+        menuStrip1.PerformLayout();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -2082,5 +2116,8 @@ namespace ARSE.WinForms;
     private Label L_MonInitial;
     private TextBox TB_MonAdv;
     private TextBox TB_MonInitial;
+    private MenuStrip menuStrip1;
+    private ToolStripMenuItem shortcutsToolStripMenuItem;
+    private ToolStripMenuItem findSafeAdvanceToolStripMenuItem;
 }
 

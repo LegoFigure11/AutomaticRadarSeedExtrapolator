@@ -164,7 +164,7 @@ public partial class MainWindow : Form
 
                 await ConnectionWrapper.DoTurboCommand("Release Stick", token).ConfigureAwait(false);
 
-                SetControlEnabledState(true, B_Disconnect, B_CopyToInitial, B_Forecast, B_ReadChainCount, B_ReadChainSpecies);
+                SetControlEnabledState(true, B_Disconnect, B_CopyToInitial, B_Forecast, B_ReadChainCount, B_ReadChainSpecies, findSafeAdvanceToolStripMenuItem);
 #if DEBUG
                 SetControlVisibleState(true, B_A, B_B, B_X, B_Y, B_Up, B_Down, B_Left, B_Right, B_Minus, TB_Input);
 #endif
@@ -1150,6 +1150,11 @@ public partial class MainWindow : Form
         }
 
         row.Cells[14].Style.Font = result.Height is not "XXXL (255)" and not "XXXS (0)" ? row.DefaultCellStyle.Font : BoldFont;
+    }
+
+    private void findSafeAdvanceToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        B_Forecast_Click(sender, e);
     }
 }
 
