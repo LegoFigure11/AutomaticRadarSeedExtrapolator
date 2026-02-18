@@ -1935,7 +1935,6 @@ namespace ARSE.WinForms;
         Icon = (Icon)resources.GetObject("$this.Icon");
         MainMenuStrip = menuStrip1;
         Name = "MainWindow";
-        Text = "Automatic Radar Seed Extrapolator";
         FormClosing += MainWindow_FormClosing;
         Load += MainWindow_Load;
         GB_Connection.ResumeLayout(false);
