@@ -165,6 +165,9 @@ public partial class MainWindow : Form
                 await ConnectionWrapper.DoTurboCommand("Release Stick", token).ConfigureAwait(false);
 
                 SetControlEnabledState(true, B_Disconnect, B_CopyToInitial, B_Forecast, B_ReadChainCount, B_ReadChainSpecies);
+#if DEBUG
+                SetControlVisibleState(true, B_A, B_B, B_X, B_Y, B_Up, B_Down, B_Left, B_Right, B_Minus, TB_Input);
+#endif
 
                 UpdateStatus("Monitoring RNG State...");
                 try
@@ -342,6 +345,20 @@ public partial class MainWindow : Form
                 Invoke(() => c.Enabled = state);
             else
                 c.Enabled = state;
+        }
+    }
+
+    public void SetControlVisibleState(bool state, params object[] obj)
+    {
+        foreach (object o in obj)
+        {
+            if (o is not Control c)
+                continue;
+
+            if (InvokeRequired)
+                Invoke(() => c.Visible = state);
+            else
+                c.Visible = state;
         }
     }
 
@@ -831,14 +848,14 @@ public partial class MainWindow : Form
 
                         var n = Environment.NewLine;
 
-                        string form = pk.Form == 0 ? string.Empty : $"-{pk.Form}";
-                        string gender = pk.Gender switch
+                        var form = pk.Form == 0 ? string.Empty : $"-{pk.Form}";
+                        var gender = pk.Gender switch
                         {
                             0 => " (M)",
                             1 => " (F)",
                             _ => string.Empty,
                         };
-                        string shiny = pk.ShinyXor switch
+                        var shiny = pk.ShinyXor switch
                         {
                             0 => "■ - ",
                             < 16 => "★ - ",
@@ -846,31 +863,16 @@ public partial class MainWindow : Form
                         };
 
 
-                        string item = pk.HeldItem > 0 ? $" @ {Strings.Item[pk.HeldItem]}" : string.Empty;
+                        var item = pk.HeldItem > 0 ? $" @ {Strings.Item[pk.HeldItem]}" : string.Empty;
 
-                        string scale = $"Height: {PokeSizeDetailedUtil.GetSizeRating(pk.HeightScalar)} ({pk.HeightScalar})";
+                        var scale = $"Height: {PokeSizeDetailedUtil.GetSizeRating(pk.HeightScalar)} ({pk.HeightScalar})";
 
-                        string moves = string.Empty;
+                        var moves = pk.Moves.TakeWhile(move => move != 0).Aggregate(string.Empty, (current, move) => current + $"{n}- {Strings.Move[move]}");
 
-
-                        foreach (int move in pk.Moves)
-                        {
-                            if (move == 0) break;
-                            moves += $"{n}- {Strings.Move[move]}";
-                        }
-
-                        string output = $"{shiny}{(Species)pk.Species}{form}{gender}{item}{n}EC: {pk.EncryptionConstant:X8}{n}PID: {pk.PID:X8}{n}{Strings.Natures[(int)pk.Nature]} Nature{n}Ability: {Strings.Ability[pk.Ability]}{n}IVs: {pk.IV_HP}/{pk.IV_ATK}/{pk.IV_DEF}/{pk.IV_SPA}/{pk.IV_SPD}/{pk.IV_SPE}{n}{scale}{moves}";
+                        var output = $"{shiny}{(Species)pk.Species}{form}{gender}{item}{n}EC: {pk.EncryptionConstant:X8}{n}PID: {pk.PID:X8}{n}{Strings.Natures[(int)pk.Nature]} Nature{n}Ability: {Strings.Ability[pk.Ability]}{n}IVs: {pk.IV_HP}/{pk.IV_ATK}/{pk.IV_DEF}/{pk.IV_SPA}/{pk.IV_SPD}/{pk.IV_SPE}{n}{scale}{moves}";
 
                         readPause = false;
-                        /*SetPictureBoxImage(pk.Sprite(), PB_PokemonSprite);
-                        if (HasRibbon)
-                        {
-                            SetPictureBoxImage(RibbonSpriteUtil.GetRibbonSprite(mark)!, PB_MarkSprite);
-                        }
-                        else
-                        {
-                            PB_MarkSprite.Image = null;
-                        }*/
+                        //SetPictureBoxImage(pk.Sprite(), PB_PokemonSprite);
                         SetTextBoxText(output, TB_Wild);
                         //SetControlEnabledState(true, B_CopyToFilter);
                     }
@@ -892,7 +894,7 @@ public partial class MainWindow : Form
         auto = true;
     }
 
-    private void button6_Click(object sender, EventArgs e)
+    private void B_Up_Click(object sender, EventArgs e)
     {
         if (ConnectionWrapper.Connected)
         {
@@ -910,7 +912,7 @@ public partial class MainWindow : Form
         }
     }
 
-    private void button3_Click(object sender, EventArgs e)
+    private void B_Left_Click(object sender, EventArgs e)
     {
         if (ConnectionWrapper.Connected)
         {
@@ -928,7 +930,7 @@ public partial class MainWindow : Form
         }
     }
 
-    private void button7_Click(object sender, EventArgs e)
+    private void B_Down_Click(object sender, EventArgs e)
     {
         if (ConnectionWrapper.Connected)
         {
@@ -946,7 +948,7 @@ public partial class MainWindow : Form
         }
     }
 
-    private void button5_Click(object sender, EventArgs e)
+    private void B_Right_Click(object sender, EventArgs e)
     {
         if (ConnectionWrapper.Connected)
         {
@@ -964,7 +966,7 @@ public partial class MainWindow : Form
         }
     }
 
-    private void button12_Click_1(object sender, EventArgs e)
+    private void B_Minus_Click(object sender, EventArgs e)
     {
         if (ConnectionWrapper.Connected)
         {
@@ -982,7 +984,7 @@ public partial class MainWindow : Form
         }
     }
 
-    private void button9_Click(object sender, EventArgs e)
+    private void B_A_Click(object sender, EventArgs e)
     {
         if (ConnectionWrapper.Connected)
         {
@@ -1000,7 +1002,7 @@ public partial class MainWindow : Form
         }
     }
 
-    private void button4_Click(object sender, EventArgs e)
+    private void B_B_Click(object sender, EventArgs e)
     {
         if (ConnectionWrapper.Connected)
         {
@@ -1018,7 +1020,7 @@ public partial class MainWindow : Form
         }
     }
 
-    private void button8_Click(object sender, EventArgs e)
+    private void B_X_Click(object sender, EventArgs e)
     {
         if (ConnectionWrapper.Connected)
         {
@@ -1036,7 +1038,7 @@ public partial class MainWindow : Form
         }
     }
 
-    private void button10_Click(object sender, EventArgs e)
+    private void B_Y_Click(object sender, EventArgs e)
     {
         if (ConnectionWrapper.Connected)
         {

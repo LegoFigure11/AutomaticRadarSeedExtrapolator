@@ -173,15 +173,15 @@ namespace ARSE.WinForms;
         label7 = new Label();
         TB_Target = new TextBox();
         B_HitTarget = new Button();
-        button3 = new Button();
-        button5 = new Button();
-        button6 = new Button();
-        button7 = new Button();
-        button4 = new Button();
-        button8 = new Button();
-        button9 = new Button();
-        button10 = new Button();
-        button12 = new Button();
+        B_Left = new Button();
+        B_Right = new Button();
+        B_Up = new Button();
+        B_Down = new Button();
+        B_B = new Button();
+        B_X = new Button();
+        B_A = new Button();
+        B_Y = new Button();
+        B_Minus = new Button();
         TB_Input = new TextBox();
         GB_Connection.SuspendLayout();
         GB_Seed.SuspendLayout();
@@ -1628,95 +1628,104 @@ namespace ARSE.WinForms;
         B_HitTarget.UseVisualStyleBackColor = true;
         B_HitTarget.Click += B_HitTarget_Click;
         // 
-        // button3
+        // B_Left
         // 
-        button3.Location = new Point(1234, 226);
-        button3.Name = "button3";
-        button3.Size = new Size(25, 25);
-        button3.TabIndex = 140;
-        button3.Text = "←";
-        button3.UseVisualStyleBackColor = true;
-        button3.Click += button3_Click;
+        B_Left.Location = new Point(1234, 226);
+        B_Left.Name = "B_Left";
+        B_Left.Size = new Size(25, 25);
+        B_Left.TabIndex = 140;
+        B_Left.Text = "←";
+        B_Left.UseVisualStyleBackColor = true;
+        B_Left.Visible = false;
+        B_Left.Click += B_Left_Click;
         // 
-        // button5
+        // B_Right
         // 
-        button5.Location = new Point(1280, 226);
-        button5.Name = "button5";
-        button5.Size = new Size(25, 25);
-        button5.TabIndex = 142;
-        button5.Text = "→";
-        button5.UseVisualStyleBackColor = true;
-        button5.Click += button5_Click;
+        B_Right.Location = new Point(1280, 226);
+        B_Right.Name = "B_Right";
+        B_Right.Size = new Size(25, 25);
+        B_Right.TabIndex = 142;
+        B_Right.Text = "→";
+        B_Right.UseVisualStyleBackColor = true;
+        B_Right.Visible = false;
+        B_Right.Click += B_Right_Click;
         // 
-        // button6
+        // B_Up
         // 
-        button6.Location = new Point(1257, 203);
-        button6.Name = "button6";
-        button6.Size = new Size(25, 25);
-        button6.TabIndex = 143;
-        button6.Text = "↑";
-        button6.UseVisualStyleBackColor = true;
-        button6.Click += button6_Click;
+        B_Up.Location = new Point(1257, 203);
+        B_Up.Name = "B_Up";
+        B_Up.Size = new Size(25, 25);
+        B_Up.TabIndex = 143;
+        B_Up.Text = "↑";
+        B_Up.UseVisualStyleBackColor = true;
+        B_Up.Visible = false;
+        B_Up.Click += B_Up_Click;
         // 
-        // button7
+        // B_Down
         // 
-        button7.Location = new Point(1257, 249);
-        button7.Name = "button7";
-        button7.Size = new Size(25, 25);
-        button7.TabIndex = 144;
-        button7.Text = "↓";
-        button7.UseVisualStyleBackColor = true;
-        button7.Click += button7_Click;
+        B_Down.Location = new Point(1257, 249);
+        B_Down.Name = "B_Down";
+        B_Down.Size = new Size(25, 25);
+        B_Down.TabIndex = 144;
+        B_Down.Text = "↓";
+        B_Down.UseVisualStyleBackColor = true;
+        B_Down.Visible = false;
+        B_Down.Click += B_Down_Click;
         // 
-        // button4
+        // B_B
         // 
-        button4.Location = new Point(1334, 249);
-        button4.Name = "button4";
-        button4.Size = new Size(25, 25);
-        button4.TabIndex = 148;
-        button4.Text = "B";
-        button4.UseVisualStyleBackColor = true;
-        button4.Click += button4_Click;
+        B_B.Location = new Point(1334, 249);
+        B_B.Name = "B_B";
+        B_B.Size = new Size(25, 25);
+        B_B.TabIndex = 148;
+        B_B.Text = "B";
+        B_B.UseVisualStyleBackColor = true;
+        B_B.Visible = false;
+        B_B.Click += B_B_Click;
         // 
-        // button8
+        // B_X
         // 
-        button8.Location = new Point(1334, 203);
-        button8.Name = "button8";
-        button8.Size = new Size(25, 25);
-        button8.TabIndex = 147;
-        button8.Text = "X";
-        button8.UseVisualStyleBackColor = true;
-        button8.Click += button8_Click;
+        B_X.Location = new Point(1334, 203);
+        B_X.Name = "B_X";
+        B_X.Size = new Size(25, 25);
+        B_X.TabIndex = 147;
+        B_X.Text = "X";
+        B_X.UseVisualStyleBackColor = true;
+        B_X.Visible = false;
+        B_X.Click += B_X_Click;
         // 
-        // button9
+        // B_A
         // 
-        button9.Location = new Point(1357, 226);
-        button9.Name = "button9";
-        button9.Size = new Size(25, 25);
-        button9.TabIndex = 146;
-        button9.Text = "A";
-        button9.UseVisualStyleBackColor = true;
-        button9.Click += button9_Click;
+        B_A.Location = new Point(1357, 226);
+        B_A.Name = "B_A";
+        B_A.Size = new Size(25, 25);
+        B_A.TabIndex = 146;
+        B_A.Text = "A";
+        B_A.UseVisualStyleBackColor = true;
+        B_A.Visible = false;
+        B_A.Click += B_A_Click;
         // 
-        // button10
+        // B_Y
         // 
-        button10.Location = new Point(1311, 226);
-        button10.Name = "button10";
-        button10.Size = new Size(25, 25);
-        button10.TabIndex = 145;
-        button10.Text = "Y";
-        button10.UseVisualStyleBackColor = true;
-        button10.Click += button10_Click;
+        B_Y.Location = new Point(1311, 226);
+        B_Y.Name = "B_Y";
+        B_Y.Size = new Size(25, 25);
+        B_Y.TabIndex = 145;
+        B_Y.Text = "Y";
+        B_Y.UseVisualStyleBackColor = true;
+        B_Y.Visible = false;
+        B_Y.Click += B_Y_Click;
         // 
-        // button12
+        // B_Minus
         // 
-        button12.Location = new Point(1234, 180);
-        button12.Name = "button12";
-        button12.Size = new Size(25, 25);
-        button12.TabIndex = 150;
-        button12.Text = "-";
-        button12.UseVisualStyleBackColor = true;
-        button12.Click += button12_Click_1;
+        B_Minus.Location = new Point(1234, 180);
+        B_Minus.Name = "B_Minus";
+        B_Minus.Size = new Size(25, 25);
+        B_Minus.TabIndex = 150;
+        B_Minus.Text = "-";
+        B_Minus.UseVisualStyleBackColor = true;
+        B_Minus.Visible = false;
+        B_Minus.Click += B_Minus_Click;
         // 
         // TB_Input
         // 
@@ -1728,6 +1737,7 @@ namespace ARSE.WinForms;
         TB_Input.Size = new Size(148, 22);
         TB_Input.TabIndex = 151;
         TB_Input.TextAlign = HorizontalAlignment.Right;
+        TB_Input.Visible = false;
         TB_Input.KeyDown += TB_Input_KeyDown;
         // 
         // MainWindow
@@ -1736,15 +1746,15 @@ namespace ARSE.WinForms;
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(1479, 627);
         Controls.Add(TB_Input);
-        Controls.Add(button12);
-        Controls.Add(button4);
-        Controls.Add(button8);
-        Controls.Add(button9);
-        Controls.Add(button10);
-        Controls.Add(button7);
-        Controls.Add(button6);
-        Controls.Add(button5);
-        Controls.Add(button3);
+        Controls.Add(B_Minus);
+        Controls.Add(B_B);
+        Controls.Add(B_X);
+        Controls.Add(B_A);
+        Controls.Add(B_Y);
+        Controls.Add(B_Down);
+        Controls.Add(B_Up);
+        Controls.Add(B_Right);
+        Controls.Add(B_Left);
         Controls.Add(B_HitTarget);
         Controls.Add(label7);
         Controls.Add(TB_Target);
@@ -1965,15 +1975,15 @@ namespace ARSE.WinForms;
     private Label label7;
     private TextBox TB_Target;
     private Button B_HitTarget;
-    private Button button3;
-    private Button button5;
-    private Button button6;
-    private Button button7;
-    private Button button4;
-    private Button button8;
-    private Button button9;
-    private Button button10;
-    private Button button12;
+    private Button B_Left;
+    private Button B_Right;
+    private Button B_Up;
+    private Button B_Down;
+    private Button B_B;
+    private Button B_X;
+    private Button B_A;
+    private Button B_Y;
+    private Button B_Minus;
     private TextBox TB_Input;
 }
 
