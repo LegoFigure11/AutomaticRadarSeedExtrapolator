@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Text.Json;
 using ARSE.Core.Enums;
 using PKHeX.Core;

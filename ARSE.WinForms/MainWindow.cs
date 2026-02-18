@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using PKHeX.Core;
 using ARSE.Core.Connection;
 using SysBot.Base;

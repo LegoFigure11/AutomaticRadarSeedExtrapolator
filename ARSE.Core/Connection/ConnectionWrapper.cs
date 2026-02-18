@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Net.Sockets;
 using PKHeX.Core;
 using ARSE.Core.Structures;
