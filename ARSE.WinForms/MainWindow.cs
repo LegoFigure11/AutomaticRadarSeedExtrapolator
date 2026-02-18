@@ -27,7 +27,6 @@ public partial class MainWindow : Form
     private long total;
     private bool found;
     private ulong remaining;
-    private bool cali;
     private bool auto;
     private ulong targetAdvance;
 
@@ -184,24 +183,6 @@ public partial class MainWindow : Form
                             {
                                 UpdateStatus($"Primed! {targetAdvance:N0}");
                                 dir = GetTurboCommandFromComboBox(GetComboBoxSelectedIndex(CB_CaliDir) + 3);
-                            }
-                            if (cali)
-                            {
-                                var action = GetTurboCommandFromComboBox(GetComboBoxSelectedIndex(CB_CaliDir) + 3);
-                                await ConnectionWrapper.DoTurboCommand(action, token).ConfigureAwait(false);
-                                var ecs = await Core.RNG.ChainPokemon.GenerateECs(s0, s1);
-                                var pk = new PB8();
-                                do
-                                {
-                                    await Task.Delay(2_000, token).ConfigureAwait(false);
-                                    pk = await ConnectionWrapper.ReadWildPokemon(token).ConfigureAwait(false);
-                                } while (pk.Species <= 0);
-
-                                var ec = pk.EncryptionConstant;
-                                var idx = ecs.IndexOf(ec);
-                                SetNUDValue(Math.Max(0, idx), NUD_Delay);
-                                this.DisplayMessageBox(idx == -1 ? "EC not found!" : $"EC was generated after {idx} advances.", "Calibration Result");
-                                cali = false;
                             }
                             if (forecast && !found)
                             {
@@ -901,11 +882,6 @@ public partial class MainWindow : Form
                 }
             });
         }
-    }
-
-    private void B_Calibrate_Click(object sender, EventArgs e)
-    {
-        cali = true;
     }
 
     private void B_HitTarget_Click(object sender, EventArgs e)

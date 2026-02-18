@@ -151,8 +151,6 @@ namespace ARSE.WinForms;
         L_HPSpacer = new Label();
         NUD_HP_Max = new NumericUpDown();
         NUD_HP_Min = new NumericUpDown();
-        button1 = new Button();
-        button2 = new Button();
         groupBox1 = new GroupBox();
         B_ReadChainSpecies = new Button();
         B_ReadChainCount = new Button();
@@ -168,7 +166,6 @@ namespace ARSE.WinForms;
         CB_Patch = new ComboBox();
         B_ReadWildPokemon = new Button();
         TB_Wild = new TextBox();
-        B_Calibrate = new Button();
         CB_CaliDir = new ComboBox();
         L_CaliDir = new Label();
         L_Delay = new Label();
@@ -1409,24 +1406,6 @@ namespace ARSE.WinForms;
         NUD_HP_Min.Size = new Size(32, 23);
         NUD_HP_Min.TabIndex = 122;
         // 
-        // button1
-        // 
-        button1.Location = new Point(230, -1);
-        button1.Name = "button1";
-        button1.Size = new Size(288, 25);
-        button1.TabIndex = 127;
-        button1.Text = "Show Wild Generator >>";
-        button1.UseVisualStyleBackColor = true;
-        // 
-        // button2
-        // 
-        button2.Location = new Point(545, -1);
-        button2.Name = "button2";
-        button2.Size = new Size(288, 25);
-        button2.TabIndex = 128;
-        button2.Text = "<< Hide Wild Generator";
-        button2.UseVisualStyleBackColor = true;
-        // 
         // groupBox1
         // 
         groupBox1.Controls.Add(B_ReadChainSpecies);
@@ -1581,16 +1560,6 @@ namespace ARSE.WinForms;
         TB_Wild.TabIndex = 131;
         TB_Wild.TabStop = false;
         TB_Wild.Text = "Shiny - Species (Gender) @ Item\r\nEC: WWWWWWWW\r\nPID: WWWWWWWW\r\nWWWWWWW Nature\r\nAbility: WWWWWWWWWW\r\nIVs: 22/22/22/22/22/22\r\nHeight: 255 (XXXL)\r\nMark: WWWWWWWWWW\r\n- Move 1\r\n- Move 2\r\n- Move 3\r\n- Move 4";
-        // 
-        // B_Calibrate
-        // 
-        B_Calibrate.Location = new Point(1233, 56);
-        B_Calibrate.Name = "B_Calibrate";
-        B_Calibrate.Size = new Size(181, 25);
-        B_Calibrate.TabIndex = 132;
-        B_Calibrate.Text = "Calibrate Delay";
-        B_Calibrate.UseVisualStyleBackColor = true;
-        B_Calibrate.Click += B_Calibrate_Click;
         // 
         // CB_CaliDir
         // 
@@ -1783,12 +1752,9 @@ namespace ARSE.WinForms;
         Controls.Add(NUD_Delay);
         Controls.Add(L_CaliDir);
         Controls.Add(CB_CaliDir);
-        Controls.Add(B_Calibrate);
         Controls.Add(TB_Wild);
         Controls.Add(B_ReadWildPokemon);
         Controls.Add(groupBox1);
-        Controls.Add(button2);
-        Controls.Add(button1);
         Controls.Add(GB_Filters);
         Controls.Add(DGV_ResultsPokemon);
         Controls.Add(B_PokemonSearch);
@@ -1958,8 +1924,6 @@ namespace ARSE.WinForms;
     private Label L_HPSpacer;
     private NumericUpDown NUD_HP_Max;
     private NumericUpDown NUD_HP_Min;
-    private Button button1;
-    private Button button2;
     private GroupBox groupBox1;
     private Label L_Patch;
     private ComboBox CB_Patch;
@@ -1994,7 +1958,6 @@ namespace ARSE.WinForms;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     private Button B_ReadWildPokemon;
     private TextBox TB_Wild;
-    private Button B_Calibrate;
     public ComboBox CB_CaliDir;
     private Label L_CaliDir;
     private Label L_Delay;
