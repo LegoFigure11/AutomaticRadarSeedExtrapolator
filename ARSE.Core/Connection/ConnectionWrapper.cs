@@ -162,11 +162,6 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
         return (await Connection.ReadBytesAbsoluteAsync(RadarStepCounterOffset, 1, token).ConfigureAwait(false))[0];
     }
 
-    public async Task SetStepCount(CancellationToken token)
-    {
-        await Connection.WriteBytesAbsoluteAsync([CHARGED_STEP_COUNT], RadarStepCounterOffset, token).ConfigureAwait(false);
-    }
-
     public async Task RechargeRadar(CancellationToken token)
     {
         var i = await GetStepCount(token).ConfigureAwait(false);
@@ -184,24 +179,10 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
         }
     }
 
-    public async Task<ulong> ResolvePointer(IReadOnlyList<long> jumps, CancellationToken token)
-    {
-        var command = PointerAll(jumps, CRLF);
-        var res = await Connection.ReadRaw(command, sizeof(ulong), token).ConfigureAwait(false);
-        Array.Reverse(res, 0, 8);
-        return BitConverter.ToUInt64(res, 0);
-    }
-
     public async Task PressHOME(int sleep, CancellationToken token)
     {
         await Connection.SendAsync(Click(HOME, CRLF), token).ConfigureAwait(false);
         await Task.Delay(sleep, token).ConfigureAwait(false);
-    }
-
-    public async Task SetMainLoopSleepTime(int ms, CancellationToken token)
-    {
-        var cmd = Configure(SwitchConfigureParameter.mainLoopSleepTime, ms, CRLF);
-        await Connection.SendAsync(cmd, token).ConfigureAwait(false);
     }
 
     public async Task DoTurboCommand(string command, CancellationToken token)
@@ -254,11 +235,6 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
                 };
                 break;
         }
-    }
-
-    public async Task ResetStick(CancellationToken token)
-    {
-        await Connection.SendAsync(SwitchCommand.ResetStick(SwitchStick.LEFT, CRLF), token).ConfigureAwait(false);
     }
 
     public (string TID, string SID) GetIDs()
