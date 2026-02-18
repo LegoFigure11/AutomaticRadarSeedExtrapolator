@@ -1,12 +1,14 @@
-using PKHeX.Core;
+using ARSE.Core;
 using ARSE.Core.Connection;
-using SysBot.Base;
-using System.Globalization;
-using System.Text.Json;
 using ARSE.Core.Enums;
 using ARSE.Core.Interfaces;
-using static ARSE.Core.RNG.Util;
+using PKHeX.Core;
+using SysBot.Base;
+using System.Diagnostics;
+using System.Globalization;
+using System.Text.Json;
 using static ARSE.Core.Encounters;
+using static ARSE.Core.RNG.Util;
 
 namespace ARSE.WinForms;
 
@@ -111,7 +113,7 @@ public partial class MainWindow : Form
         TB_Status.Text = "Not Connected.";
         TB_Wild.Text = string.Empty;
 
-        // CheckForUpdates();
+        CheckForUpdates();
     }
 
     private void Connect(CancellationToken token)
@@ -1294,7 +1296,7 @@ public partial class MainWindow : Form
         var initial = (TextBox)Controls.Find($"TB_Initial", true).FirstOrDefault()!;
         if (string.IsNullOrEmpty(initial.GetText())) SetTextBoxText("0", initial);
         var mon = (TextBox)Controls.Find($"TB_MonInitial", true).FirstOrDefault()!;
-        if (string.IsNullOrEmpty(mon.GetText())) SetTextBoxText("0", initmonial);
+        if (string.IsNullOrEmpty(mon.GetText())) SetTextBoxText("0", mon);
 
         // Advances
         var advances = (TextBox)Controls.Find($"TB_Advances", true).FirstOrDefault()!;
@@ -1326,6 +1328,43 @@ public partial class MainWindow : Form
         // Target
         var tgt = (TextBox)Controls.Find($"TB_Target", true).FirstOrDefault()!;
         if (string.IsNullOrEmpty(tgt.GetText()) || tgt.GetText() is "0") SetTextBoxText("1000", tgt);
+    }
+
+    private void CheckForUpdates()
+    {
+        Task.Run(async () =>
+        {
+            Version? latestVersion;
+            try { latestVersion = Utils.GetLatestVersion(); }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Exception while checking for latest version: {ex}");
+                return;
+            }
+
+            if (latestVersion is null || latestVersion <= CurrentVersion)
+                return;
+
+            while (!IsHandleCreated) // Wait for form to be ready
+                await Task.Delay(2_000).ConfigureAwait(false);
+            await InvokeAsync(() => NotifyNewVersionAvailable(latestVersion));
+        });
+    }
+
+    private void NotifyNewVersionAvailable(Version version)
+    {
+        Text += $" - Update v{version.Major}.{version.Minor}.{version.Build} available!";
+
+#if !DEBUG
+        using UpdateNotifPopup nup = new(CurrentVersion, version);
+        if (nup.ShowDialog() == DialogResult.OK)
+        {
+            Process.Start(new ProcessStartInfo("https://github.com/LegoFigure11/AutomaticRadarSeedExtrapolator/releases/")
+            {
+                UseShellExecute = true
+            });
+        }
+#endif
     }
 }
 
