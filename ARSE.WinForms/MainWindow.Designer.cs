@@ -63,11 +63,6 @@ namespace ARSE.WinForms;
         L_SafeNum = new Label();
         B_Forecast = new Button();
         DGV_ResultsContinuation = new DataGridView();
-        advancesDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-        seed0DataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-        seed1DataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-        failDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-        rollDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
         ResultsSourceContinuation = new BindingSource(components);
         B_Search = new Button();
         L_Static_Advances = new Label();
@@ -88,23 +83,6 @@ namespace ARSE.WinForms;
         label6 = new Label();
         B_PokemonSearch = new Button();
         DGV_ResultsPokemon = new DataGridView();
-        dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-        Cluster = new DataGridViewTextBoxColumn();
-        Shiny = new DataGridViewTextBoxColumn();
-        Ability = new DataGridViewTextBoxColumn();
-        Nature = new DataGridViewTextBoxColumn();
-        Gender = new DataGridViewTextBoxColumn();
-        H = new DataGridViewTextBoxColumn();
-        A = new DataGridViewTextBoxColumn();
-        B = new DataGridViewTextBoxColumn();
-        C = new DataGridViewTextBoxColumn();
-        D = new DataGridViewTextBoxColumn();
-        S = new DataGridViewTextBoxColumn();
-        EC = new DataGridViewTextBoxColumn();
-        PID = new DataGridViewTextBoxColumn();
-        Height = new DataGridViewTextBoxColumn();
-        dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
-        dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
         ResultsSourcePokemon = new BindingSource(components);
         GB_Filters = new GroupBox();
         NUD_Cluster = new NumericUpDown();
@@ -183,6 +161,28 @@ namespace ARSE.WinForms;
         B_Y = new Button();
         B_Minus = new Button();
         TB_Input = new TextBox();
+        dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+        Cluster = new DataGridViewTextBoxColumn();
+        Shiny = new DataGridViewTextBoxColumn();
+        Ability = new DataGridViewTextBoxColumn();
+        Nature = new DataGridViewTextBoxColumn();
+        Gender = new DataGridViewTextBoxColumn();
+        H = new DataGridViewTextBoxColumn();
+        A = new DataGridViewTextBoxColumn();
+        B = new DataGridViewTextBoxColumn();
+        C = new DataGridViewTextBoxColumn();
+        D = new DataGridViewTextBoxColumn();
+        S = new DataGridViewTextBoxColumn();
+        EC = new DataGridViewTextBoxColumn();
+        PID = new DataGridViewTextBoxColumn();
+        Height = new DataGridViewTextBoxColumn();
+        dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+        dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
+        advancesDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+        seed0DataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+        seed1DataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+        failDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+        rollDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
         GB_Connection.SuspendLayout();
         GB_Seed.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
@@ -569,41 +569,6 @@ namespace ARSE.WinForms;
         DGV_ResultsContinuation.TabIndex = 8;
         DGV_ResultsContinuation.CellFormatting += DGV_ResultsContinuation_CellFormatting;
         // 
-        // advancesDataGridViewTextBoxColumn
-        // 
-        advancesDataGridViewTextBoxColumn.DataPropertyName = "Advances";
-        advancesDataGridViewTextBoxColumn.HeaderText = "Advances";
-        advancesDataGridViewTextBoxColumn.Name = "advancesDataGridViewTextBoxColumn";
-        advancesDataGridViewTextBoxColumn.ReadOnly = true;
-        // 
-        // seed0DataGridViewTextBoxColumn
-        // 
-        seed0DataGridViewTextBoxColumn.DataPropertyName = "Seed0";
-        seed0DataGridViewTextBoxColumn.HeaderText = "Seed0";
-        seed0DataGridViewTextBoxColumn.Name = "seed0DataGridViewTextBoxColumn";
-        seed0DataGridViewTextBoxColumn.ReadOnly = true;
-        // 
-        // seed1DataGridViewTextBoxColumn
-        // 
-        seed1DataGridViewTextBoxColumn.DataPropertyName = "Seed1";
-        seed1DataGridViewTextBoxColumn.HeaderText = "Seed1";
-        seed1DataGridViewTextBoxColumn.Name = "seed1DataGridViewTextBoxColumn";
-        seed1DataGridViewTextBoxColumn.ReadOnly = true;
-        // 
-        // failDataGridViewTextBoxColumn
-        // 
-        failDataGridViewTextBoxColumn.DataPropertyName = "Fail";
-        failDataGridViewTextBoxColumn.HeaderText = "Fail";
-        failDataGridViewTextBoxColumn.Name = "failDataGridViewTextBoxColumn";
-        failDataGridViewTextBoxColumn.ReadOnly = true;
-        // 
-        // rollDataGridViewTextBoxColumn
-        // 
-        rollDataGridViewTextBoxColumn.DataPropertyName = "Roll";
-        rollDataGridViewTextBoxColumn.HeaderText = "Roll";
-        rollDataGridViewTextBoxColumn.Name = "rollDataGridViewTextBoxColumn";
-        rollDataGridViewTextBoxColumn.ReadOnly = true;
-        // 
         // ResultsSourceContinuation
         // 
         ResultsSourceContinuation.DataSource = typeof(Core.Interfaces.RadarContinuationFrame);
@@ -805,125 +770,7 @@ namespace ARSE.WinForms;
         DGV_ResultsPokemon.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         DGV_ResultsPokemon.Size = new Size(922, 309);
         DGV_ResultsPokemon.TabIndex = 125;
-        // 
-        // dataGridViewTextBoxColumn1
-        // 
-        dataGridViewTextBoxColumn1.DataPropertyName = "Advances";
-        dataGridViewTextBoxColumn1.HeaderText = "Advances";
-        dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-        dataGridViewTextBoxColumn1.ReadOnly = true;
-        // 
-        // Cluster
-        // 
-        Cluster.DataPropertyName = "Cluster";
-        Cluster.HeaderText = "Cluster";
-        Cluster.Name = "Cluster";
-        Cluster.ReadOnly = true;
-        // 
-        // Shiny
-        // 
-        Shiny.DataPropertyName = "Shiny";
-        Shiny.HeaderText = "Shiny";
-        Shiny.Name = "Shiny";
-        Shiny.ReadOnly = true;
-        // 
-        // Ability
-        // 
-        Ability.DataPropertyName = "Ability";
-        Ability.HeaderText = "Ability";
-        Ability.Name = "Ability";
-        Ability.ReadOnly = true;
-        // 
-        // Nature
-        // 
-        Nature.DataPropertyName = "Nature";
-        Nature.HeaderText = "Nature";
-        Nature.Name = "Nature";
-        Nature.ReadOnly = true;
-        // 
-        // Gender
-        // 
-        Gender.DataPropertyName = "Gender";
-        Gender.HeaderText = "Gender";
-        Gender.Name = "Gender";
-        Gender.ReadOnly = true;
-        // 
-        // H
-        // 
-        H.DataPropertyName = "H";
-        H.HeaderText = "H";
-        H.Name = "H";
-        H.ReadOnly = true;
-        // 
-        // A
-        // 
-        A.DataPropertyName = "A";
-        A.HeaderText = "A";
-        A.Name = "A";
-        A.ReadOnly = true;
-        // 
-        // B
-        // 
-        B.DataPropertyName = "B";
-        B.HeaderText = "B";
-        B.Name = "B";
-        B.ReadOnly = true;
-        // 
-        // C
-        // 
-        C.DataPropertyName = "C";
-        C.HeaderText = "C";
-        C.Name = "C";
-        C.ReadOnly = true;
-        // 
-        // D
-        // 
-        D.DataPropertyName = "D";
-        D.HeaderText = "D";
-        D.Name = "D";
-        D.ReadOnly = true;
-        // 
-        // S
-        // 
-        S.DataPropertyName = "S";
-        S.HeaderText = "S";
-        S.Name = "S";
-        S.ReadOnly = true;
-        // 
-        // EC
-        // 
-        EC.DataPropertyName = "EC";
-        EC.HeaderText = "EC";
-        EC.Name = "EC";
-        EC.ReadOnly = true;
-        // 
-        // PID
-        // 
-        PID.DataPropertyName = "PID";
-        PID.HeaderText = "PID";
-        PID.Name = "PID";
-        PID.ReadOnly = true;
-        // 
-        // Height
-        // 
-        Height.DataPropertyName = "Height";
-        Height.HeaderText = "Height";
-        Height.Name = "Height";
-        Height.ReadOnly = true;
-        // 
-        // dataGridViewTextBoxColumn2
-        // 
-        dataGridViewTextBoxColumn2.DataPropertyName = "Seed0";
-        dataGridViewTextBoxColumn2.HeaderText = "Seed0";
-        dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-        dataGridViewTextBoxColumn2.ReadOnly = true;
-        // 
-        // dataGridViewTextBoxColumn3
-        // 
-        dataGridViewTextBoxColumn3.DataPropertyName = "Seed1";
-        dataGridViewTextBoxColumn3.HeaderText = "Seed1";
-        dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-        dataGridViewTextBoxColumn3.ReadOnly = true;
+        DGV_ResultsPokemon.CellFormatting += DGV_ResultsPokemon_CellFormatting;
         // 
         // ResultsSourcePokemon
         // 
@@ -1582,7 +1429,7 @@ namespace ARSE.WinForms;
         // L_Delay
         // 
         L_Delay.AutoSize = true;
-        L_Delay.Location = new Point(1234, 85);
+        L_Delay.Location = new Point(1234, 58);
         L_Delay.Name = "L_Delay";
         L_Delay.Size = new Size(39, 15);
         L_Delay.TabIndex = 136;
@@ -1590,7 +1437,7 @@ namespace ARSE.WinForms;
         // 
         // NUD_Delay
         // 
-        NUD_Delay.Location = new Point(1376, 83);
+        NUD_Delay.Location = new Point(1376, 56);
         NUD_Delay.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
         NUD_Delay.Name = "NUD_Delay";
         NUD_Delay.Size = new Size(38, 23);
@@ -1600,7 +1447,7 @@ namespace ARSE.WinForms;
         // label7
         // 
         label7.AutoSize = true;
-        label7.Location = new Point(1231, 110);
+        label7.Location = new Point(1231, 83);
         label7.Name = "label7";
         label7.Size = new Size(42, 15);
         label7.TabIndex = 138;
@@ -1610,7 +1457,7 @@ namespace ARSE.WinForms;
         // 
         TB_Target.CharacterCasing = CharacterCasing.Upper;
         TB_Target.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        TB_Target.Location = new Point(1298, 108);
+        TB_Target.Location = new Point(1298, 81);
         TB_Target.MaxLength = 16;
         TB_Target.Name = "TB_Target";
         TB_Target.Size = new Size(116, 22);
@@ -1620,7 +1467,7 @@ namespace ARSE.WinForms;
         // 
         // B_HitTarget
         // 
-        B_HitTarget.Location = new Point(1233, 132);
+        B_HitTarget.Location = new Point(1233, 105);
         B_HitTarget.Name = "B_HitTarget";
         B_HitTarget.Size = new Size(181, 25);
         B_HitTarget.TabIndex = 139;
@@ -1739,6 +1586,202 @@ namespace ARSE.WinForms;
         TB_Input.TextAlign = HorizontalAlignment.Right;
         TB_Input.Visible = false;
         TB_Input.KeyDown += TB_Input_KeyDown;
+        // 
+        // dataGridViewTextBoxColumn1
+        // 
+        dataGridViewTextBoxColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        dataGridViewTextBoxColumn1.DataPropertyName = "Advances";
+        dataGridViewTextBoxColumn1.HeaderText = "Advances";
+        dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+        dataGridViewTextBoxColumn1.ReadOnly = true;
+        dataGridViewTextBoxColumn1.Width = 83;
+        // 
+        // Cluster
+        // 
+        Cluster.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        Cluster.DataPropertyName = "Cluster";
+        Cluster.HeaderText = "Cluster";
+        Cluster.Name = "Cluster";
+        Cluster.ReadOnly = true;
+        Cluster.Width = 69;
+        // 
+        // Shiny
+        // 
+        Shiny.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        Shiny.DataPropertyName = "Shiny";
+        Shiny.HeaderText = "Shiny";
+        Shiny.Name = "Shiny";
+        Shiny.ReadOnly = true;
+        Shiny.Width = 61;
+        // 
+        // Ability
+        // 
+        Ability.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        Ability.DataPropertyName = "Ability";
+        Ability.HeaderText = "Ability";
+        Ability.Name = "Ability";
+        Ability.ReadOnly = true;
+        Ability.Width = 66;
+        // 
+        // Nature
+        // 
+        Nature.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        Nature.DataPropertyName = "Nature";
+        Nature.HeaderText = "Nature";
+        Nature.Name = "Nature";
+        Nature.ReadOnly = true;
+        Nature.Width = 68;
+        // 
+        // Gender
+        // 
+        Gender.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        Gender.DataPropertyName = "Gender";
+        Gender.HeaderText = "Gender";
+        Gender.Name = "Gender";
+        Gender.ReadOnly = true;
+        Gender.Width = 70;
+        // 
+        // H
+        // 
+        H.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+        H.DataPropertyName = "H";
+        H.HeaderText = "HP";
+        H.Name = "H";
+        H.ReadOnly = true;
+        H.Width = 48;
+        // 
+        // A
+        // 
+        A.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+        A.DataPropertyName = "A";
+        A.HeaderText = "Atk";
+        A.Name = "A";
+        A.ReadOnly = true;
+        A.Width = 50;
+        // 
+        // B
+        // 
+        B.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+        B.DataPropertyName = "B";
+        B.HeaderText = "Def";
+        B.Name = "B";
+        B.ReadOnly = true;
+        B.Width = 50;
+        // 
+        // C
+        // 
+        C.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+        C.DataPropertyName = "C";
+        C.HeaderText = "SpA";
+        C.Name = "C";
+        C.ReadOnly = true;
+        C.Width = 53;
+        // 
+        // D
+        // 
+        D.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+        D.DataPropertyName = "D";
+        D.HeaderText = "SpD";
+        D.Name = "D";
+        D.ReadOnly = true;
+        D.Width = 53;
+        // 
+        // S
+        // 
+        S.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+        S.DataPropertyName = "S";
+        S.HeaderText = "Spe";
+        S.Name = "S";
+        S.ReadOnly = true;
+        S.Width = 51;
+        // 
+        // EC
+        // 
+        EC.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        EC.DataPropertyName = "EC";
+        EC.HeaderText = "EC";
+        EC.Name = "EC";
+        EC.ReadOnly = true;
+        EC.Width = 46;
+        // 
+        // PID
+        // 
+        PID.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        PID.DataPropertyName = "PID";
+        PID.HeaderText = "PID";
+        PID.Name = "PID";
+        PID.ReadOnly = true;
+        PID.Width = 50;
+        // 
+        // Height
+        // 
+        Height.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        Height.DataPropertyName = "Height";
+        Height.HeaderText = "Height";
+        Height.Name = "Height";
+        Height.ReadOnly = true;
+        Height.Width = 68;
+        // 
+        // dataGridViewTextBoxColumn2
+        // 
+        dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        dataGridViewTextBoxColumn2.DataPropertyName = "Seed0";
+        dataGridViewTextBoxColumn2.HeaderText = "Seed0";
+        dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+        dataGridViewTextBoxColumn2.ReadOnly = true;
+        dataGridViewTextBoxColumn2.Width = 63;
+        // 
+        // dataGridViewTextBoxColumn3
+        // 
+        dataGridViewTextBoxColumn3.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        dataGridViewTextBoxColumn3.DataPropertyName = "Seed1";
+        dataGridViewTextBoxColumn3.HeaderText = "Seed1";
+        dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+        dataGridViewTextBoxColumn3.ReadOnly = true;
+        dataGridViewTextBoxColumn3.Width = 63;
+        // 
+        // advancesDataGridViewTextBoxColumn
+        // 
+        advancesDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        advancesDataGridViewTextBoxColumn.DataPropertyName = "Advances";
+        advancesDataGridViewTextBoxColumn.HeaderText = "Advances";
+        advancesDataGridViewTextBoxColumn.Name = "advancesDataGridViewTextBoxColumn";
+        advancesDataGridViewTextBoxColumn.ReadOnly = true;
+        advancesDataGridViewTextBoxColumn.Width = 83;
+        // 
+        // seed0DataGridViewTextBoxColumn
+        // 
+        seed0DataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+        seed0DataGridViewTextBoxColumn.DataPropertyName = "Seed0";
+        seed0DataGridViewTextBoxColumn.HeaderText = "Seed0";
+        seed0DataGridViewTextBoxColumn.Name = "seed0DataGridViewTextBoxColumn";
+        seed0DataGridViewTextBoxColumn.ReadOnly = true;
+        // 
+        // seed1DataGridViewTextBoxColumn
+        // 
+        seed1DataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+        seed1DataGridViewTextBoxColumn.DataPropertyName = "Seed1";
+        seed1DataGridViewTextBoxColumn.HeaderText = "Seed1";
+        seed1DataGridViewTextBoxColumn.Name = "seed1DataGridViewTextBoxColumn";
+        seed1DataGridViewTextBoxColumn.ReadOnly = true;
+        // 
+        // failDataGridViewTextBoxColumn
+        // 
+        failDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        failDataGridViewTextBoxColumn.DataPropertyName = "Fail";
+        failDataGridViewTextBoxColumn.HeaderText = "Fail";
+        failDataGridViewTextBoxColumn.Name = "failDataGridViewTextBoxColumn";
+        failDataGridViewTextBoxColumn.ReadOnly = true;
+        failDataGridViewTextBoxColumn.Width = 50;
+        // 
+        // rollDataGridViewTextBoxColumn
+        // 
+        rollDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        rollDataGridViewTextBoxColumn.DataPropertyName = "Roll";
+        rollDataGridViewTextBoxColumn.HeaderText = "Roll";
+        rollDataGridViewTextBoxColumn.Name = "rollDataGridViewTextBoxColumn";
+        rollDataGridViewTextBoxColumn.ReadOnly = true;
+        rollDataGridViewTextBoxColumn.Width = 52;
         // 
         // MainWindow
         // 
@@ -1866,11 +1909,6 @@ namespace ARSE.WinForms;
     private Button B_Forecast;
     private DataGridView DGV_ResultsContinuation;
     private BindingSource ResultsSourceContinuation;
-    private DataGridViewTextBoxColumn advancesDataGridViewTextBoxColumn;
-    private DataGridViewTextBoxColumn seed0DataGridViewTextBoxColumn;
-    private DataGridViewTextBoxColumn seed1DataGridViewTextBoxColumn;
-    private DataGridViewTextBoxColumn failDataGridViewTextBoxColumn;
-    private DataGridViewTextBoxColumn rollDataGridViewTextBoxColumn;
     private Button B_Search;
     private Label L_Static_Advances;
     private Label L_Static_Initial;
@@ -1949,23 +1987,6 @@ namespace ARSE.WinForms;
     private Button B_ReadChainSpecies;
     private Label L_Cluster;
     private NumericUpDown NUD_Cluster;
-    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-    private DataGridViewTextBoxColumn Cluster;
-    private DataGridViewTextBoxColumn Shiny;
-    private DataGridViewTextBoxColumn Ability;
-    private DataGridViewTextBoxColumn Nature;
-    private DataGridViewTextBoxColumn Gender;
-    private DataGridViewTextBoxColumn H;
-    private DataGridViewTextBoxColumn A;
-    private DataGridViewTextBoxColumn B;
-    private DataGridViewTextBoxColumn C;
-    private DataGridViewTextBoxColumn D;
-    private DataGridViewTextBoxColumn S;
-    private DataGridViewTextBoxColumn EC;
-    private DataGridViewTextBoxColumn PID;
-    private DataGridViewTextBoxColumn Height;
-    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     private Button B_ReadWildPokemon;
     private TextBox TB_Wild;
     public ComboBox CB_CaliDir;
@@ -1985,5 +2006,27 @@ namespace ARSE.WinForms;
     private Button B_Y;
     private Button B_Minus;
     private TextBox TB_Input;
+    private DataGridViewTextBoxColumn advancesDataGridViewTextBoxColumn;
+    private DataGridViewTextBoxColumn seed0DataGridViewTextBoxColumn;
+    private DataGridViewTextBoxColumn seed1DataGridViewTextBoxColumn;
+    private DataGridViewTextBoxColumn failDataGridViewTextBoxColumn;
+    private DataGridViewTextBoxColumn rollDataGridViewTextBoxColumn;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+    private DataGridViewTextBoxColumn Cluster;
+    private DataGridViewTextBoxColumn Shiny;
+    private DataGridViewTextBoxColumn Ability;
+    private DataGridViewTextBoxColumn Nature;
+    private DataGridViewTextBoxColumn Gender;
+    private DataGridViewTextBoxColumn H;
+    private DataGridViewTextBoxColumn A;
+    private DataGridViewTextBoxColumn B;
+    private DataGridViewTextBoxColumn C;
+    private DataGridViewTextBoxColumn D;
+    private DataGridViewTextBoxColumn S;
+    private DataGridViewTextBoxColumn EC;
+    private DataGridViewTextBoxColumn PID;
+    private DataGridViewTextBoxColumn Height;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+    private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
 }
 

@@ -103,6 +103,7 @@ public partial class MainWindow : Form
 
         CB_Rate.SelectedIndex = 4;
         CB_Action.SelectedIndex = 1;
+        SetComboBoxSelectedIndex(0, CB_CaliDir, CB_Patch, CB_Lead, CB_Filter_Shiny, CB_Filter_Height);
 
         SetTextBoxText("0", TB_Seed0, TB_Seed1);
         SetTextBoxText(string.Empty, TB_CurrentAdvances, TB_AdvancesIncrease, TB_CurrentS0, TB_CurrentS1);
@@ -1112,6 +1113,42 @@ public partial class MainWindow : Form
                 }
             });
         }
+    }
+
+    public static readonly Font BoldFont = new("Microsoft Sans Serif", 8, FontStyle.Bold);
+    private void DGV_ResultsPokemon_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+    {
+        var index = e.RowIndex;
+        if (PokemonFrames.Count <= index) return;
+        var row = DGV_ResultsPokemon.Rows[index];
+        var result = PokemonFrames[index];
+
+        if (result.Shiny is "Square" && GetComboBoxSelectedIndex(CB_Patch) != 1) row.DefaultCellStyle.BackColor = Color.LightCyan;
+        else if (result.Shiny.Contains("Star")) row.DefaultCellStyle.BackColor = Color.Aqua;
+        else row.DefaultCellStyle.BackColor = row.Index % 2 == 0 ? Color.White : Color.WhiteSmoke;
+
+        const int iv = 6;
+        byte[] ivs = [result.H, result.A, result.B, result.C, result.D, result.S];
+        for (var i = 0; i < ivs.Length; i++)
+        {
+            if (ivs[i] == 0)
+            {
+                row.Cells[iv + i].Style.Font = BoldFont;
+                row.Cells[iv + i].Style.ForeColor = Color.OrangeRed;
+            }
+            else if (ivs[i] == 31)
+            {
+                row.Cells[iv + i].Style.Font = BoldFont;
+                row.Cells[iv + i].Style.ForeColor = Color.SeaGreen;
+            }
+            else
+            {
+                row.Cells[iv + i].Style.ForeColor = row.DefaultCellStyle.ForeColor;
+                row.Cells[iv + i].Style.Font = row.DefaultCellStyle.Font;
+            }
+        }
+
+        row.Cells[14].Style.Font = result.Height is not "XXXL (255)" and not "XXXS (0)" ? row.DefaultCellStyle.Font : BoldFont;
     }
 }
 
