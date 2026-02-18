@@ -1073,7 +1073,7 @@ public partial class MainWindow : Form
 
     private void TB_Input_KeyDown(object sender, KeyEventArgs e)
     {
-        e.Handled = true;
+        e.SuppressKeyPress = true;
         TB_Input.Text = "";
         if (ConnectionWrapper.Connected)
         {
