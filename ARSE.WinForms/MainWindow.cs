@@ -1156,5 +1156,130 @@ public partial class MainWindow : Form
     {
         B_Forecast_Click(sender, e);
     }
+
+    private void AllowOnlyHex_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        var c = e.KeyChar;
+        if (c != (char)Keys.Back && !char.IsControl(c))
+        {
+            if (!c.IsHex())
+            {
+                System.Media.SystemSounds.Asterisk.Play();
+                e.Handled = true;
+            }
+        }
+    }
+
+    public void AllowOnlyNumerical_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        var c = e.KeyChar;
+        if (c != (char)Keys.Back && !char.IsControl(c))
+        {
+            if (!c.IsDec())
+            {
+                System.Media.SystemSounds.Asterisk.Play();
+                e.Handled = true;
+            }
+        }
+    }
+
+    public void AllowOnlyIP_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        var c = e.KeyChar;
+        if (c != (char)Keys.Back && !char.IsControl(c))
+        {
+            if (!c.IsDec(true))
+            {
+                System.Media.SystemSounds.Asterisk.Play();
+                e.Handled = true;
+            }
+        }
+    }
+
+    public void State_HandlePaste(object sender, KeyEventArgs e)
+    {
+        if (e is not { Modifiers: Keys.Control, KeyCode: Keys.V } && e is not { Modifiers: Keys.Shift, KeyCode: Keys.Insert }) return;
+        var n = string.Empty;
+        var newline = 0;
+        foreach (char c in Clipboard.GetText())
+        {
+            if (c.IsHex()) n += c;
+            if (c == (char)Keys.Enter) newline++;
+        }
+
+        var l = n.Length;
+        if (l == 0)
+        {
+            Clipboard.Clear();
+            return;
+        }
+        if (l == 32 && newline <= 1)
+        {
+            ((Control)sender).Parent!.Controls.Find("TB_Seed0", true).FirstOrDefault()!.Text = n[..16];
+            ((Control)sender).Parent!.Controls.Find("TB_Seed1", true).FirstOrDefault()!.Text = n[16..32];
+        }
+        else if (l > 16)
+        {
+            ((TextBox)sender).Text = n[..16];
+        }
+        else
+        {
+            Clipboard.SetText(n);
+        }
+    }
+
+    public void Dec_HandlePaste(object sender, KeyEventArgs e)
+    {
+        if (e is not { Modifiers: Keys.Control, KeyCode: Keys.V } && e is not { Modifiers: Keys.Shift, KeyCode: Keys.Insert }) return;
+        var n = string.Empty;
+
+        foreach (char c in Clipboard.GetText())
+        {
+            if (c.IsDec()) n += c;
+        }
+
+        var l = n.Length;
+        var tb = (TextBox)sender;
+        var max = tb.MaxLength;
+        if (l == 0)
+        {
+            Clipboard.Clear();
+        }
+        else if (l > max)
+        {
+            tb.Text = n[..max];
+        }
+        else
+        {
+            Clipboard.SetText(n);
+        }
+    }
+
+    private void IP_HandlePaste(object sender, KeyEventArgs e)
+    {
+        if (e is not { Modifiers: Keys.Control, KeyCode: Keys.V } && e is not { Modifiers: Keys.Shift, KeyCode: Keys.Insert }) return;
+        var n = string.Empty;
+
+        foreach (char c in Clipboard.GetText())
+        {
+            if (c.IsDec(true)) n += c;
+        }
+
+        var l = n.Length;
+        var tb = (TextBox)sender;
+        var max = tb.MaxLength;
+        if (l == 0)
+        {
+            Clipboard.Clear();
+        }
+        else if (l > max)
+        {
+            tb.Text = n[..max];
+        }
+        else
+        {
+            Clipboard.SetText(n);
+        }
+    }
 }
 

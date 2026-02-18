@@ -399,6 +399,8 @@ namespace ARSE.WinForms;
         TB_SwitchIP.TabIndex = 0;
         TB_SwitchIP.Text = "123.123.123.123";
         TB_SwitchIP.TextChanged += TB_SwitchIP_TextChanged;
+        TB_SwitchIP.KeyDown += IP_HandlePaste;
+        TB_SwitchIP.KeyPress += AllowOnlyIP_KeyPress;
         // 
         // GB_Seed
         // 
@@ -441,6 +443,8 @@ namespace ARSE.WinForms;
         TB_Seed1.Size = new Size(118, 22);
         TB_Seed1.TabIndex = 1;
         TB_Seed1.Text = "0123456789ABCDEF";
+        TB_Seed1.KeyDown += State_HandlePaste;
+        TB_Seed1.KeyPress += AllowOnlyHex_KeyPress;
         // 
         // TB_Seed0
         // 
@@ -452,6 +456,8 @@ namespace ARSE.WinForms;
         TB_Seed0.Size = new Size(118, 22);
         TB_Seed0.TabIndex = 0;
         TB_Seed0.Text = "0123456789ABCDEF";
+        TB_Seed0.KeyDown += State_HandlePaste;
+        TB_Seed0.KeyPress += AllowOnlyHex_KeyPress;
         // 
         // GB_SAVInfo
         // 
@@ -663,6 +669,8 @@ namespace ARSE.WinForms;
         TB_Advances.TabIndex = 6;
         TB_Advances.Text = "500";
         TB_Advances.TextAlign = HorizontalAlignment.Right;
+        TB_Advances.KeyDown += Dec_HandlePaste;
+        TB_Advances.KeyPress += AllowOnlyNumerical_KeyPress;
         // 
         // TB_Initial
         // 
@@ -675,6 +683,8 @@ namespace ARSE.WinForms;
         TB_Initial.TabIndex = 5;
         TB_Initial.Text = "0";
         TB_Initial.TextAlign = HorizontalAlignment.Right;
+        TB_Initial.KeyDown += Dec_HandlePaste;
+        TB_Initial.KeyPress += AllowOnlyNumerical_KeyPress;
         // 
         // TB_FailsNext
         // 
@@ -1511,6 +1521,8 @@ namespace ARSE.WinForms;
         TB_MonAdv.TabIndex = 135;
         TB_MonAdv.Text = "500";
         TB_MonAdv.TextAlign = HorizontalAlignment.Right;
+        TB_MonAdv.KeyDown += Dec_HandlePaste;
+        TB_MonAdv.KeyPress += AllowOnlyNumerical_KeyPress;
         // 
         // TB_MonInitial
         // 
@@ -1523,6 +1535,8 @@ namespace ARSE.WinForms;
         TB_MonInitial.TabIndex = 134;
         TB_MonInitial.Text = "0";
         TB_MonInitial.TextAlign = HorizontalAlignment.Right;
+        TB_MonInitial.KeyDown += Dec_HandlePaste;
+        TB_MonInitial.KeyPress += AllowOnlyNumerical_KeyPress;
         // 
         // B_ReadChainSpecies
         // 
@@ -1714,6 +1728,8 @@ namespace ARSE.WinForms;
         TB_Target.TabIndex = 12;
         TB_Target.Text = "0";
         TB_Target.TextAlign = HorizontalAlignment.Right;
+        TB_Target.KeyDown += Dec_HandlePaste;
+        TB_Target.KeyPress += AllowOnlyNumerical_KeyPress;
         // 
         // B_HitTarget
         // 
