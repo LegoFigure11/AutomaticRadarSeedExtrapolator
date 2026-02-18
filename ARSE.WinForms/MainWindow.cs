@@ -498,7 +498,6 @@ public partial class MainWindow : Form
                     this.DisplayMessageBox(ex.Message);
                 }
 
-
                 reset = true;
             }
 #if DEBUG
@@ -572,8 +571,8 @@ public partial class MainWindow : Form
 
     private void B_PokemonSearch_Click(object sender, EventArgs e)
     {
-        var initial = ulong.Parse(TB_Initial.Text);
-        var advances = ulong.Parse(TB_Advances.Text);
+        var initial = ulong.Parse(TB_MonInitial.Text);
+        var advances = ulong.Parse(TB_MonAdv.Text);
 
         var s0 = ulong.Parse(TB_Seed0.Text, NumberStyles.AllowHexSpecifier);
         var s1 = ulong.Parse(TB_Seed1.Text, NumberStyles.AllowHexSpecifier);
@@ -604,9 +603,11 @@ public partial class MainWindow : Form
 
         Task.Run(async () =>
         {
+            SetControlEnabledState(false, B_PokemonSearch);
             results = await Core.RNG.ChainPokemon.Generate(s0, s1, initial, advances, cfg);
             SetBindingSourceDataSource(results, ResultsSourcePokemon);
             PokemonFrames = results;
+            SetControlEnabledState(true, B_PokemonSearch);
         });
     }
 

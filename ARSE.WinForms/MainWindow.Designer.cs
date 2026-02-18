@@ -152,6 +152,10 @@ namespace ARSE.WinForms;
         NUD_HP_Max = new NumericUpDown();
         NUD_HP_Min = new NumericUpDown();
         groupBox1 = new GroupBox();
+        L_MonAdv = new Label();
+        L_MonInitial = new Label();
+        TB_MonAdv = new TextBox();
+        TB_MonInitial = new TextBox();
         B_ReadChainSpecies = new Button();
         B_ReadChainCount = new Button();
         L_Area = new Label();
@@ -1018,7 +1022,7 @@ namespace ARSE.WinForms;
         GB_Filters.Controls.Add(L_HPSpacer);
         GB_Filters.Controls.Add(NUD_HP_Max);
         GB_Filters.Controls.Add(NUD_HP_Min);
-        GB_Filters.Location = new Point(799, 27);
+        GB_Filters.Location = new Point(799, 3);
         GB_Filters.Name = "GB_Filters";
         GB_Filters.Size = new Size(229, 273);
         GB_Filters.TabIndex = 126;
@@ -1451,6 +1455,10 @@ namespace ARSE.WinForms;
         // 
         // groupBox1
         // 
+        groupBox1.Controls.Add(L_MonAdv);
+        groupBox1.Controls.Add(L_MonInitial);
+        groupBox1.Controls.Add(TB_MonAdv);
+        groupBox1.Controls.Add(TB_MonInitial);
         groupBox1.Controls.Add(B_ReadChainSpecies);
         groupBox1.Controls.Add(B_ReadChainCount);
         groupBox1.Controls.Add(L_Area);
@@ -1463,12 +1471,54 @@ namespace ARSE.WinForms;
         groupBox1.Controls.Add(NUD_ChainCount);
         groupBox1.Controls.Add(L_Patch);
         groupBox1.Controls.Add(CB_Patch);
-        groupBox1.Location = new Point(566, 27);
+        groupBox1.Location = new Point(566, 3);
         groupBox1.Name = "groupBox1";
-        groupBox1.Size = new Size(227, 242);
+        groupBox1.Size = new Size(227, 273);
         groupBox1.TabIndex = 129;
         groupBox1.TabStop = false;
         groupBox1.Text = "Generation Criteria";
+        // 
+        // L_MonAdv
+        // 
+        L_MonAdv.AutoSize = true;
+        L_MonAdv.Location = new Point(49, 236);
+        L_MonAdv.Name = "L_MonAdv";
+        L_MonAdv.Size = new Size(15, 15);
+        L_MonAdv.TabIndex = 137;
+        L_MonAdv.Text = "+";
+        // 
+        // L_MonInitial
+        // 
+        L_MonInitial.AutoSize = true;
+        L_MonInitial.Location = new Point(7, 214);
+        L_MonInitial.Name = "L_MonInitial";
+        L_MonInitial.Size = new Size(57, 15);
+        L_MonInitial.TabIndex = 136;
+        L_MonInitial.Text = "Init. Adv.:";
+        // 
+        // TB_MonAdv
+        // 
+        TB_MonAdv.CharacterCasing = CharacterCasing.Upper;
+        TB_MonAdv.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        TB_MonAdv.Location = new Point(70, 234);
+        TB_MonAdv.MaxLength = 16;
+        TB_MonAdv.Name = "TB_MonAdv";
+        TB_MonAdv.Size = new Size(151, 22);
+        TB_MonAdv.TabIndex = 135;
+        TB_MonAdv.Text = "500";
+        TB_MonAdv.TextAlign = HorizontalAlignment.Right;
+        // 
+        // TB_MonInitial
+        // 
+        TB_MonInitial.CharacterCasing = CharacterCasing.Upper;
+        TB_MonInitial.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        TB_MonInitial.Location = new Point(70, 210);
+        TB_MonInitial.MaxLength = 16;
+        TB_MonInitial.Name = "TB_MonInitial";
+        TB_MonInitial.Size = new Size(151, 22);
+        TB_MonInitial.TabIndex = 134;
+        TB_MonInitial.Text = "0";
+        TB_MonInitial.TextAlign = HorizontalAlignment.Right;
         // 
         // B_ReadChainSpecies
         // 
@@ -1585,7 +1635,7 @@ namespace ARSE.WinForms;
         // 
         // B_ReadWildPokemon
         // 
-        B_ReadWildPokemon.Location = new Point(1034, 226);
+        B_ReadWildPokemon.Location = new Point(1034, 275);
         B_ReadWildPokemon.Name = "B_ReadWildPokemon";
         B_ReadWildPokemon.Size = new Size(181, 25);
         B_ReadWildPokemon.TabIndex = 9;
@@ -1595,7 +1645,7 @@ namespace ARSE.WinForms;
         // 
         // TB_Wild
         // 
-        TB_Wild.Location = new Point(1034, 36);
+        TB_Wild.Location = new Point(1034, 12);
         TB_Wild.Multiline = true;
         TB_Wild.Name = "TB_Wild";
         TB_Wild.ReadOnly = true;
@@ -1608,7 +1658,7 @@ namespace ARSE.WinForms;
         // 
         CB_CaliDir.FormattingEnabled = true;
         CB_CaliDir.Items.AddRange(new object[] { "Up", "Down", "Left", "Right" });
-        CB_CaliDir.Location = new Point(1298, 31);
+        CB_CaliDir.Location = new Point(1295, 24);
         CB_CaliDir.Name = "CB_CaliDir";
         CB_CaliDir.Size = new Size(116, 23);
         CB_CaliDir.TabIndex = 10;
@@ -1616,7 +1666,7 @@ namespace ARSE.WinForms;
         // L_CaliDir
         // 
         L_CaliDir.AutoSize = true;
-        L_CaliDir.Location = new Point(1233, 34);
+        L_CaliDir.Location = new Point(1230, 27);
         L_CaliDir.Name = "L_CaliDir";
         L_CaliDir.Size = new Size(40, 15);
         L_CaliDir.TabIndex = 134;
@@ -1625,7 +1675,7 @@ namespace ARSE.WinForms;
         // L_Delay
         // 
         L_Delay.AutoSize = true;
-        L_Delay.Location = new Point(1234, 58);
+        L_Delay.Location = new Point(1231, 51);
         L_Delay.Name = "L_Delay";
         L_Delay.Size = new Size(39, 15);
         L_Delay.TabIndex = 136;
@@ -1633,7 +1683,7 @@ namespace ARSE.WinForms;
         // 
         // NUD_Delay
         // 
-        NUD_Delay.Location = new Point(1376, 56);
+        NUD_Delay.Location = new Point(1373, 49);
         NUD_Delay.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
         NUD_Delay.Name = "NUD_Delay";
         NUD_Delay.Size = new Size(38, 23);
@@ -1643,7 +1693,7 @@ namespace ARSE.WinForms;
         // label7
         // 
         label7.AutoSize = true;
-        label7.Location = new Point(1231, 83);
+        label7.Location = new Point(1228, 76);
         label7.Name = "label7";
         label7.Size = new Size(42, 15);
         label7.TabIndex = 138;
@@ -1653,7 +1703,7 @@ namespace ARSE.WinForms;
         // 
         TB_Target.CharacterCasing = CharacterCasing.Upper;
         TB_Target.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        TB_Target.Location = new Point(1298, 81);
+        TB_Target.Location = new Point(1295, 74);
         TB_Target.MaxLength = 16;
         TB_Target.Name = "TB_Target";
         TB_Target.Size = new Size(116, 22);
@@ -1663,7 +1713,7 @@ namespace ARSE.WinForms;
         // 
         // B_HitTarget
         // 
-        B_HitTarget.Location = new Point(1233, 105);
+        B_HitTarget.Location = new Point(1230, 98);
         B_HitTarget.Name = "B_HitTarget";
         B_HitTarget.Size = new Size(181, 25);
         B_HitTarget.TabIndex = 13;
@@ -2028,5 +2078,9 @@ namespace ARSE.WinForms;
     private DataGridViewTextBoxColumn Height;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+    private Label L_MonAdv;
+    private Label L_MonInitial;
+    private TextBox TB_MonAdv;
+    private TextBox TB_MonInitial;
 }
 
