@@ -529,6 +529,8 @@ public partial class MainWindow : Form
 
     private void B_Search_Click(object sender, EventArgs e)
     {
+        ValidateInputs();
+
         var initial = ulong.Parse(TB_Initial.Text);
         var advances = ulong.Parse(TB_Advances.Text);
 
@@ -571,6 +573,8 @@ public partial class MainWindow : Form
 
     private void B_PokemonSearch_Click(object sender, EventArgs e)
     {
+        ValidateInputs();
+
         var initial = ulong.Parse(TB_MonInitial.Text);
         var advances = ulong.Parse(TB_MonAdv.Text);
 
@@ -889,6 +893,8 @@ public partial class MainWindow : Form
 
     private void B_HitTarget_Click(object sender, EventArgs e)
     {
+        ValidateInputs();
+
         var t = ulong.Parse(GetControlText(TB_Target));
         var d = GetNUDValue(NUD_Delay);
         targetAdvance = t - d;
@@ -1280,6 +1286,46 @@ public partial class MainWindow : Form
         {
             Clipboard.SetText(n);
         }
+    }
+
+    private void ValidateInputs()
+    {
+        // Initial
+        var initial = (TextBox)Controls.Find($"TB_Initial", true).FirstOrDefault()!;
+        if (string.IsNullOrEmpty(initial.GetText())) SetTextBoxText("0", initial);
+        var mon = (TextBox)Controls.Find($"TB_MonInitial", true).FirstOrDefault()!;
+        if (string.IsNullOrEmpty(mon.GetText())) SetTextBoxText("0", initmonial);
+
+        // Advances
+        var advances = (TextBox)Controls.Find($"TB_Advances", true).FirstOrDefault()!;
+        var adv = advances.GetText();
+        if (string.IsNullOrEmpty(adv) || adv is "0") SetTextBoxText("1", advances);
+
+        var monadvances = (TextBox)Controls.Find($"TB_MonAdvances", true).FirstOrDefault()!;
+        var monadv = advances.GetText();
+        if (string.IsNullOrEmpty(monadv) || monadv is "0") SetTextBoxText("1", monadvances);
+
+        // Seed
+        if (string.IsNullOrEmpty(TB_Seed0.GetText())) SetTextBoxText("0", TB_Seed0);
+        if (string.IsNullOrEmpty(TB_Seed1.GetText())) SetTextBoxText("0", TB_Seed1);
+
+        if (TB_Seed0.GetText() is "0" && TB_Seed1.GetText() is "0")
+        {
+            SetTextBoxText("1337", TB_Seed0);
+            SetTextBoxText("1390", TB_Seed1);
+        }
+        SetTextBoxText(TB_Seed0.GetText().PadLeft(16, '0'), TB_Seed0);
+        SetTextBoxText(TB_Seed1.GetText().PadLeft(16, '0'), TB_Seed1);
+
+        // IDs
+        if (string.IsNullOrEmpty(TB_TID.GetText())) SetTextBoxText("0", TB_TID);
+        if (string.IsNullOrEmpty(TB_SID.GetText())) SetTextBoxText("0", TB_SID);
+        SetTextBoxText(TB_TID.GetText().PadLeft(5, '0'), TB_TID);
+        SetTextBoxText(TB_SID.GetText().PadLeft(5, '0'), TB_SID);
+
+        // Target
+        var tgt = (TextBox)Controls.Find($"TB_Target", true).FirstOrDefault()!;
+        if (string.IsNullOrEmpty(tgt.GetText()) || tgt.GetText() is "0") SetTextBoxText("1000", tgt);
     }
 }
 

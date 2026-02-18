@@ -11,6 +11,7 @@ public static class WinFormsUtil
 
     internal static int GetSelectedIndex(this ComboBox cb) =>
         cb.InvokeRequired ? cb.Invoke(() => cb.SelectedIndex) : cb.SelectedIndex;
+
     extension(char c)
     {
         internal bool IsHex(bool allowHexPrefix = false) => char.IsBetween(c, '0', '9') || char.IsBetween(c, 'a', 'f') || char.IsBetween(c, 'A', 'F') || (allowHexPrefix && c is 'x' or 'X');
