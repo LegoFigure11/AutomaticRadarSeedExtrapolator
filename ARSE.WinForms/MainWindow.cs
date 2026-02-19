@@ -796,9 +796,21 @@ public partial class MainWindow : Form
                 {
                     readPause = true;
                     await Task.Delay(100, Source.Token).ConfigureAwait(false);
-                    var count = await ConnectionWrapper.GetChainLength(Source.Token).ConfigureAwait(false);
+#if DEBUG
+                    if (ModifierKeys == Keys.Shift)
+                    {
+                        var ct = (byte)NUD_ChainCount.GetValue();
+                        await ConnectionWrapper.SetChainLength(ct, Source.Token).ConfigureAwait(false);
+                    }
+                    else
+                    {
+#endif
+                        var count = await ConnectionWrapper.GetChainLength(Source.Token).ConfigureAwait(false);
+                        SetNUDValue(count, NUD_ChainCount);
+#if DEBUG
+                    }
+#endif
                     readPause = false;
-                    SetNUDValue(count, NUD_ChainCount);
                 }
                 catch (Exception ex)
                 {

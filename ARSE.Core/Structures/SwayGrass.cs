@@ -7,10 +7,14 @@ public class SwayGrass(byte[] data)
 
     public readonly byte[] Data = data;
 
-    //public bool IsSwayGrassFlag  => Data[0x00] != 0;
+    // public bool IsSwayGrassFlag  => Data[0x00] != 0;
     // public uint SwayZone => BitConverter.ToUInt32(Data, 0x04);
 
-    public byte ChainCount => Data[0x20];
+    public byte ChainCount
+    {
+        get => Data[0x20];
+        set => Data[0x20] = value;
+    }
 
     public uint ChainEncounterSpecies => BitConverter.ToUInt32(Data, 0x24);
 }

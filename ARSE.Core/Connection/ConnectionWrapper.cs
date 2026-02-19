@@ -151,6 +151,13 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
         return block.ChainCount;
     }
 
+    public async Task SetChainLength(byte value, CancellationToken token)
+    {
+        var block = await ReadSwayGrass(token).ConfigureAwait(false);
+        block.ChainCount = value;
+        await Connection.WriteBytesAbsoluteAsync(block.Data, SwayGrassOffset, token).ConfigureAwait(false);
+    }
+
     public async Task<PB8> ReadWildPokemon(CancellationToken token)
     {
         var data = await Connection.ReadBytesAbsoluteAsync(WildPokemonOffset, 0x168, token).ConfigureAwait(false);
