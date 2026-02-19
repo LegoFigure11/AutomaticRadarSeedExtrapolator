@@ -486,20 +486,6 @@ public partial class MainWindow : Form
                 SetTextBoxText(s0, TB_Seed0);
                 SetTextBoxText(s1, TB_Seed1);
 
-                try
-                {
-                    Task.Run(async () =>
-                    {
-                        await ConnectionWrapper.PressHOME(2000, Source.Token).ConfigureAwait(false);
-                        reset = true;
-                        await ConnectionWrapper.PressHOME(0, Source.Token).ConfigureAwait(false);
-                    });
-                }
-                catch (Exception ex)
-                {
-                    this.DisplayMessageBox(ex.Message);
-                }
-
                 reset = true;
             }
 #if DEBUG
