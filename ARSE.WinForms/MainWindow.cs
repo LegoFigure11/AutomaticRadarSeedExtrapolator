@@ -107,8 +107,8 @@ public partial class MainWindow : Form
         CB_Action.SelectedIndex = 1;
         SetComboBoxSelectedIndex(0, CB_CaliDir, CB_Patch, CB_Lead, CB_Filter_Shiny, CB_Filter_Height);
 
-        SetTextBoxText("0", TB_Seed0, TB_Seed1);
-        SetTextBoxText(string.Empty, TB_CurrentAdvances, TB_AdvancesIncrease, TB_CurrentS0, TB_CurrentS1);
+        SetControlText("0", TB_Seed0, TB_Seed1);
+        SetControlText(string.Empty, TB_CurrentAdvances, TB_AdvancesIncrease, TB_CurrentS0, TB_CurrentS1);
 
         TB_Status.Text = "Not Connected.";
         TB_Wild.Text = string.Empty;
@@ -145,17 +145,17 @@ public partial class MainWindow : Form
                 UpdateStatus("Detecting game version...");
 
                 var (tid, sid) = ConnectionWrapper.GetIDs();
-                SetTextBoxText(tid, TB_TID);
-                SetTextBoxText(sid, TB_SID);
+                SetControlText(tid, TB_TID);
+                SetControlText(sid, TB_SID);
 
                 UpdateStatus("Reading RNG State...");
                 ulong _s0, _s1;
                 try
                 {
                     (_s0, _s1) = await ConnectionWrapper.ReadRNGState(token).ConfigureAwait(false);
-                    SetTextBoxText($"{_s0:X16}", TB_Seed0, TB_CurrentS0);
-                    SetTextBoxText($"{_s1:X16}", TB_Seed1, TB_CurrentS1);
-                    SetTextBoxText("0", TB_CurrentAdvances, TB_AdvancesIncrease);
+                    SetControlText($"{_s0:X16}", TB_Seed0, TB_CurrentS0);
+                    SetControlText($"{_s1:X16}", TB_Seed1, TB_CurrentS1);
+                    SetControlText("0", TB_CurrentAdvances, TB_AdvancesIncrease);
 
                 }
                 catch (Exception ex)
@@ -193,8 +193,8 @@ public partial class MainWindow : Form
                             {
                                 UpdateStatus("Forecasting...");
                                 _cfg.ContinueRate = GetRateFromComboBox(GetComboBoxSelectedIndex(CB_Rate));
-                                var num = GetNUDValue(NUD_SafeNum);
-                                var (safe, dist) = Core.RNG.RadarContinuation.Forecast(s0, s1, (int)num, _cfg, 0);
+                                var num = NUD_SafeNum.GetValue();
+                                var (safe, dist) = Core.RNG.RadarContinuation.Forecast(s0, s1, num, _cfg, 0);
                                 if (safe)
                                 {
                                     found = true;
@@ -276,10 +276,10 @@ public partial class MainWindow : Form
                                 _s0 = s0;
                                 _s1 = s1;
 
-                                SetTextBoxText($"{_s0:X16}", TB_CurrentS0);
-                                SetTextBoxText($"{_s1:X16}", TB_CurrentS1);
-                                SetTextBoxText($"{total:N0}", TB_CurrentAdvances);
-                                SetTextBoxText($"{adv:N0}", TB_AdvancesIncrease);
+                                SetControlText($"{_s0:X16}", TB_CurrentS0);
+                                SetControlText($"{_s1:X16}", TB_CurrentS1);
+                                SetControlText($"{total:N0}", TB_CurrentAdvances);
+                                SetControlText($"{adv:N0}", TB_AdvancesIncrease);
                             }
                         }
                     }
@@ -319,20 +319,20 @@ public partial class MainWindow : Form
 
     private void UpdateStatus(string status)
     {
-        SetTextBoxText(status, TB_Status);
+        SetControlText(status, TB_Status);
     }
 
-    public void SetTextBoxText(string text, params object[] obj)
+    public void SetControlText(string text, params object[] obj)
     {
         foreach (object o in obj)
         {
-            if (o is not TextBox tb)
+            if (o is not Control c)
                 continue;
 
             if (InvokeRequired)
-                Invoke(() => tb.Text = text);
+                Invoke(() => c.Text = text);
             else
-                tb.Text = text;
+                c.Text = text;
         }
     }
 
@@ -354,13 +354,21 @@ public partial class MainWindow : Form
     {
         foreach (object o in obj)
         {
-            if (o is not Control c)
-                continue;
+            if (o is Control c)
+            {
+                if (InvokeRequired)
+                    Invoke(() => c.Visible = state);
+                else
+                    c.Visible = state;
+            }
 
-            if (InvokeRequired)
-                Invoke(() => c.Visible = state);
-            else
-                c.Visible = state;
+            if (o is DataGridViewColumn d)
+            {
+                if (InvokeRequired)
+                    Invoke(() => d.Visible = state);
+                else
+                    d.Visible = state;
+            }
         }
     }
 
@@ -483,8 +491,8 @@ public partial class MainWindow : Form
                 var s0 = TB_CurrentS0.Text;
                 var s1 = TB_CurrentS1.Text;
 
-                SetTextBoxText(s0, TB_Seed0);
-                SetTextBoxText(s1, TB_Seed1);
+                SetControlText(s0, TB_Seed0);
+                SetControlText(s1, TB_Seed1);
 
                 reset = true;
             }
@@ -517,6 +525,7 @@ public partial class MainWindow : Form
 
     private void B_Search_Click(object sender, EventArgs e)
     {
+        SetControlEnabledState(false, B_Search);
         ValidateInputs();
 
         var initial = ulong.Parse(TB_Initial.Text);
@@ -539,12 +548,14 @@ public partial class MainWindow : Form
             ContinuationFrames = results;
 
             var subset = results[..99];
-            SetTextBoxText($"{subset.Count(x => x.Fail == '*')}", TB_FailsNext);
-            SetTextBoxText($"{results.Count(x => x.Fail == '*')}/{results.Count}", TB_FailsTotal);
+            SetControlText($"{subset.Count(x => x.Fail == '*')}", TB_FailsNext);
+            SetControlText($"{results.Count(x => x.Fail == '*')}/{results.Count}", TB_FailsTotal);
 
-            var nud = GetNUDValue(NUD_SafeNum);
-            var fc = Core.RNG.RadarContinuation.Forecast(s0, s1, (int)nud, cfg, initial, initial + 0xFFFFFFFF);
-            SetTextBoxText(fc.found ? $"{(fc.advances + initial):N0}" : "None found", TB_SafeDistance);
+            var nud = NUD_SafeNum.GetValue();
+            var fc = Core.RNG.RadarContinuation.Forecast(s0, s1, nud, cfg, initial, initial + 0xFFFFFFFF);
+            SetControlText($"Next safe advance ({nud} in a row):", L_SafeDistance);
+            SetControlText(fc.found ? $"{(fc.advances + initial):N0}" : "None found", TB_SafeDistance);
+            SetControlEnabledState(true, B_Search);
         });
     }
 
@@ -597,6 +608,7 @@ public partial class MainWindow : Form
         {
             SetControlEnabledState(false, B_PokemonSearch);
             results = await Core.RNG.ChainPokemon.Generate(s0, s1, initial, advances, cfg);
+            SetControlVisibleState(cfg.Cluster > 1, DGV_ResultsPokemon.Columns[1]);
             SetBindingSourceDataSource(results, ResultsSourcePokemon);
             PokemonFrames = results;
             SetControlEnabledState(true, B_PokemonSearch);
@@ -708,7 +720,7 @@ public partial class MainWindow : Form
             if (tid > 0xFFFF)
             {
                 tid = 0xFFFF;
-                SetTextBoxText($"{tid}", TB_TID);
+                SetControlText($"{tid}", TB_TID);
             }
             Config.TID = tid;
         }
@@ -722,7 +734,7 @@ public partial class MainWindow : Form
             if (sid > 0xFFFF)
             {
                 sid = 0xFFFF;
-                SetTextBoxText($"{sid}", TB_SID);
+                SetControlText($"{sid}", TB_SID);
             }
             Config.SID = sid;
         }
@@ -878,7 +890,7 @@ public partial class MainWindow : Form
 
                         readPause = false;
                         //SetPictureBoxImage(pk.Sprite(), PB_PokemonSprite);
-                        SetTextBoxText(output, TB_Wild);
+                        SetControlText(output, TB_Wild);
                         //SetControlEnabledState(true, B_CopyToFilter);
                     }
 
@@ -1292,40 +1304,40 @@ public partial class MainWindow : Form
     {
         // Initial
         var initial = (TextBox)Controls.Find($"TB_Initial", true).FirstOrDefault()!;
-        if (string.IsNullOrEmpty(initial.GetText())) SetTextBoxText("0", initial);
+        if (string.IsNullOrEmpty(initial.GetText())) SetControlText("0", initial);
         var mon = (TextBox)Controls.Find($"TB_MonInitial", true).FirstOrDefault()!;
-        if (string.IsNullOrEmpty(mon.GetText())) SetTextBoxText("0", mon);
+        if (string.IsNullOrEmpty(mon.GetText())) SetControlText("0", mon);
 
         // Advances
         var advances = (TextBox)Controls.Find($"TB_Advances", true).FirstOrDefault()!;
         var adv = advances.GetText();
-        if (string.IsNullOrEmpty(adv) || adv is "0") SetTextBoxText("1", advances);
+        if (string.IsNullOrEmpty(adv) || adv is "0") SetControlText("1", advances);
 
         var monadvances = (TextBox)Controls.Find($"TB_MonAdvances", true).FirstOrDefault()!;
         var monadv = advances.GetText();
-        if (string.IsNullOrEmpty(monadv) || monadv is "0") SetTextBoxText("1", monadvances);
+        if (string.IsNullOrEmpty(monadv) || monadv is "0") SetControlText("1", monadvances);
 
         // Seed
-        if (string.IsNullOrEmpty(TB_Seed0.GetText())) SetTextBoxText("0", TB_Seed0);
-        if (string.IsNullOrEmpty(TB_Seed1.GetText())) SetTextBoxText("0", TB_Seed1);
+        if (string.IsNullOrEmpty(TB_Seed0.GetText())) SetControlText("0", TB_Seed0);
+        if (string.IsNullOrEmpty(TB_Seed1.GetText())) SetControlText("0", TB_Seed1);
 
         if (TB_Seed0.GetText() is "0" && TB_Seed1.GetText() is "0")
         {
-            SetTextBoxText("1337", TB_Seed0);
-            SetTextBoxText("1390", TB_Seed1);
+            SetControlText("1337", TB_Seed0);
+            SetControlText("1390", TB_Seed1);
         }
-        SetTextBoxText(TB_Seed0.GetText().PadLeft(16, '0'), TB_Seed0);
-        SetTextBoxText(TB_Seed1.GetText().PadLeft(16, '0'), TB_Seed1);
+        SetControlText(TB_Seed0.GetText().PadLeft(16, '0'), TB_Seed0);
+        SetControlText(TB_Seed1.GetText().PadLeft(16, '0'), TB_Seed1);
 
         // IDs
-        if (string.IsNullOrEmpty(TB_TID.GetText())) SetTextBoxText("0", TB_TID);
-        if (string.IsNullOrEmpty(TB_SID.GetText())) SetTextBoxText("0", TB_SID);
-        SetTextBoxText(TB_TID.GetText().PadLeft(5, '0'), TB_TID);
-        SetTextBoxText(TB_SID.GetText().PadLeft(5, '0'), TB_SID);
+        if (string.IsNullOrEmpty(TB_TID.GetText())) SetControlText("0", TB_TID);
+        if (string.IsNullOrEmpty(TB_SID.GetText())) SetControlText("0", TB_SID);
+        SetControlText(TB_TID.GetText().PadLeft(5, '0'), TB_TID);
+        SetControlText(TB_SID.GetText().PadLeft(5, '0'), TB_SID);
 
         // Target
         var tgt = (TextBox)Controls.Find($"TB_Target", true).FirstOrDefault()!;
-        if (string.IsNullOrEmpty(tgt.GetText()) || tgt.GetText() is "0") SetTextBoxText("1000", tgt);
+        if (string.IsNullOrEmpty(tgt.GetText()) || tgt.GetText() is "0") SetControlText("1000", tgt);
     }
 
     private void CheckForUpdates()

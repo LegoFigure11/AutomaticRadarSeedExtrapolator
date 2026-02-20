@@ -29,8 +29,8 @@ namespace ARSE.WinForms;
     private void InitializeComponent()
     {
         components = new System.ComponentModel.Container();
-        DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-        DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+        DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+        DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
         GB_Connection = new GroupBox();
         TB_AdvancesIncrease = new TextBox();
@@ -79,7 +79,7 @@ namespace ARSE.WinForms;
         label1 = new Label();
         label2 = new Label();
         TB_SafeDistance = new TextBox();
-        label3 = new Label();
+        L_SafeDistance = new Label();
         CB_Rate = new ComboBox();
         label4 = new Label();
         CB_Action = new ComboBox();
@@ -567,8 +567,8 @@ namespace ARSE.WinForms;
         // 
         DGV_ResultsContinuation.AllowUserToAddRows = false;
         DGV_ResultsContinuation.AllowUserToDeleteRows = false;
-        dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
-        DGV_ResultsContinuation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+        dataGridViewCellStyle3.BackColor = Color.FromArgb(224, 224, 224);
+        DGV_ResultsContinuation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
         DGV_ResultsContinuation.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
         DGV_ResultsContinuation.AutoGenerateColumns = false;
         DGV_ResultsContinuation.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -740,14 +740,14 @@ namespace ARSE.WinForms;
         TB_SafeDistance.TabIndex = 66;
         TB_SafeDistance.TextAlign = HorizontalAlignment.Right;
         // 
-        // label3
+        // L_SafeDistance
         // 
-        label3.AutoSize = true;
-        label3.Location = new Point(230, 280);
-        label3.Name = "label3";
-        label3.Size = new Size(180, 15);
-        label3.TabIndex = 67;
-        label3.Text = "Next safe advance (100 in a row):";
+        L_SafeDistance.AutoSize = true;
+        L_SafeDistance.Location = new Point(230, 280);
+        L_SafeDistance.Name = "L_SafeDistance";
+        L_SafeDistance.Size = new Size(180, 15);
+        L_SafeDistance.TabIndex = 67;
+        L_SafeDistance.Text = "Next safe advance (100 in a row):";
         // 
         // CB_Rate
         // 
@@ -817,8 +817,8 @@ namespace ARSE.WinForms;
         // 
         DGV_ResultsPokemon.AllowUserToAddRows = false;
         DGV_ResultsPokemon.AllowUserToDeleteRows = false;
-        dataGridViewCellStyle2.BackColor = Color.FromArgb(224, 224, 224);
-        DGV_ResultsPokemon.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+        dataGridViewCellStyle4.BackColor = Color.FromArgb(224, 224, 224);
+        DGV_ResultsPokemon.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
         DGV_ResultsPokemon.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         DGV_ResultsPokemon.AutoGenerateColumns = false;
         DGV_ResultsPokemon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1913,7 +1913,7 @@ namespace ARSE.WinForms;
         Controls.Add(CB_Action);
         Controls.Add(label4);
         Controls.Add(CB_Rate);
-        Controls.Add(label3);
+        Controls.Add(L_SafeDistance);
         Controls.Add(TB_SafeDistance);
         Controls.Add(label2);
         Controls.Add(label1);
@@ -2018,7 +2018,7 @@ namespace ARSE.WinForms;
     private Label label1;
     private Label label2;
     private TextBox TB_SafeDistance;
-    private Label label3;
+    private Label L_SafeDistance;
     public ComboBox CB_Rate;
     private Label label4;
     public ComboBox CB_Action;

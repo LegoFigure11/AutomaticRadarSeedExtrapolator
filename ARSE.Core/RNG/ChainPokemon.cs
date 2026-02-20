@@ -142,6 +142,12 @@ public static class ChainPokemon
                 for (var j = testStartIndex; j < results.Count; j++)
                 {
                     if (results[j]._adv != testStartValue++) break;
+                    if (results[j].H != thisResult.H ||
+                        results[j].A != thisResult.A ||
+                        results[j].B != thisResult.B ||
+                        results[j].C != thisResult.C ||
+                        results[j].D != thisResult.D ||
+                        results[j].S != thisResult.S) break;
                     cluster++;
                 }
 
@@ -155,7 +161,7 @@ public static class ChainPokemon
                     thisResult.Height = "Cluster";
                 }
 
-                i += cluster - 1;
+                i += Math.Max(1, cluster - 1);
             }
 
             return newResults;

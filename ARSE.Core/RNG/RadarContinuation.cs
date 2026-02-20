@@ -47,7 +47,7 @@ public static class RadarContinuation
         });
     }
 
-    public static (bool found, ulong advances) Forecast(ulong s0, ulong s1, int target, RadarContinuationConfig cfg, ulong init, ulong advances = 0xFFFFFFFF)
+    public static (bool found, ulong advances) Forecast(ulong s0, ulong s1, uint target, RadarContinuationConfig cfg, ulong init, ulong advances = 0xFFFFFFFF)
     {
         var outer = new XorShift128(s0, s1);
 
@@ -68,7 +68,7 @@ public static class RadarContinuation
                 outer.Next();
             }
 
-            if (chain >= (ulong)target) return (true, --i - chain);
+            if (chain >= target) return (true, --i - chain);
         }
 
         return (false, 0);
