@@ -1110,6 +1110,7 @@ public partial class MainWindow : Form
                         case Keys.P:
                             readPause = true;
                             await Task.Delay(200, Source.Token).ConfigureAwait(false);
+                            // BD Only
                             await ConnectionWrapper.RechargeRadar(Source.Token).ConfigureAwait(false);
                             readPause = false;
                             break;
@@ -1117,7 +1118,7 @@ public partial class MainWindow : Form
                             await ConnectionWrapper.DoTurboCommand("X", Source.Token).ConfigureAwait(false);
                             await Task.Delay(1_000, Source.Token).ConfigureAwait(false);
                             await ConnectionWrapper.DoTurboCommand("A", Source.Token).ConfigureAwait(false);
-                            await Task.Delay(16_500, Source.Token).ConfigureAwait(false);
+                            await Task.Delay(17_500, Source.Token).ConfigureAwait(false);
                             await ConnectionWrapper.DoTurboCommand("A", Source.Token).ConfigureAwait(false);
                             B_Forecast_Click(sender, EventArgs.Empty);
                             break;
@@ -1375,6 +1376,51 @@ public partial class MainWindow : Form
             });
         }
 #endif
+    }
+
+    private void B_CalcDelay_Click(object sender, EventArgs e)
+    {
+        B_CopyToInitial_Click(sender, EventArgs.Empty);
+        Task.Run(async () =>
+        {
+            try
+            {
+                if (ConnectionWrapper.Connected)
+                {
+                    readPause = true;
+                    await Task.Delay(100, Source.Token).ConfigureAwait(false);
+                    var s0 = ulong.Parse(TB_Seed0.Text, NumberStyles.AllowHexSpecifier);
+                    var s1 = ulong.Parse(TB_Seed1.Text, NumberStyles.AllowHexSpecifier);
+                    var ecs = await Core.RNG.ChainPokemon.GenerateECs(s0, s1);
+                    await ConnectionWrapper.DoTurboCommand("HOME", Source.Token).ConfigureAwait(false);
+                    var pk = new PB8();
+                    do
+                    {
+                        await Task.Delay(5_000, Source.Token).ConfigureAwait(false);
+                        pk = await ConnectionWrapper.ReadWildPokemon(Source.Token).ConfigureAwait(false);
+                    } while (pk.Species <= 0);
+
+                    readPause = false;
+
+                    var ec = pk.EncryptionConstant;
+                    var idx = ecs.IndexOf(ec);
+
+                    await ConnectionWrapper.DoTurboCommand("Release Stick", Source.Token).ConfigureAwait(false);
+                    this.DisplayMessageBox(
+                        idx == -1
+                            ? "EC not found!"
+                            : $"Delay: {idx}",
+                        "Calibration Result");
+                    if (idx >= 0)
+                        SetNUDValue(Math.Max(0, (uint)idx), NUD_Delay);
+                }
+            }
+            catch (Exception _)
+            {
+                readPause = false;
+            }
+        });
+
     }
 }
 

@@ -29,8 +29,8 @@ namespace ARSE.WinForms;
     private void InitializeComponent()
     {
         components = new System.ComponentModel.Container();
-        DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-        DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+        DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+        DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
         GB_Connection = new GroupBox();
         TB_AdvancesIncrease = new TextBox();
@@ -190,6 +190,7 @@ namespace ARSE.WinForms;
         menuStrip1 = new MenuStrip();
         shortcutsToolStripMenuItem = new ToolStripMenuItem();
         findSafeAdvanceToolStripMenuItem = new ToolStripMenuItem();
+        B_CalcDelay = new Button();
         GB_Connection.SuspendLayout();
         GB_Seed.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
@@ -567,8 +568,8 @@ namespace ARSE.WinForms;
         // 
         DGV_ResultsContinuation.AllowUserToAddRows = false;
         DGV_ResultsContinuation.AllowUserToDeleteRows = false;
-        dataGridViewCellStyle3.BackColor = Color.FromArgb(224, 224, 224);
-        DGV_ResultsContinuation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+        dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
+        DGV_ResultsContinuation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
         DGV_ResultsContinuation.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
         DGV_ResultsContinuation.AutoGenerateColumns = false;
         DGV_ResultsContinuation.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -817,8 +818,8 @@ namespace ARSE.WinForms;
         // 
         DGV_ResultsPokemon.AllowUserToAddRows = false;
         DGV_ResultsPokemon.AllowUserToDeleteRows = false;
-        dataGridViewCellStyle4.BackColor = Color.FromArgb(224, 224, 224);
-        DGV_ResultsPokemon.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+        dataGridViewCellStyle2.BackColor = Color.FromArgb(224, 224, 224);
+        DGV_ResultsPokemon.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
         DGV_ResultsPokemon.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         DGV_ResultsPokemon.AutoGenerateColumns = false;
         DGV_ResultsPokemon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1737,7 +1738,7 @@ namespace ARSE.WinForms;
         B_HitTarget.Name = "B_HitTarget";
         B_HitTarget.Size = new Size(181, 25);
         B_HitTarget.TabIndex = 13;
-        B_HitTarget.Text = "Do Encounter";
+        B_HitTarget.Text = "Do Encounter (Auto)";
         B_HitTarget.UseVisualStyleBackColor = true;
         B_HitTarget.Click += B_HitTarget_Click;
         // 
@@ -1879,11 +1880,22 @@ namespace ARSE.WinForms;
         findSafeAdvanceToolStripMenuItem.Text = "Find Safe Advance";
         findSafeAdvanceToolStripMenuItem.Click += findSafeAdvanceToolStripMenuItem_Click;
         // 
+        // B_CalcDelay
+        // 
+        B_CalcDelay.Location = new Point(1230, 125);
+        B_CalcDelay.Name = "B_CalcDelay";
+        B_CalcDelay.Size = new Size(181, 25);
+        B_CalcDelay.TabIndex = 140;
+        B_CalcDelay.Text = "Calculate Delay (Manual)";
+        B_CalcDelay.UseVisualStyleBackColor = true;
+        B_CalcDelay.Click += B_CalcDelay_Click;
+        // 
         // MainWindow
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(1479, 627);
+        Controls.Add(B_CalcDelay);
         Controls.Add(TB_Input);
         Controls.Add(B_Minus);
         Controls.Add(B_B);
@@ -2134,5 +2146,6 @@ namespace ARSE.WinForms;
     private MenuStrip menuStrip1;
     private ToolStripMenuItem shortcutsToolStripMenuItem;
     private ToolStripMenuItem findSafeAdvanceToolStripMenuItem;
+    private Button B_CalcDelay;
 }
 
