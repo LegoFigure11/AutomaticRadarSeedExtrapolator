@@ -886,7 +886,7 @@ public partial class MainWindow : Form
 
                         var moves = pk.Moves.TakeWhile(move => move != 0).Aggregate(string.Empty, (current, move) => current + $"{n}- {Strings.Move[move]}");
 
-                        var output = $"{shiny}{(Species)pk.Species}{form}{gender}{item}{n}EC: {pk.EncryptionConstant:X8}{n}PID: {pk.PID:X8}{n}{Strings.Natures[(int)pk.Nature]} Nature{n}Ability: {Strings.Ability[pk.Ability]}{n}IVs: {pk.IV_HP}/{pk.IV_ATK}/{pk.IV_DEF}/{pk.IV_SPA}/{pk.IV_SPD}/{pk.IV_SPE}{n}{scale}{moves}";
+                        var output = $"{shiny}{(Species)pk.Species}{form}{gender}{item}{n}EC: {pk.EncryptionConstant:X8}{(CB_RareEC.GetIsChecked() ? $" (% 100 = {pk.EncryptionConstant % 100})" : string.Empty)}{n}PID: {pk.PID:X8}{n}{Strings.Natures[(int)pk.Nature]} Nature{n}Ability: {Strings.Ability[pk.Ability]}{n}IVs: {pk.IV_HP}/{pk.IV_ATK}/{pk.IV_DEF}/{pk.IV_SPA}/{pk.IV_SPD}/{pk.IV_SPE}{n}{scale}{moves}";
 
                         readPause = false;
                         //SetPictureBoxImage(pk.Sprite(), PB_PokemonSprite);
