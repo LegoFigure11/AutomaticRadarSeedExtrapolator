@@ -28,8 +28,9 @@ public partial class MainWindow : Form
     private long total;
     private bool found;
     private ulong remaining;
-    private bool auto;
     private ulong targetAdvance;
+
+    private PB8 _enc = new();
 
     private RadarContinuationConfig _cfg = new();
 
@@ -105,7 +106,7 @@ public partial class MainWindow : Form
 
         CB_Rate.SelectedIndex = 4;
         CB_Action.SelectedIndex = 1;
-        SetComboBoxSelectedIndex(0, CB_CaliDir, CB_Patch, CB_Lead, CB_Filter_Shiny, CB_Filter_Height);
+        SetComboBoxSelectedIndex(0, CB_Patch, CB_Lead, CB_Filter_Shiny, CB_Filter_Height);
 
         SetControlText("0", TB_Seed0, TB_Seed1);
         SetControlText(string.Empty, TB_CurrentAdvances, TB_AdvancesIncrease, TB_CurrentS0, TB_CurrentS1);
@@ -184,11 +185,6 @@ public partial class MainWindow : Form
                         if (ConnectionWrapper.Connected && !readPause)
                         {
                             var (s0, s1) = await ConnectionWrapper.ReadRNGState(token).ConfigureAwait(false);
-                            if (auto)
-                            {
-                                UpdateStatus($"Primed! {targetAdvance:N0}");
-                                dir = GetTurboCommandFromComboBox(GetComboBoxSelectedIndex(CB_CaliDir) + 3);
-                            }
                             if (forecast && !found)
                             {
                                 UpdateStatus("Forecasting...");
@@ -217,34 +213,7 @@ public partial class MainWindow : Form
                                 else
                                 {
                                     total += adv;
-                                    if (auto)
-                                    {
-                                        if ((ulong)total >= targetAdvance)
-                                        {
-                                            readPause = true;
-                                            await ConnectionWrapper.DoTurboCommand(dir, token).ConfigureAwait(false);
-                                            UpdateStatus("Monitoring RNG State...");
-
-                                            var __s0 = ulong.Parse(TB_Seed0.Text, NumberStyles.AllowHexSpecifier);
-                                            var __s1 = ulong.Parse(TB_Seed1.Text, NumberStyles.AllowHexSpecifier);
-                                            var d = GetNUDValue(NUD_Delay);
-                                            var ecs = await Core.RNG.ChainPokemon.GenerateECs(__s0, __s1, (uint)targetAdvance + 2000);
-                                            var pk = new PB8();
-                                            do
-                                            {
-                                                await Task.Delay(2_000, token).ConfigureAwait(false);
-                                                pk = await ConnectionWrapper.ReadWildPokemon(token).ConfigureAwait(false);
-                                            } while (pk.Species <= 0);
-
-                                            var ec = pk.EncryptionConstant;
-                                            var idx = ecs.IndexOf(ec);
-                                            this.DisplayMessageBox(idx == -1 ? "EC not found!" : $"Target {targetAdvance + d} was {(targetAdvance + d == (ulong)idx ? "Hit" : "Missed")}!\n\nEC was on advance {idx}, after {(uint)idx - targetAdvance} advances. \"{dir}\" happened on advance {total}, while aiming for {targetAdvance}.", "Calibration Result");
-                                            SetNUDValue(Math.Max(0, (uint)idx - targetAdvance), NUD_Delay);
-                                            readPause = false;
-                                            auto = false;
-                                        }
-                                    }
-                                    else if (found)
+                                    if (found)
                                     {
                                         if (remaining <= adv)
                                         {
@@ -863,7 +832,7 @@ public partial class MainWindow : Form
                     readPause = false;
                     if (pk is { Valid: true, Species: > 0 })
                     {
-                        // CachedEncounter = pk;
+                        _enc = pk;
 
                         var n = Environment.NewLine;
 
@@ -891,9 +860,7 @@ public partial class MainWindow : Form
                         var output = $"{shiny}{(Species)pk.Species}{form}{gender}{item}{n}EC: {pk.EncryptionConstant:X8}{(CB_RareEC.GetIsChecked() ? $" (% 100 = {pk.EncryptionConstant % 100})" : string.Empty)}{n}PID: {pk.PID:X8}{n}{Strings.Natures[(int)pk.Nature]} Nature{n}Ability: {Strings.Ability[pk.Ability]}{n}IVs: {pk.IV_HP}/{pk.IV_ATK}/{pk.IV_DEF}/{pk.IV_SPA}/{pk.IV_SPD}/{pk.IV_SPE}{n}{scale}{moves}";
 
                         readPause = false;
-                        //SetPictureBoxImage(pk.Sprite(), PB_PokemonSprite);
                         SetControlText(output, TB_Wild);
-                        //SetControlEnabledState(true, B_CopyToFilter);
                     }
 
                 }
@@ -903,16 +870,6 @@ public partial class MainWindow : Form
                 }
             });
         }
-    }
-
-    private void B_HitTarget_Click(object sender, EventArgs e)
-    {
-        ValidateInputs();
-
-        var t = ulong.Parse(GetControlText(TB_Target));
-        var d = GetNUDValue(NUD_Delay);
-        targetAdvance = t - d;
-        auto = true;
     }
 
     private void B_Up_Click(object sender, EventArgs e)
@@ -1340,10 +1297,6 @@ public partial class MainWindow : Form
         if (string.IsNullOrEmpty(TB_SID.GetText())) SetControlText("0", TB_SID);
         SetControlText(TB_TID.GetText().PadLeft(5, '0'), TB_TID);
         SetControlText(TB_SID.GetText().PadLeft(5, '0'), TB_SID);
-
-        // Target
-        var tgt = (TextBox)Controls.Find($"TB_Target", true).FirstOrDefault()!;
-        if (string.IsNullOrEmpty(tgt.GetText()) || tgt.GetText() is "0") SetControlText("1000", tgt);
     }
 
     private void CheckForUpdates()
@@ -1386,7 +1339,7 @@ public partial class MainWindow : Form
     private void B_CalcDelay_Click(object sender, EventArgs e)
     {
         B_CopyToInitial_Click(sender, EventArgs.Empty);
-        Task.Run(async () =>
+        Task.Run((async () =>
         {
             try
             {
@@ -1424,8 +1377,29 @@ public partial class MainWindow : Form
             {
                 readPause = false;
             }
-        });
+        }));
 
+    }
+
+    private void B_CalcDelayManual_Click(object sender, EventArgs e)
+    {
+        Task.Run(async () =>
+        {
+            var s0 = ulong.Parse(TB_Seed0.Text, NumberStyles.AllowHexSpecifier);
+            var s1 = ulong.Parse(TB_Seed1.Text, NumberStyles.AllowHexSpecifier);
+            var ecs = await Core.RNG.ChainPokemon.GenerateECs(s0, s1);
+
+            var ec = _enc.EncryptionConstant;
+            var idx = ecs.IndexOf(ec);
+
+            this.DisplayMessageBox(
+                idx == -1
+                    ? "EC not found!"
+                    : $"Delay: {idx}",
+                "Calibration Result");
+            if (idx >= 0)
+                SetNUDValue(Math.Max(0, (uint)idx), NUD_Delay);
+        });
     }
 }
 

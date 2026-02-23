@@ -29,8 +29,8 @@ namespace ARSE.WinForms;
     private void InitializeComponent()
     {
         components = new System.ComponentModel.Container();
-        DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-        DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+        DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+        DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
         GB_Connection = new GroupBox();
         TB_AdvancesIncrease = new TextBox();
@@ -107,6 +107,8 @@ namespace ARSE.WinForms;
         dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
         ResultsSourcePokemon = new BindingSource(components);
         GB_Filters = new GroupBox();
+        L_Delay = new Label();
+        NUD_Delay = new NumericUpDown();
         NUD_Cluster = new NumericUpDown();
         L_Cluster = new Label();
         CB_RareEC = new CheckBox();
@@ -170,13 +172,6 @@ namespace ARSE.WinForms;
         CB_Patch = new ComboBox();
         B_ReadWildPokemon = new Button();
         TB_Wild = new TextBox();
-        CB_CaliDir = new ComboBox();
-        L_CaliDir = new Label();
-        L_Delay = new Label();
-        NUD_Delay = new NumericUpDown();
-        label7 = new Label();
-        TB_Target = new TextBox();
-        B_HitTarget = new Button();
         B_Left = new Button();
         B_Right = new Button();
         B_Up = new Button();
@@ -190,10 +185,11 @@ namespace ARSE.WinForms;
         menuStrip1 = new MenuStrip();
         shortcutsToolStripMenuItem = new ToolStripMenuItem();
         findSafeAdvanceToolStripMenuItem = new ToolStripMenuItem();
-        B_CalcDelay = new Button();
+        B_CalcDelayAuto = new Button();
         TB_SafeDistance3 = new TextBox();
         TB_SafeDistance2 = new TextBox();
         TB_SafeDistance1 = new TextBox();
+        B_CalcDelayManual = new Button();
         GB_Connection.SuspendLayout();
         GB_Seed.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
@@ -204,6 +200,7 @@ namespace ARSE.WinForms;
         ((System.ComponentModel.ISupportInitialize)DGV_ResultsPokemon).BeginInit();
         ((System.ComponentModel.ISupportInitialize)ResultsSourcePokemon).BeginInit();
         GB_Filters.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)NUD_Delay).BeginInit();
         ((System.ComponentModel.ISupportInitialize)NUD_Cluster).BeginInit();
         ((System.ComponentModel.ISupportInitialize)NUD_Spe_Max).BeginInit();
         ((System.ComponentModel.ISupportInitialize)NUD_Spe_Min).BeginInit();
@@ -219,7 +216,6 @@ namespace ARSE.WinForms;
         ((System.ComponentModel.ISupportInitialize)NUD_HP_Min).BeginInit();
         groupBox1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)NUD_ChainCount).BeginInit();
-        ((System.ComponentModel.ISupportInitialize)NUD_Delay).BeginInit();
         menuStrip1.SuspendLayout();
         SuspendLayout();
         // 
@@ -540,7 +536,7 @@ namespace ARSE.WinForms;
         // 
         // NUD_SafeNum
         // 
-        NUD_SafeNum.Location = new Point(480, 1);
+        NUD_SafeNum.Location = new Point(480, 5);
         NUD_SafeNum.Maximum = new decimal(new int[] { 300, 0, 0, 0 });
         NUD_SafeNum.Name = "NUD_SafeNum";
         NUD_SafeNum.Size = new Size(38, 23);
@@ -550,7 +546,7 @@ namespace ARSE.WinForms;
         // L_SafeNum
         // 
         L_SafeNum.AutoSize = true;
-        L_SafeNum.Location = new Point(230, 3);
+        L_SafeNum.Location = new Point(230, 7);
         L_SafeNum.Name = "L_SafeNum";
         L_SafeNum.Size = new Size(113, 15);
         L_SafeNum.TabIndex = 6;
@@ -559,7 +555,7 @@ namespace ARSE.WinForms;
         // B_Forecast
         // 
         B_Forecast.Enabled = false;
-        B_Forecast.Location = new Point(230, 51);
+        B_Forecast.Location = new Point(230, 55);
         B_Forecast.Name = "B_Forecast";
         B_Forecast.Size = new Size(288, 25);
         B_Forecast.TabIndex = 3;
@@ -571,8 +567,8 @@ namespace ARSE.WinForms;
         // 
         DGV_ResultsContinuation.AllowUserToAddRows = false;
         DGV_ResultsContinuation.AllowUserToDeleteRows = false;
-        dataGridViewCellStyle3.BackColor = Color.FromArgb(224, 224, 224);
-        DGV_ResultsContinuation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+        dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
+        DGV_ResultsContinuation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
         DGV_ResultsContinuation.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
         DGV_ResultsContinuation.AutoGenerateColumns = false;
         DGV_ResultsContinuation.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -636,7 +632,7 @@ namespace ARSE.WinForms;
         // 
         // B_Search
         // 
-        B_Search.Location = new Point(230, 169);
+        B_Search.Location = new Point(230, 173);
         B_Search.Name = "B_Search";
         B_Search.Size = new Size(288, 25);
         B_Search.TabIndex = 7;
@@ -647,7 +643,7 @@ namespace ARSE.WinForms;
         // L_Static_Advances
         // 
         L_Static_Advances.AutoSize = true;
-        L_Static_Advances.Location = new Point(324, 143);
+        L_Static_Advances.Location = new Point(324, 147);
         L_Static_Advances.Name = "L_Static_Advances";
         L_Static_Advances.Size = new Size(15, 15);
         L_Static_Advances.TabIndex = 61;
@@ -656,7 +652,7 @@ namespace ARSE.WinForms;
         // L_Static_Initial
         // 
         L_Static_Initial.AutoSize = true;
-        L_Static_Initial.Location = new Point(246, 119);
+        L_Static_Initial.Location = new Point(246, 123);
         L_Static_Initial.Name = "L_Static_Initial";
         L_Static_Initial.Size = new Size(93, 15);
         L_Static_Initial.TabIndex = 60;
@@ -666,7 +662,7 @@ namespace ARSE.WinForms;
         // 
         TB_Advances.CharacterCasing = CharacterCasing.Upper;
         TB_Advances.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        TB_Advances.Location = new Point(345, 141);
+        TB_Advances.Location = new Point(345, 145);
         TB_Advances.MaxLength = 16;
         TB_Advances.Name = "TB_Advances";
         TB_Advances.Size = new Size(173, 22);
@@ -680,7 +676,7 @@ namespace ARSE.WinForms;
         // 
         TB_Initial.CharacterCasing = CharacterCasing.Upper;
         TB_Initial.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        TB_Initial.Location = new Point(345, 117);
+        TB_Initial.Location = new Point(345, 121);
         TB_Initial.MaxLength = 16;
         TB_Initial.Name = "TB_Initial";
         TB_Initial.Size = new Size(173, 22);
@@ -694,7 +690,7 @@ namespace ARSE.WinForms;
         // 
         TB_FailsNext.CharacterCasing = CharacterCasing.Upper;
         TB_FailsNext.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        TB_FailsNext.Location = new Point(434, 203);
+        TB_FailsNext.Location = new Point(434, 207);
         TB_FailsNext.MaxLength = 16;
         TB_FailsNext.Name = "TB_FailsNext";
         TB_FailsNext.ReadOnly = true;
@@ -706,7 +702,7 @@ namespace ARSE.WinForms;
         // 
         TB_FailsTotal.CharacterCasing = CharacterCasing.Upper;
         TB_FailsTotal.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        TB_FailsTotal.Location = new Point(434, 226);
+        TB_FailsTotal.Location = new Point(434, 230);
         TB_FailsTotal.MaxLength = 16;
         TB_FailsTotal.Name = "TB_FailsTotal";
         TB_FailsTotal.ReadOnly = true;
@@ -717,7 +713,7 @@ namespace ARSE.WinForms;
         // label1
         // 
         label1.AutoSize = true;
-        label1.Location = new Point(230, 204);
+        label1.Location = new Point(230, 208);
         label1.Name = "label1";
         label1.Size = new Size(162, 15);
         label1.TabIndex = 64;
@@ -726,7 +722,7 @@ namespace ARSE.WinForms;
         // label2
         // 
         label2.AutoSize = true;
-        label2.Location = new Point(230, 228);
+        label2.Location = new Point(230, 232);
         label2.Name = "label2";
         label2.Size = new Size(100, 15);
         label2.TabIndex = 65;
@@ -736,7 +732,7 @@ namespace ARSE.WinForms;
         // 
         TB_SafeDistance.CharacterCasing = CharacterCasing.Upper;
         TB_SafeDistance.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        TB_SafeDistance.Location = new Point(434, 250);
+        TB_SafeDistance.Location = new Point(434, 254);
         TB_SafeDistance.MaxLength = 16;
         TB_SafeDistance.Name = "TB_SafeDistance";
         TB_SafeDistance.ReadOnly = true;
@@ -747,7 +743,7 @@ namespace ARSE.WinForms;
         // L_SafeDistance
         // 
         L_SafeDistance.AutoSize = true;
-        L_SafeDistance.Location = new Point(230, 252);
+        L_SafeDistance.Location = new Point(230, 256);
         L_SafeDistance.Name = "L_SafeDistance";
         L_SafeDistance.Size = new Size(180, 15);
         L_SafeDistance.TabIndex = 67;
@@ -757,7 +753,7 @@ namespace ARSE.WinForms;
         // 
         CB_Rate.FormattingEnabled = true;
         CB_Rate.Items.AddRange(new object[] { "53%", "63%", "73%", "83%", "93%" });
-        CB_Rate.Location = new Point(345, 92);
+        CB_Rate.Location = new Point(345, 96);
         CB_Rate.Name = "CB_Rate";
         CB_Rate.Size = new Size(173, 23);
         CB_Rate.TabIndex = 4;
@@ -765,7 +761,7 @@ namespace ARSE.WinForms;
         // label4
         // 
         label4.AutoSize = true;
-        label4.Location = new Point(254, 95);
+        label4.Location = new Point(254, 99);
         label4.Name = "label4";
         label4.Size = new Size(85, 15);
         label4.TabIndex = 69;
@@ -775,7 +771,7 @@ namespace ARSE.WinForms;
         // 
         CB_Action.FormattingEnabled = true;
         CB_Action.Items.AddRange(new object[] { "(None)", "Press A", "Press HOME" });
-        CB_Action.Location = new Point(345, 26);
+        CB_Action.Location = new Point(345, 30);
         CB_Action.Name = "CB_Action";
         CB_Action.Size = new Size(116, 23);
         CB_Action.TabIndex = 1;
@@ -783,7 +779,7 @@ namespace ARSE.WinForms;
         // label5
         // 
         label5.AutoSize = true;
-        label5.Location = new Point(246, 29);
+        label5.Location = new Point(246, 33);
         label5.Name = "label5";
         label5.Size = new Size(93, 15);
         label5.TabIndex = 71;
@@ -791,7 +787,7 @@ namespace ARSE.WinForms;
         // 
         // NUD_ActionTimes
         // 
-        NUD_ActionTimes.Location = new Point(480, 27);
+        NUD_ActionTimes.Location = new Point(480, 31);
         NUD_ActionTimes.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
         NUD_ActionTimes.Name = "NUD_ActionTimes";
         NUD_ActionTimes.Size = new Size(38, 23);
@@ -801,7 +797,7 @@ namespace ARSE.WinForms;
         // label6
         // 
         label6.AutoSize = true;
-        label6.Location = new Point(467, 29);
+        label6.Location = new Point(467, 33);
         label6.Name = "label6";
         label6.Size = new Size(13, 15);
         label6.TabIndex = 73;
@@ -821,8 +817,8 @@ namespace ARSE.WinForms;
         // 
         DGV_ResultsPokemon.AllowUserToAddRows = false;
         DGV_ResultsPokemon.AllowUserToDeleteRows = false;
-        dataGridViewCellStyle4.BackColor = Color.FromArgb(224, 224, 224);
-        DGV_ResultsPokemon.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+        dataGridViewCellStyle2.BackColor = Color.FromArgb(224, 224, 224);
+        DGV_ResultsPokemon.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
         DGV_ResultsPokemon.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         DGV_ResultsPokemon.AutoGenerateColumns = false;
         DGV_ResultsPokemon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -996,6 +992,8 @@ namespace ARSE.WinForms;
         // 
         // GB_Filters
         // 
+        GB_Filters.Controls.Add(L_Delay);
+        GB_Filters.Controls.Add(NUD_Delay);
         GB_Filters.Controls.Add(NUD_Cluster);
         GB_Filters.Controls.Add(L_Cluster);
         GB_Filters.Controls.Add(CB_RareEC);
@@ -1042,10 +1040,29 @@ namespace ARSE.WinForms;
         GB_Filters.Controls.Add(NUD_HP_Min);
         GB_Filters.Location = new Point(799, 3);
         GB_Filters.Name = "GB_Filters";
-        GB_Filters.Size = new Size(229, 273);
+        GB_Filters.Size = new Size(229, 297);
         GB_Filters.TabIndex = 126;
         GB_Filters.TabStop = false;
         GB_Filters.Text = "Search Filters";
+        // 
+        // L_Delay
+        // 
+        L_Delay.AutoSize = true;
+        L_Delay.Location = new Point(37, 245);
+        L_Delay.Name = "L_Delay";
+        L_Delay.Size = new Size(39, 15);
+        L_Delay.TabIndex = 167;
+        L_Delay.Text = "Delay:";
+        // 
+        // NUD_Delay
+        // 
+        NUD_Delay.Location = new Point(82, 243);
+        NUD_Delay.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
+        NUD_Delay.Name = "NUD_Delay";
+        NUD_Delay.Size = new Size(142, 23);
+        NUD_Delay.TabIndex = 166;
+        NUD_Delay.TextAlign = HorizontalAlignment.Right;
+        NUD_Delay.Value = new decimal(new int[] { 100, 0, 0, 0 });
         // 
         // NUD_Cluster
         // 
@@ -1071,7 +1088,7 @@ namespace ARSE.WinForms;
         // 
         CB_RareEC.AutoSize = true;
         CB_RareEC.CheckAlign = ContentAlignment.MiddleRight;
-        CB_RareEC.Location = new Point(43, 246);
+        CB_RareEC.Location = new Point(43, 274);
         CB_RareEC.Name = "CB_RareEC";
         CB_RareEC.Size = new Size(71, 19);
         CB_RareEC.TabIndex = 27;
@@ -1085,7 +1102,7 @@ namespace ARSE.WinForms;
         CB_EnableFilters.CheckAlign = ContentAlignment.MiddleRight;
         CB_EnableFilters.Checked = true;
         CB_EnableFilters.CheckState = CheckState.Checked;
-        CB_EnableFilters.Location = new Point(117, 248);
+        CB_EnableFilters.Location = new Point(117, 276);
         CB_EnableFilters.Name = "CB_EnableFilters";
         CB_EnableFilters.Size = new Size(107, 19);
         CB_EnableFilters.TabIndex = 28;
@@ -1523,7 +1540,7 @@ namespace ARSE.WinForms;
         TB_MonAdv.Name = "TB_MonAdv";
         TB_MonAdv.Size = new Size(151, 22);
         TB_MonAdv.TabIndex = 135;
-        TB_MonAdv.Text = "500";
+        TB_MonAdv.Text = "5000000";
         TB_MonAdv.TextAlign = HorizontalAlignment.Right;
         TB_MonAdv.KeyDown += Dec_HandlePaste;
         TB_MonAdv.KeyPress += AllowOnlyNumerical_KeyPress;
@@ -1657,7 +1674,7 @@ namespace ARSE.WinForms;
         // 
         // B_ReadWildPokemon
         // 
-        B_ReadWildPokemon.Location = new Point(1034, 275);
+        B_ReadWildPokemon.Location = new Point(1034, 200);
         B_ReadWildPokemon.Name = "B_ReadWildPokemon";
         B_ReadWildPokemon.Size = new Size(181, 25);
         B_ReadWildPokemon.TabIndex = 9;
@@ -1675,75 +1692,6 @@ namespace ARSE.WinForms;
         TB_Wild.TabIndex = 8;
         TB_Wild.TabStop = false;
         TB_Wild.Text = "Shiny - Species (Gender) @ Item\r\nEC: WWWWWWWW\r\nPID: WWWWWWWW\r\nWWWWWWW Nature\r\nAbility: WWWWWWWWWW\r\nIVs: 22/22/22/22/22/22\r\nHeight: 255 (XXXL)\r\nMark: WWWWWWWWWW\r\n- Move 1\r\n- Move 2\r\n- Move 3\r\n- Move 4";
-        // 
-        // CB_CaliDir
-        // 
-        CB_CaliDir.FormattingEnabled = true;
-        CB_CaliDir.Items.AddRange(new object[] { "Up", "Down", "Left", "Right" });
-        CB_CaliDir.Location = new Point(1295, 24);
-        CB_CaliDir.Name = "CB_CaliDir";
-        CB_CaliDir.Size = new Size(116, 23);
-        CB_CaliDir.TabIndex = 10;
-        // 
-        // L_CaliDir
-        // 
-        L_CaliDir.AutoSize = true;
-        L_CaliDir.Location = new Point(1230, 27);
-        L_CaliDir.Name = "L_CaliDir";
-        L_CaliDir.Size = new Size(40, 15);
-        L_CaliDir.TabIndex = 134;
-        L_CaliDir.Text = "Move:";
-        // 
-        // L_Delay
-        // 
-        L_Delay.AutoSize = true;
-        L_Delay.Location = new Point(1231, 51);
-        L_Delay.Name = "L_Delay";
-        L_Delay.Size = new Size(39, 15);
-        L_Delay.TabIndex = 136;
-        L_Delay.Text = "Delay:";
-        // 
-        // NUD_Delay
-        // 
-        NUD_Delay.Location = new Point(1373, 49);
-        NUD_Delay.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
-        NUD_Delay.Name = "NUD_Delay";
-        NUD_Delay.Size = new Size(38, 23);
-        NUD_Delay.TabIndex = 11;
-        NUD_Delay.Value = new decimal(new int[] { 100, 0, 0, 0 });
-        // 
-        // label7
-        // 
-        label7.AutoSize = true;
-        label7.Location = new Point(1228, 76);
-        label7.Name = "label7";
-        label7.Size = new Size(42, 15);
-        label7.TabIndex = 138;
-        label7.Text = "Target:";
-        // 
-        // TB_Target
-        // 
-        TB_Target.CharacterCasing = CharacterCasing.Upper;
-        TB_Target.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        TB_Target.Location = new Point(1295, 74);
-        TB_Target.MaxLength = 16;
-        TB_Target.Name = "TB_Target";
-        TB_Target.Size = new Size(116, 22);
-        TB_Target.TabIndex = 12;
-        TB_Target.Text = "0";
-        TB_Target.TextAlign = HorizontalAlignment.Right;
-        TB_Target.KeyDown += Dec_HandlePaste;
-        TB_Target.KeyPress += AllowOnlyNumerical_KeyPress;
-        // 
-        // B_HitTarget
-        // 
-        B_HitTarget.Location = new Point(1230, 98);
-        B_HitTarget.Name = "B_HitTarget";
-        B_HitTarget.Size = new Size(181, 25);
-        B_HitTarget.TabIndex = 13;
-        B_HitTarget.Text = "Do Encounter (Auto)";
-        B_HitTarget.UseVisualStyleBackColor = true;
-        B_HitTarget.Click += B_HitTarget_Click;
         // 
         // B_Left
         // 
@@ -1883,15 +1831,15 @@ namespace ARSE.WinForms;
         findSafeAdvanceToolStripMenuItem.Text = "Find Safe Advance";
         findSafeAdvanceToolStripMenuItem.Click += findSafeAdvanceToolStripMenuItem_Click;
         // 
-        // B_CalcDelay
+        // B_CalcDelayAuto
         // 
-        B_CalcDelay.Location = new Point(1230, 125);
-        B_CalcDelay.Name = "B_CalcDelay";
-        B_CalcDelay.Size = new Size(181, 25);
-        B_CalcDelay.TabIndex = 140;
-        B_CalcDelay.Text = "Calculate Delay (Manual)";
-        B_CalcDelay.UseVisualStyleBackColor = true;
-        B_CalcDelay.Click += B_CalcDelay_Click;
+        B_CalcDelayAuto.Location = new Point(1034, 278);
+        B_CalcDelayAuto.Name = "B_CalcDelayAuto";
+        B_CalcDelayAuto.Size = new Size(181, 25);
+        B_CalcDelayAuto.TabIndex = 140;
+        B_CalcDelayAuto.Text = "Calculate Delay (Automatic)";
+        B_CalcDelayAuto.UseVisualStyleBackColor = true;
+        B_CalcDelayAuto.Click += B_CalcDelay_Click;
         // 
         // TB_SafeDistance3
         // 
@@ -1929,15 +1877,26 @@ namespace ARSE.WinForms;
         TB_SafeDistance1.TabIndex = 143;
         TB_SafeDistance1.TextAlign = HorizontalAlignment.Right;
         // 
+        // B_CalcDelayManual
+        // 
+        B_CalcDelayManual.Location = new Point(1034, 251);
+        B_CalcDelayManual.Name = "B_CalcDelayManual";
+        B_CalcDelayManual.Size = new Size(181, 25);
+        B_CalcDelayManual.TabIndex = 144;
+        B_CalcDelayManual.Text = "Calculate Delay (Manual)";
+        B_CalcDelayManual.UseVisualStyleBackColor = true;
+        B_CalcDelayManual.Click += B_CalcDelayManual_Click;
+        // 
         // MainWindow
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(1479, 627);
+        Controls.Add(B_CalcDelayManual);
         Controls.Add(TB_SafeDistance1);
         Controls.Add(TB_SafeDistance2);
         Controls.Add(TB_SafeDistance3);
-        Controls.Add(B_CalcDelay);
+        Controls.Add(B_CalcDelayAuto);
         Controls.Add(TB_Input);
         Controls.Add(B_Minus);
         Controls.Add(B_B);
@@ -1948,13 +1907,6 @@ namespace ARSE.WinForms;
         Controls.Add(B_Up);
         Controls.Add(B_Right);
         Controls.Add(B_Left);
-        Controls.Add(B_HitTarget);
-        Controls.Add(label7);
-        Controls.Add(TB_Target);
-        Controls.Add(L_Delay);
-        Controls.Add(NUD_Delay);
-        Controls.Add(L_CaliDir);
-        Controls.Add(CB_CaliDir);
         Controls.Add(TB_Wild);
         Controls.Add(B_ReadWildPokemon);
         Controls.Add(groupBox1);
@@ -2005,6 +1957,7 @@ namespace ARSE.WinForms;
         ((System.ComponentModel.ISupportInitialize)ResultsSourcePokemon).EndInit();
         GB_Filters.ResumeLayout(false);
         GB_Filters.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)NUD_Delay).EndInit();
         ((System.ComponentModel.ISupportInitialize)NUD_Cluster).EndInit();
         ((System.ComponentModel.ISupportInitialize)NUD_Spe_Max).EndInit();
         ((System.ComponentModel.ISupportInitialize)NUD_Spe_Min).EndInit();
@@ -2021,7 +1974,6 @@ namespace ARSE.WinForms;
         groupBox1.ResumeLayout(false);
         groupBox1.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)NUD_ChainCount).EndInit();
-        ((System.ComponentModel.ISupportInitialize)NUD_Delay).EndInit();
         menuStrip1.ResumeLayout(false);
         menuStrip1.PerformLayout();
         ResumeLayout(false);
@@ -2142,13 +2094,7 @@ namespace ARSE.WinForms;
     private NumericUpDown NUD_Cluster;
     private Button B_ReadWildPokemon;
     private TextBox TB_Wild;
-    public ComboBox CB_CaliDir;
-    private Label L_CaliDir;
-    private Label L_Delay;
-    private NumericUpDown NUD_Delay;
-    private Label label7;
-    private TextBox TB_Target;
-    private Button B_HitTarget;
+    private Button B_CalcDelayManual;
     private Button B_Left;
     private Button B_Right;
     private Button B_Up;
@@ -2188,9 +2134,11 @@ namespace ARSE.WinForms;
     private MenuStrip menuStrip1;
     private ToolStripMenuItem shortcutsToolStripMenuItem;
     private ToolStripMenuItem findSafeAdvanceToolStripMenuItem;
-    private Button B_CalcDelay;
+    private Button B_CalcDelayAuto;
     private TextBox TB_SafeDistance3;
     private TextBox TB_SafeDistance2;
     private TextBox TB_SafeDistance1;
+    private Label L_Delay;
+    private NumericUpDown NUD_Delay;
 }
 
