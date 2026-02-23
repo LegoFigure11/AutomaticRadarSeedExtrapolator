@@ -433,7 +433,7 @@ public partial class MainWindow : Form
     private void B_CopyToInitial_Click(object sender, EventArgs e)
     {
 #if DEBUG
-        if (((Button)sender).Name == "B_CopyToInitial" && ModifierKeys == Keys.Shift)
+        if (sender is Button { Name: "B_CopyToInitial" } && ModifierKeys == Keys.Shift)
         {
             Task.Run(
                 async () =>
@@ -1083,6 +1083,12 @@ public partial class MainWindow : Form
                             break;
                         case Keys.H:
                             await ConnectionWrapper.PressHOME(0, Source.Token).ConfigureAwait(false);
+                            break;
+                        case Keys.J:
+                            B_CopyToInitial_Click(sender, EventArgs.Empty);
+                            break;
+                        case Keys.K:
+                            B_Search_Click(sender, EventArgs.Empty);
                             break;
                         default:
                             await ConnectionWrapper.DoTurboCommand(GetTurboCommandFromKey(e.KeyCode), Source.Token).ConfigureAwait(false);
