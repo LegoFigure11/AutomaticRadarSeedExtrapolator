@@ -1120,9 +1120,12 @@ public partial class MainWindow : Form
                             await ConnectionWrapper.DoTurboCommand("X", Source.Token).ConfigureAwait(false);
                             await Task.Delay(1_000, Source.Token).ConfigureAwait(false);
                             await ConnectionWrapper.DoTurboCommand("A", Source.Token).ConfigureAwait(false);
-                            await Task.Delay(17_500, Source.Token).ConfigureAwait(false);
+                            await Task.Delay(18_500, Source.Token).ConfigureAwait(false);
                             await ConnectionWrapper.DoTurboCommand("A", Source.Token).ConfigureAwait(false);
                             B_Forecast_Click(sender, EventArgs.Empty);
+                            break;
+                        case Keys.H:
+                            await ConnectionWrapper.PressHOME(0, Source.Token).ConfigureAwait(false);
                             break;
                         default:
                             await ConnectionWrapper.DoTurboCommand(GetTurboCommandFromKey(e.KeyCode), Source.Token).ConfigureAwait(false);
