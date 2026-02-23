@@ -29,8 +29,8 @@ namespace ARSE.WinForms;
     private void InitializeComponent()
     {
         components = new System.ComponentModel.Container();
-        DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-        DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+        DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+        DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
         GB_Connection = new GroupBox();
         TB_AdvancesIncrease = new TextBox();
@@ -191,6 +191,9 @@ namespace ARSE.WinForms;
         shortcutsToolStripMenuItem = new ToolStripMenuItem();
         findSafeAdvanceToolStripMenuItem = new ToolStripMenuItem();
         B_CalcDelay = new Button();
+        TB_SafeDistance3 = new TextBox();
+        TB_SafeDistance2 = new TextBox();
+        TB_SafeDistance1 = new TextBox();
         GB_Connection.SuspendLayout();
         GB_Seed.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
@@ -537,7 +540,7 @@ namespace ARSE.WinForms;
         // 
         // NUD_SafeNum
         // 
-        NUD_SafeNum.Location = new Point(480, 29);
+        NUD_SafeNum.Location = new Point(480, 1);
         NUD_SafeNum.Maximum = new decimal(new int[] { 300, 0, 0, 0 });
         NUD_SafeNum.Name = "NUD_SafeNum";
         NUD_SafeNum.Size = new Size(38, 23);
@@ -547,7 +550,7 @@ namespace ARSE.WinForms;
         // L_SafeNum
         // 
         L_SafeNum.AutoSize = true;
-        L_SafeNum.Location = new Point(230, 31);
+        L_SafeNum.Location = new Point(230, 3);
         L_SafeNum.Name = "L_SafeNum";
         L_SafeNum.Size = new Size(113, 15);
         L_SafeNum.TabIndex = 6;
@@ -556,7 +559,7 @@ namespace ARSE.WinForms;
         // B_Forecast
         // 
         B_Forecast.Enabled = false;
-        B_Forecast.Location = new Point(230, 79);
+        B_Forecast.Location = new Point(230, 51);
         B_Forecast.Name = "B_Forecast";
         B_Forecast.Size = new Size(288, 25);
         B_Forecast.TabIndex = 3;
@@ -568,8 +571,8 @@ namespace ARSE.WinForms;
         // 
         DGV_ResultsContinuation.AllowUserToAddRows = false;
         DGV_ResultsContinuation.AllowUserToDeleteRows = false;
-        dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
-        DGV_ResultsContinuation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+        dataGridViewCellStyle3.BackColor = Color.FromArgb(224, 224, 224);
+        DGV_ResultsContinuation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
         DGV_ResultsContinuation.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
         DGV_ResultsContinuation.AutoGenerateColumns = false;
         DGV_ResultsContinuation.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -633,7 +636,7 @@ namespace ARSE.WinForms;
         // 
         // B_Search
         // 
-        B_Search.Location = new Point(230, 197);
+        B_Search.Location = new Point(230, 169);
         B_Search.Name = "B_Search";
         B_Search.Size = new Size(288, 25);
         B_Search.TabIndex = 7;
@@ -644,7 +647,7 @@ namespace ARSE.WinForms;
         // L_Static_Advances
         // 
         L_Static_Advances.AutoSize = true;
-        L_Static_Advances.Location = new Point(324, 171);
+        L_Static_Advances.Location = new Point(324, 143);
         L_Static_Advances.Name = "L_Static_Advances";
         L_Static_Advances.Size = new Size(15, 15);
         L_Static_Advances.TabIndex = 61;
@@ -653,7 +656,7 @@ namespace ARSE.WinForms;
         // L_Static_Initial
         // 
         L_Static_Initial.AutoSize = true;
-        L_Static_Initial.Location = new Point(246, 147);
+        L_Static_Initial.Location = new Point(246, 119);
         L_Static_Initial.Name = "L_Static_Initial";
         L_Static_Initial.Size = new Size(93, 15);
         L_Static_Initial.TabIndex = 60;
@@ -663,7 +666,7 @@ namespace ARSE.WinForms;
         // 
         TB_Advances.CharacterCasing = CharacterCasing.Upper;
         TB_Advances.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        TB_Advances.Location = new Point(345, 169);
+        TB_Advances.Location = new Point(345, 141);
         TB_Advances.MaxLength = 16;
         TB_Advances.Name = "TB_Advances";
         TB_Advances.Size = new Size(173, 22);
@@ -677,7 +680,7 @@ namespace ARSE.WinForms;
         // 
         TB_Initial.CharacterCasing = CharacterCasing.Upper;
         TB_Initial.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        TB_Initial.Location = new Point(345, 145);
+        TB_Initial.Location = new Point(345, 117);
         TB_Initial.MaxLength = 16;
         TB_Initial.Name = "TB_Initial";
         TB_Initial.Size = new Size(173, 22);
@@ -691,7 +694,7 @@ namespace ARSE.WinForms;
         // 
         TB_FailsNext.CharacterCasing = CharacterCasing.Upper;
         TB_FailsNext.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        TB_FailsNext.Location = new Point(434, 231);
+        TB_FailsNext.Location = new Point(434, 203);
         TB_FailsNext.MaxLength = 16;
         TB_FailsNext.Name = "TB_FailsNext";
         TB_FailsNext.ReadOnly = true;
@@ -703,7 +706,7 @@ namespace ARSE.WinForms;
         // 
         TB_FailsTotal.CharacterCasing = CharacterCasing.Upper;
         TB_FailsTotal.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        TB_FailsTotal.Location = new Point(434, 254);
+        TB_FailsTotal.Location = new Point(434, 226);
         TB_FailsTotal.MaxLength = 16;
         TB_FailsTotal.Name = "TB_FailsTotal";
         TB_FailsTotal.ReadOnly = true;
@@ -714,7 +717,7 @@ namespace ARSE.WinForms;
         // label1
         // 
         label1.AutoSize = true;
-        label1.Location = new Point(230, 232);
+        label1.Location = new Point(230, 204);
         label1.Name = "label1";
         label1.Size = new Size(162, 15);
         label1.TabIndex = 64;
@@ -723,7 +726,7 @@ namespace ARSE.WinForms;
         // label2
         // 
         label2.AutoSize = true;
-        label2.Location = new Point(230, 256);
+        label2.Location = new Point(230, 228);
         label2.Name = "label2";
         label2.Size = new Size(100, 15);
         label2.TabIndex = 65;
@@ -733,7 +736,7 @@ namespace ARSE.WinForms;
         // 
         TB_SafeDistance.CharacterCasing = CharacterCasing.Upper;
         TB_SafeDistance.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        TB_SafeDistance.Location = new Point(434, 278);
+        TB_SafeDistance.Location = new Point(434, 250);
         TB_SafeDistance.MaxLength = 16;
         TB_SafeDistance.Name = "TB_SafeDistance";
         TB_SafeDistance.ReadOnly = true;
@@ -744,7 +747,7 @@ namespace ARSE.WinForms;
         // L_SafeDistance
         // 
         L_SafeDistance.AutoSize = true;
-        L_SafeDistance.Location = new Point(230, 280);
+        L_SafeDistance.Location = new Point(230, 252);
         L_SafeDistance.Name = "L_SafeDistance";
         L_SafeDistance.Size = new Size(180, 15);
         L_SafeDistance.TabIndex = 67;
@@ -754,7 +757,7 @@ namespace ARSE.WinForms;
         // 
         CB_Rate.FormattingEnabled = true;
         CB_Rate.Items.AddRange(new object[] { "53%", "63%", "73%", "83%", "93%" });
-        CB_Rate.Location = new Point(345, 120);
+        CB_Rate.Location = new Point(345, 92);
         CB_Rate.Name = "CB_Rate";
         CB_Rate.Size = new Size(173, 23);
         CB_Rate.TabIndex = 4;
@@ -762,7 +765,7 @@ namespace ARSE.WinForms;
         // label4
         // 
         label4.AutoSize = true;
-        label4.Location = new Point(254, 123);
+        label4.Location = new Point(254, 95);
         label4.Name = "label4";
         label4.Size = new Size(85, 15);
         label4.TabIndex = 69;
@@ -772,7 +775,7 @@ namespace ARSE.WinForms;
         // 
         CB_Action.FormattingEnabled = true;
         CB_Action.Items.AddRange(new object[] { "(None)", "Press A", "Press HOME" });
-        CB_Action.Location = new Point(345, 54);
+        CB_Action.Location = new Point(345, 26);
         CB_Action.Name = "CB_Action";
         CB_Action.Size = new Size(116, 23);
         CB_Action.TabIndex = 1;
@@ -780,7 +783,7 @@ namespace ARSE.WinForms;
         // label5
         // 
         label5.AutoSize = true;
-        label5.Location = new Point(246, 57);
+        label5.Location = new Point(246, 29);
         label5.Name = "label5";
         label5.Size = new Size(93, 15);
         label5.TabIndex = 71;
@@ -788,7 +791,7 @@ namespace ARSE.WinForms;
         // 
         // NUD_ActionTimes
         // 
-        NUD_ActionTimes.Location = new Point(480, 55);
+        NUD_ActionTimes.Location = new Point(480, 27);
         NUD_ActionTimes.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
         NUD_ActionTimes.Name = "NUD_ActionTimes";
         NUD_ActionTimes.Size = new Size(38, 23);
@@ -798,7 +801,7 @@ namespace ARSE.WinForms;
         // label6
         // 
         label6.AutoSize = true;
-        label6.Location = new Point(467, 57);
+        label6.Location = new Point(467, 29);
         label6.Name = "label6";
         label6.Size = new Size(13, 15);
         label6.TabIndex = 73;
@@ -818,8 +821,8 @@ namespace ARSE.WinForms;
         // 
         DGV_ResultsPokemon.AllowUserToAddRows = false;
         DGV_ResultsPokemon.AllowUserToDeleteRows = false;
-        dataGridViewCellStyle2.BackColor = Color.FromArgb(224, 224, 224);
-        DGV_ResultsPokemon.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+        dataGridViewCellStyle4.BackColor = Color.FromArgb(224, 224, 224);
+        DGV_ResultsPokemon.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
         DGV_ResultsPokemon.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         DGV_ResultsPokemon.AutoGenerateColumns = false;
         DGV_ResultsPokemon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1890,11 +1893,50 @@ namespace ARSE.WinForms;
         B_CalcDelay.UseVisualStyleBackColor = true;
         B_CalcDelay.Click += B_CalcDelay_Click;
         // 
+        // TB_SafeDistance3
+        // 
+        TB_SafeDistance3.CharacterCasing = CharacterCasing.Upper;
+        TB_SafeDistance3.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        TB_SafeDistance3.Location = new Point(434, 278);
+        TB_SafeDistance3.MaxLength = 16;
+        TB_SafeDistance3.Name = "TB_SafeDistance3";
+        TB_SafeDistance3.ReadOnly = true;
+        TB_SafeDistance3.Size = new Size(84, 22);
+        TB_SafeDistance3.TabIndex = 141;
+        TB_SafeDistance3.TextAlign = HorizontalAlignment.Right;
+        // 
+        // TB_SafeDistance2
+        // 
+        TB_SafeDistance2.CharacterCasing = CharacterCasing.Upper;
+        TB_SafeDistance2.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        TB_SafeDistance2.Location = new Point(332, 278);
+        TB_SafeDistance2.MaxLength = 16;
+        TB_SafeDistance2.Name = "TB_SafeDistance2";
+        TB_SafeDistance2.ReadOnly = true;
+        TB_SafeDistance2.Size = new Size(84, 22);
+        TB_SafeDistance2.TabIndex = 142;
+        TB_SafeDistance2.TextAlign = HorizontalAlignment.Right;
+        // 
+        // TB_SafeDistance1
+        // 
+        TB_SafeDistance1.CharacterCasing = CharacterCasing.Upper;
+        TB_SafeDistance1.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        TB_SafeDistance1.Location = new Point(230, 278);
+        TB_SafeDistance1.MaxLength = 16;
+        TB_SafeDistance1.Name = "TB_SafeDistance1";
+        TB_SafeDistance1.ReadOnly = true;
+        TB_SafeDistance1.Size = new Size(84, 22);
+        TB_SafeDistance1.TabIndex = 143;
+        TB_SafeDistance1.TextAlign = HorizontalAlignment.Right;
+        // 
         // MainWindow
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(1479, 627);
+        Controls.Add(TB_SafeDistance1);
+        Controls.Add(TB_SafeDistance2);
+        Controls.Add(TB_SafeDistance3);
         Controls.Add(B_CalcDelay);
         Controls.Add(TB_Input);
         Controls.Add(B_Minus);
@@ -2147,5 +2189,8 @@ namespace ARSE.WinForms;
     private ToolStripMenuItem shortcutsToolStripMenuItem;
     private ToolStripMenuItem findSafeAdvanceToolStripMenuItem;
     private Button B_CalcDelay;
+    private TextBox TB_SafeDistance3;
+    private TextBox TB_SafeDistance2;
+    private TextBox TB_SafeDistance1;
 }
 

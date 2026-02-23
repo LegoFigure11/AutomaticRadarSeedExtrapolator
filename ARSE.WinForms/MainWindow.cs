@@ -552,9 +552,11 @@ public partial class MainWindow : Form
             SetControlText($"{results.Count(x => x.Fail == '*')}/{results.Count}", TB_FailsTotal);
 
             var nud = NUD_SafeNum.GetValue();
-            var fc = Core.RNG.RadarContinuation.Forecast(s0, s1, nud, cfg, initial, initial + 0xFFFFFFFF);
+            var fc = Core.RNG.RadarContinuation.ForecastMany(s0, s1, nud, cfg, initial, initial + 0xFFFFFFFF);
             SetControlText($"Next safe advance ({nud} in a row):", L_SafeDistance);
-            SetControlText(fc.found ? $"{(fc.advances + initial):N0}" : "None found", TB_SafeDistance);
+
+            TextBox[] ctrls = [TB_SafeDistance, TB_SafeDistance1, TB_SafeDistance2, TB_SafeDistance3];
+            for (var i = 0; i < 4; i++) SetControlText(fc[i].found ? $"{(fc[i].advances + initial):N0}" : "None found", ctrls[i]);
             SetControlEnabledState(true, B_Search);
         });
     }

@@ -73,5 +73,39 @@ public static class RadarContinuation
 
         return (false, 0);
     }
+
+    public static List<(bool found, ulong advances)> ForecastMany(ulong s0, ulong s1, uint target, RadarContinuationConfig cfg, ulong init, ulong advances = 0xFFFFFFFF, int num = 4)
+    {
+        List<(bool, ulong)> res = [];
+        var outer = new XorShift128(s0, s1);
+
+        for (ulong i = 0; i < init; i++) outer.Next();
+
+        for (ulong i = 0; i < advances && res.Count < num;)
+        {
+            var s = outer.GetState64();
+            var rng = new XorShift128(s.s0, s.s1);
+            ulong chain = 0;
+            var loop = true;
+            while (loop)
+            {
+                i++;
+                if (CheckSingle(ref rng, cfg.ContinueRate)) chain++;
+                else loop = false;
+
+                outer.Next();
+            }
+
+            if (chain >= target) res.Add((true, i - chain - 1));
+        }
+
+        for (var i = res.Count; i < num; i++)
+        {
+            res.Add((false, 0));
+        }
+
+        return res;
+
+    }
 }
 
