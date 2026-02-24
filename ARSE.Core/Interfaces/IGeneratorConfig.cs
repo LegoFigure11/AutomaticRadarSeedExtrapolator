@@ -55,6 +55,9 @@ public class ChainPokemonConfig : IGeneratorConfig
 
     public bool RareEC { get; set; } = false;
 
+    public bool UseDelay { get; set; } = false;
+    public uint Delay { get; set; } = 0;
+
     public uint TID { get; set; } = 0;
     public uint SID { get; set; } = 0;
     public uint TSV => RNG.Util.GetShinyValue(TID, SID);

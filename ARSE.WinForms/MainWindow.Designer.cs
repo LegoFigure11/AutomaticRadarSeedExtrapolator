@@ -107,7 +107,6 @@ namespace ARSE.WinForms;
         dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
         ResultsSourcePokemon = new BindingSource(components);
         GB_Filters = new GroupBox();
-        L_Delay = new Label();
         NUD_Delay = new NumericUpDown();
         NUD_Cluster = new NumericUpDown();
         L_Cluster = new Label();
@@ -190,6 +189,7 @@ namespace ARSE.WinForms;
         TB_SafeDistance2 = new TextBox();
         TB_SafeDistance1 = new TextBox();
         B_CalcDelayManual = new Button();
+        CB_Delay = new CheckBox();
         GB_Connection.SuspendLayout();
         GB_Seed.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
@@ -992,7 +992,7 @@ namespace ARSE.WinForms;
         // 
         // GB_Filters
         // 
-        GB_Filters.Controls.Add(L_Delay);
+        GB_Filters.Controls.Add(CB_Delay);
         GB_Filters.Controls.Add(NUD_Delay);
         GB_Filters.Controls.Add(NUD_Cluster);
         GB_Filters.Controls.Add(L_Cluster);
@@ -1045,21 +1045,13 @@ namespace ARSE.WinForms;
         GB_Filters.TabStop = false;
         GB_Filters.Text = "Search Filters";
         // 
-        // L_Delay
-        // 
-        L_Delay.AutoSize = true;
-        L_Delay.Location = new Point(37, 245);
-        L_Delay.Name = "L_Delay";
-        L_Delay.Size = new Size(39, 15);
-        L_Delay.TabIndex = 167;
-        L_Delay.Text = "Delay:";
-        // 
         // NUD_Delay
         // 
-        NUD_Delay.Location = new Point(82, 243);
+        NUD_Delay.Enabled = false;
+        NUD_Delay.Location = new Point(101, 243);
         NUD_Delay.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
         NUD_Delay.Name = "NUD_Delay";
-        NUD_Delay.Size = new Size(142, 23);
+        NUD_Delay.Size = new Size(123, 23);
         NUD_Delay.TabIndex = 166;
         NUD_Delay.TextAlign = HorizontalAlignment.Right;
         NUD_Delay.Value = new decimal(new int[] { 100, 0, 0, 0 });
@@ -1078,7 +1070,7 @@ namespace ARSE.WinForms;
         // L_Cluster
         // 
         L_Cluster.AutoSize = true;
-        L_Cluster.Location = new Point(2, 220);
+        L_Cluster.Location = new Point(3, 220);
         L_Cluster.Name = "L_Cluster";
         L_Cluster.Size = new Size(74, 15);
         L_Cluster.TabIndex = 165;
@@ -1113,7 +1105,7 @@ namespace ARSE.WinForms;
         // L_Filter_Height
         // 
         L_Filter_Height.AutoSize = true;
-        L_Filter_Height.Location = new Point(30, 196);
+        L_Filter_Height.Location = new Point(31, 196);
         L_Filter_Height.Name = "L_Filter_Height";
         L_Filter_Height.Size = new Size(46, 15);
         L_Filter_Height.TabIndex = 163;
@@ -1131,7 +1123,7 @@ namespace ARSE.WinForms;
         // L_Filter_Shiny
         // 
         L_Filter_Shiny.AutoSize = true;
-        L_Filter_Shiny.Location = new Point(37, 171);
+        L_Filter_Shiny.Location = new Point(38, 171);
         L_Filter_Shiny.Name = "L_Filter_Shiny";
         L_Filter_Shiny.Size = new Size(39, 15);
         L_Filter_Shiny.TabIndex = 162;
@@ -1169,7 +1161,7 @@ namespace ARSE.WinForms;
         // L_Spe
         // 
         L_Spe.AutoSize = true;
-        L_Spe.Location = new Point(47, 147);
+        L_Spe.Location = new Point(48, 147);
         L_Spe.Name = "L_Spe";
         L_Spe.Size = new Size(29, 15);
         L_Spe.TabIndex = 161;
@@ -1226,7 +1218,7 @@ namespace ARSE.WinForms;
         // L_SpD
         // 
         L_SpD.AutoSize = true;
-        L_SpD.Location = new Point(45, 123);
+        L_SpD.Location = new Point(46, 123);
         L_SpD.Name = "L_SpD";
         L_SpD.Size = new Size(31, 15);
         L_SpD.TabIndex = 160;
@@ -1283,7 +1275,7 @@ namespace ARSE.WinForms;
         // L_SpA
         // 
         L_SpA.AutoSize = true;
-        L_SpA.Location = new Point(45, 95);
+        L_SpA.Location = new Point(46, 95);
         L_SpA.Name = "L_SpA";
         L_SpA.Size = new Size(31, 15);
         L_SpA.TabIndex = 156;
@@ -1340,7 +1332,7 @@ namespace ARSE.WinForms;
         // L_Def
         // 
         L_Def.AutoSize = true;
-        L_Def.Location = new Point(48, 70);
+        L_Def.Location = new Point(49, 70);
         L_Def.Name = "L_Def";
         L_Def.Size = new Size(28, 15);
         L_Def.TabIndex = 149;
@@ -1397,7 +1389,7 @@ namespace ARSE.WinForms;
         // L_Atk
         // 
         L_Atk.AutoSize = true;
-        L_Atk.Location = new Point(48, 45);
+        L_Atk.Location = new Point(49, 45);
         L_Atk.Name = "L_Atk";
         L_Atk.Size = new Size(28, 15);
         L_Atk.TabIndex = 142;
@@ -1454,7 +1446,7 @@ namespace ARSE.WinForms;
         // L_HP
         // 
         L_HP.AutoSize = true;
-        L_HP.Location = new Point(50, 20);
+        L_HP.Location = new Point(51, 20);
         L_HP.Name = "L_HP";
         L_HP.Size = new Size(26, 15);
         L_HP.TabIndex = 132;
@@ -1887,6 +1879,19 @@ namespace ARSE.WinForms;
         B_CalcDelayManual.UseVisualStyleBackColor = true;
         B_CalcDelayManual.Click += B_CalcDelayManual_Click;
         // 
+        // CB_Delay
+        // 
+        CB_Delay.AutoSize = true;
+        CB_Delay.CheckAlign = ContentAlignment.MiddleRight;
+        CB_Delay.Location = new Point(37, 244);
+        CB_Delay.Name = "CB_Delay";
+        CB_Delay.Size = new Size(58, 19);
+        CB_Delay.TabIndex = 167;
+        CB_Delay.Tag = "";
+        CB_Delay.Text = "Delay:";
+        CB_Delay.UseVisualStyleBackColor = true;
+        CB_Delay.CheckedChanged += CB_Delay_CheckedChanged;
+        // 
         // MainWindow
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -2138,7 +2143,7 @@ namespace ARSE.WinForms;
     private TextBox TB_SafeDistance3;
     private TextBox TB_SafeDistance2;
     private TextBox TB_SafeDistance1;
-    private Label L_Delay;
     private NumericUpDown NUD_Delay;
+    public CheckBox CB_Delay;
 }
 

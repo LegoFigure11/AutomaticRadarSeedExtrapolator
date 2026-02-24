@@ -562,6 +562,9 @@ public partial class MainWindow : Form
             Species = SpeciesNameToValue(GetControlText(CB_Species)),
             IsSync = GetComboBoxSelectedIndex(CB_Lead) == 1,
 
+            UseDelay = CB_Delay.GetIsChecked(),
+            Delay = NUD_Delay.GetValue(),
+
             TargetMinIVs = [GetNUDValue(NUD_HP_Min), GetNUDValue(NUD_Atk_Min), GetNUDValue(NUD_Def_Min), GetNUDValue(NUD_SpA_Min), GetNUDValue(NUD_SpD_Min), GetNUDValue(NUD_Spe_Min)],
             TargetMaxIVs = [GetNUDValue(NUD_HP_Max), GetNUDValue(NUD_Atk_Max), GetNUDValue(NUD_Def_Max), GetNUDValue(NUD_SpA_Max), GetNUDValue(NUD_SpD_Max), GetNUDValue(NUD_Spe_Max)],
             SearchTypes = [GetIVSearchType(GetControlText(L_HPSpacer)), GetIVSearchType(GetControlText(L_AtkSpacer)), GetIVSearchType(GetControlText(L_DefSpacer)), GetIVSearchType(GetControlText(L_SpASpacer)), GetIVSearchType(GetControlText(L_SpDSpacer)), GetIVSearchType(GetControlText(L_SpeSpacer))],
@@ -1406,6 +1409,11 @@ public partial class MainWindow : Form
             if (idx >= 0)
                 SetNUDValue(Math.Max(0, (uint)idx), NUD_Delay);
         });
+    }
+
+    private void CB_Delay_CheckedChanged(object sender, EventArgs e)
+    {
+        SetControlEnabledState(CB_Delay.GetIsChecked(), NUD_Delay);
     }
 }
 

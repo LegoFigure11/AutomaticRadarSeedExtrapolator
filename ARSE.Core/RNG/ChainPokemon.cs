@@ -32,6 +32,12 @@ public static class ChainPokemon
             for (ulong z = 0; z < start; z++)
                 outer.Next();
 
+            if (config.UseDelay)
+            {
+                for (var y = 0; y < config.Delay; y++)
+                    outer.Next();
+            }
+
             for (var i = start; i <= start + end; i++)
             {
                 var os = outer.GetState64();
