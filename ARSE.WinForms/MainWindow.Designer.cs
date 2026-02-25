@@ -107,6 +107,7 @@ namespace ARSE.WinForms;
         dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
         ResultsSourcePokemon = new BindingSource(components);
         GB_Filters = new GroupBox();
+        CB_Delay = new CheckBox();
         NUD_Delay = new NumericUpDown();
         NUD_Cluster = new NumericUpDown();
         L_Cluster = new Label();
@@ -184,12 +185,15 @@ namespace ARSE.WinForms;
         menuStrip1 = new MenuStrip();
         shortcutsToolStripMenuItem = new ToolStripMenuItem();
         findSafeAdvanceToolStripMenuItem = new ToolStripMenuItem();
+        updateSeedsToolStripMenuItem = new ToolStripMenuItem();
+        generateRadarContinuationToolStripMenuItem = new ToolStripMenuItem();
+        generateWildPokmonToolStripMenuItem = new ToolStripMenuItem();
+        readEncounterToolStripMenuItem = new ToolStripMenuItem();
         B_CalcDelayAuto = new Button();
         TB_SafeDistance3 = new TextBox();
         TB_SafeDistance2 = new TextBox();
         TB_SafeDistance1 = new TextBox();
         B_CalcDelayManual = new Button();
-        CB_Delay = new CheckBox();
         GB_Connection.SuspendLayout();
         GB_Seed.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
@@ -1045,6 +1049,19 @@ namespace ARSE.WinForms;
         GB_Filters.TabStop = false;
         GB_Filters.Text = "Search Filters";
         // 
+        // CB_Delay
+        // 
+        CB_Delay.AutoSize = true;
+        CB_Delay.CheckAlign = ContentAlignment.MiddleRight;
+        CB_Delay.Location = new Point(37, 244);
+        CB_Delay.Name = "CB_Delay";
+        CB_Delay.Size = new Size(58, 19);
+        CB_Delay.TabIndex = 167;
+        CB_Delay.Tag = "";
+        CB_Delay.Text = "Delay:";
+        CB_Delay.UseVisualStyleBackColor = true;
+        CB_Delay.CheckedChanged += CB_Delay_CheckedChanged;
+        // 
         // NUD_Delay
         // 
         NUD_Delay.Enabled = false;
@@ -1809,7 +1826,7 @@ namespace ARSE.WinForms;
         // 
         // shortcutsToolStripMenuItem
         // 
-        shortcutsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { findSafeAdvanceToolStripMenuItem });
+        shortcutsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { findSafeAdvanceToolStripMenuItem, updateSeedsToolStripMenuItem, generateRadarContinuationToolStripMenuItem, generateWildPokmonToolStripMenuItem, readEncounterToolStripMenuItem });
         shortcutsToolStripMenuItem.Name = "shortcutsToolStripMenuItem";
         shortcutsToolStripMenuItem.Size = new Size(69, 20);
         shortcutsToolStripMenuItem.Text = "Shortcuts";
@@ -1819,9 +1836,42 @@ namespace ARSE.WinForms;
         findSafeAdvanceToolStripMenuItem.Enabled = false;
         findSafeAdvanceToolStripMenuItem.Name = "findSafeAdvanceToolStripMenuItem";
         findSafeAdvanceToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Q;
-        findSafeAdvanceToolStripMenuItem.Size = new Size(214, 22);
+        findSafeAdvanceToolStripMenuItem.Size = new Size(276, 22);
         findSafeAdvanceToolStripMenuItem.Text = "Find Safe Advance";
         findSafeAdvanceToolStripMenuItem.Click += findSafeAdvanceToolStripMenuItem_Click;
+        // 
+        // updateSeedsToolStripMenuItem
+        // 
+        updateSeedsToolStripMenuItem.Enabled = false;
+        updateSeedsToolStripMenuItem.Name = "updateSeedsToolStripMenuItem";
+        updateSeedsToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.J;
+        updateSeedsToolStripMenuItem.Size = new Size(276, 22);
+        updateSeedsToolStripMenuItem.Text = "Update Seeds";
+        updateSeedsToolStripMenuItem.Click += updateSeedsToolStripMenuItem_Click;
+        // 
+        // generateRadarContinuationToolStripMenuItem
+        // 
+        generateRadarContinuationToolStripMenuItem.Name = "generateRadarContinuationToolStripMenuItem";
+        generateRadarContinuationToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.K;
+        generateRadarContinuationToolStripMenuItem.Size = new Size(276, 22);
+        generateRadarContinuationToolStripMenuItem.Text = "Generate (Radar Continuation)";
+        generateRadarContinuationToolStripMenuItem.Click += generateRadarContinuationToolStripMenuItem_Click;
+        // 
+        // generateWildPokmonToolStripMenuItem
+        // 
+        generateWildPokmonToolStripMenuItem.Name = "generateWildPokmonToolStripMenuItem";
+        generateWildPokmonToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.L;
+        generateWildPokmonToolStripMenuItem.Size = new Size(276, 22);
+        generateWildPokmonToolStripMenuItem.Text = "Generate (Wild Pokémon)";
+        // 
+        // readEncounterToolStripMenuItem
+        // 
+        readEncounterToolStripMenuItem.Enabled = false;
+        readEncounterToolStripMenuItem.Name = "readEncounterToolStripMenuItem";
+        readEncounterToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.R;
+        readEncounterToolStripMenuItem.Size = new Size(276, 22);
+        readEncounterToolStripMenuItem.Text = "Read Encounter";
+        readEncounterToolStripMenuItem.Click += readEncounterToolStripMenuItem_Click;
         // 
         // B_CalcDelayAuto
         // 
@@ -1878,19 +1928,6 @@ namespace ARSE.WinForms;
         B_CalcDelayManual.Text = "Calculate Delay (Manual)";
         B_CalcDelayManual.UseVisualStyleBackColor = true;
         B_CalcDelayManual.Click += B_CalcDelayManual_Click;
-        // 
-        // CB_Delay
-        // 
-        CB_Delay.AutoSize = true;
-        CB_Delay.CheckAlign = ContentAlignment.MiddleRight;
-        CB_Delay.Location = new Point(37, 244);
-        CB_Delay.Name = "CB_Delay";
-        CB_Delay.Size = new Size(58, 19);
-        CB_Delay.TabIndex = 167;
-        CB_Delay.Tag = "";
-        CB_Delay.Text = "Delay:";
-        CB_Delay.UseVisualStyleBackColor = true;
-        CB_Delay.CheckedChanged += CB_Delay_CheckedChanged;
         // 
         // MainWindow
         // 
@@ -2145,5 +2182,9 @@ namespace ARSE.WinForms;
     private TextBox TB_SafeDistance1;
     private NumericUpDown NUD_Delay;
     public CheckBox CB_Delay;
+    private ToolStripMenuItem updateSeedsToolStripMenuItem;
+    private ToolStripMenuItem generateRadarContinuationToolStripMenuItem;
+    private ToolStripMenuItem generateWildPokmonToolStripMenuItem;
+    private ToolStripMenuItem readEncounterToolStripMenuItem;
 }
 

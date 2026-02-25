@@ -169,7 +169,7 @@ public partial class MainWindow : Form
 
                 await ConnectionWrapper.DoTurboCommand("Release Stick", token).ConfigureAwait(false);
 
-                SetControlEnabledState(true, B_Disconnect, B_CopyToInitial, B_Forecast, B_ReadChainCount, B_ReadChainSpecies, findSafeAdvanceToolStripMenuItem);
+                SetControlEnabledState(true, B_Disconnect, B_CopyToInitial, B_Forecast, B_ReadChainCount, B_ReadChainSpecies, findSafeAdvanceToolStripMenuItem, updateSeedsToolStripMenuItem, readEncounterToolStripMenuItem);
 #if DEBUG
                 SetControlVisibleState(true, B_A, B_B, B_X, B_Y, B_Up, B_Down, B_Left, B_Right, B_Minus, TB_Input);
 #endif
@@ -181,7 +181,6 @@ public partial class MainWindow : Form
                     stop = false;
                     remaining = 0;
                     long target = 0;
-                    string dir = string.Empty;
                     while (!stop)
                     {
                         if (ConnectionWrapper.Connected && !readPause)
@@ -311,13 +310,21 @@ public partial class MainWindow : Form
     {
         foreach (object o in obj)
         {
-            if (o is not Control c)
-                continue;
+            if (o is Control c)
+            {
+                if (InvokeRequired)
+                    Invoke(() => c.Enabled = state);
+                else
+                    c.Enabled = state;
+            }
 
-            if (InvokeRequired)
-                Invoke(() => c.Enabled = state);
-            else
-                c.Enabled = state;
+            if (o is ToolStripMenuItem d)
+            {
+                if (InvokeRequired)
+                    Invoke(() => d.Enabled = state);
+                else
+                    d.Enabled = state;
+            }
         }
     }
 
@@ -1417,6 +1424,21 @@ public partial class MainWindow : Form
     private void CB_Delay_CheckedChanged(object sender, EventArgs e)
     {
         SetControlEnabledState(CB_Delay.GetIsChecked(), NUD_Delay);
+    }
+
+    private void updateSeedsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        B_CopyToInitial_Click(sender, EventArgs.Empty);
+    }
+
+    private void generateRadarContinuationToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        if (B_Search.Enabled) B_Search_Click(sender, EventArgs.Empty);
+    }
+
+    private void readEncounterToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        if (B_ReadWildPokemon.Enabled) B_ReadWildPokemon_Click(sender, EventArgs.Empty);
     }
 }
 
