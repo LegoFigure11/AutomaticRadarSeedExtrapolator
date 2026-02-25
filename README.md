@@ -31,7 +31,7 @@ A comprehensive usage guide brought to you by [Billo-PS](https://github.com/Bill
 
 ## Credits and thanks to
 
-* [@Lusamine](https://github.com/Lusamine/) for research and proo-of-concept linqpad scripts.
+* [@Lusamine](https://github.com/Lusamine/) for research and proof-of-concept linqpad scripts.
 * [@Billo-PS](https://github.com/Billo-PS) for research and your endless patience and testing, as well as your incredible guides.
 
 ## Disclaimer
