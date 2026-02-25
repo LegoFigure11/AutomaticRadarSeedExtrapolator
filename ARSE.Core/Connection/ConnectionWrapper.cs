@@ -17,6 +17,7 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
     };
 
     public bool Connected => IsConnected;
+    public Enums.Game Game { get; private set; }
     private bool IsConnected { get; set; }
     private readonly bool CRLF = Config.Protocol is SwitchProtocol.WiFi;
 
@@ -42,6 +43,13 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
 
             StatusUpdate("Detecting Game Version");
             string title = await Connection.GetTitleID(token).ConfigureAwait(false);
+
+            Game = title switch
+            {
+                BrilliantDiamondID => Enums.Game.BrilliantDiamond,
+                ShiningPearlID => Enums.Game.ShiningPearl,
+                _ => throw new Exception("Cannot detect Brilliant Diamond or Shining Pearl running on your switch!")
+            };
 
             var myStatusPointer = title switch
             {

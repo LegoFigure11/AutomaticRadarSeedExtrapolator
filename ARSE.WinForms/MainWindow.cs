@@ -145,6 +145,8 @@ public partial class MainWindow : Form
 
                 UpdateStatus("Detecting game version...");
 
+                SetComboBoxSelectedIndex((int)ConnectionWrapper.Game, CB_Game);
+
                 var (tid, sid) = ConnectionWrapper.GetIDs();
                 SetControlText(tid, TB_TID);
                 SetControlText(sid, TB_SID);
@@ -661,6 +663,7 @@ public partial class MainWindow : Form
     private void CB_Game_SelectedIndexChanged(object sender, EventArgs e)
     {
         UpdateEncounterSlotsAreas();
+        Config.Game = CB_Game.SelectedIndex;
     }
 
     private void UpdateEncounterSlotsAreas()
