@@ -18,6 +18,6 @@ public abstract class Offsets
     public static IReadOnlyList<long> WildPokemonPointerSP { get; } = [0x4E70FC8, 0x20, 0x98, 0x0, 0x20];
 
     public static IReadOnlyList<long> RadarStepCounterPointerBD { get; } = [0x476BF50, 0xB8, 0x0, 0x2AE];
-    // SP pointer is not actually correct, but never used outside of niche feature on debug build. I only have SP, so I don't need it to work ^^
+    // SP pointer is not actually correct, but never used outside of niche feature on debug build. I only have BD, so I don't need it to work ^^
     public static IReadOnlyList<long> RadarStepCounterPointerSP { get; } = [0x4983028, 0xB8, 0x0, 0x2AE]; 
 }
