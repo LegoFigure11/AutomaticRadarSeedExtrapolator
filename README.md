@@ -1,6 +1,6 @@
 # AutomaticRadarSeedExtrapolator (ARSE)
 
-[![.NET Core Desktop](https://img.shields.io/github/actions/workflow/status/LegoFigure11/AutomaticRadarSeedExtrapolator/dotnet-desktop.yml?branch=master)](https://github.com/LegoFigure11/AutomaticRadarSeedExtrapolator/actions/workflows/dotnet-desktop.yml)
+[![.NET Core Desktop](https://img.shields.io/github/actions/workflow/status/LegoFigure11/AutomaticRadarSeedExtrapolator/dotnet-desktop.yml?branch=main)](https://github.com/LegoFigure11/AutomaticRadarSeedExtrapolator/actions/workflows/dotnet-desktop.yml)
 [![GitHub License](https://img.shields.io/github/license/legofigure11/AutomaticRadarSeedExtrapolator?color=ff69b4)](https://github.com/LegoFigure11/AutomaticRadarSeedExtrapolator/blob/master/LICENSE.txt)
 [![Usage Guide](https://img.shields.io/badge/usage_guide-click_me!-purple)](https://billo-guides.github.io/)
 <br />
