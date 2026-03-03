@@ -1,7 +1,7 @@
 # AutomaticRadarSeedExtrapolator (ARSE)
 
 [![.NET Core Desktop](https://img.shields.io/github/actions/workflow/status/LegoFigure11/AutomaticRadarSeedExtrapolator/dotnet-desktop.yml?branch=main)](https://github.com/LegoFigure11/AutomaticRadarSeedExtrapolator/actions/workflows/dotnet-desktop.yml)
-[![GitHub License](https://img.shields.io/github/license/legofigure11/AutomaticRadarSeedExtrapolator?color=ff69b4)](https://github.com/LegoFigure11/AutomaticRadarSeedExtrapolator/blob/master/LICENSE.txt)
+[![GitHub License](https://img.shields.io/github/license/legofigure11/AutomaticRadarSeedExtrapolator?color=ff69b4)](https://github.com/LegoFigure11/AutomaticRadarSeedExtrapolator/blob/main/LICENSE.txt)
 [![Usage Guide](https://img.shields.io/badge/usage_guide-click_me!-purple)](https://billo-guides.github.io/)
 <br />
 [![Version](https://img.shields.io/github/v/release/LegoFigure11/AutomaticRadarSeedExtrapolator?label=latest%20release)](https://github.com/LegoFigure11/AutomaticRadarSeedExtrapolator/releases/latest)
@@ -20,7 +20,7 @@ A comprehensive usage guide brought to you by [Billo-PS](https://github.com/Bill
 * Automation for Pok&eacute; Radar Chain Continuation.
 * Automated and manual delay calibration.
 * Support for Always Shiny and Always Hidden Ability patches.
-* Switch connectivity over both Wi-Fi and USB thanks to the sys-botbase homebrew sysmodule.
+* Switch connectivity over both Wi-Fi and USB thanks via the sys-botbase/usb-botbase homebrew sysmodule (not included).
 * Automated seed reading and tracking.
 * Included Encounter Slots for every area where the Poké Radar can be used.
 * Filtering results based on Species (rather than Encounter Slot), IVs, Shininess, Height (for Jumbo/Teensy mark in Scarlet/Violet), and Rare EC (EC modulo 100 = 0, only useful for catching Dunsparce that evolve in to 3-Segment Dudunsparce in Scarlet/Violet).
@@ -33,6 +33,8 @@ A comprehensive usage guide brought to you by [Billo-PS](https://github.com/Bill
 
 * [@Lusamine](https://github.com/Lusamine/) for research and proof-of-concept linqpad scripts.
 * [@Billo-PS](https://github.com/Billo-PS) for research and your endless patience and testing, as well as your incredible guides.
+* [@Nicolic](https://github.com/Nicolic) &amp; DaWolfKid for these [cat](https://tenor.com/view/cat-meow-silly-cat-cat-explode-yellow-cat-gif-12654556298327310612) [gifs](https://giphy.com/gifs/cat-YCo1nDHSjBiT2K8m7r), respectively.
+* The crew from #citrus for keeping me sane while dealing with Radar, and putting up with my rambling.
 
 ## Disclaimer
 
