@@ -1078,6 +1078,9 @@ public partial class MainWindow : Form
                         case Keys.K:
                             B_Search_Click(sender, EventArgs.Empty);
                             break;
+                        case Keys.S:
+                            ResetSeeds();
+                            break;
                         default:
                             await ConnectionWrapper.DoTurboCommand(GetTurboCommandFromKey(e.KeyCode), Source.Token).ConfigureAwait(false);
                             break;
@@ -1091,6 +1094,83 @@ public partial class MainWindow : Form
         }
     }
 
+    private void ResetSeeds()
+    {
+        Task.Run(async () =>
+        {
+            readPause = true;
+            while (true)
+            {
+                B_Disconnect_Click(B_Disconnect, EventArgs.Empty);
+                await Task.Delay(2_000).ConfigureAwait(false);
+                B_Connect_Click(B_Connect, EventArgs.Empty);
+                readPause = true;
+                await Task.Delay(5_000).ConfigureAwait(false);
+                var (s0, s1) = await ConnectionWrapper.ReadRNGState(Source.Token);
+
+                ValidateInputs();
+
+                var initial = ulong.Parse(TB_MonInitial.Text);
+                var advances = ulong.Parse(TB_MonAdv.Text);
+
+                ChainPokemonConfig cfg = new()
+                {
+                    Cluster = (byte)NUD_Cluster.GetValue(),
+                    ForceHiddenAbility = CB_Patch.GetSelectedIndex() == 2,
+                    IsShinyPatch = CB_Patch.GetSelectedIndex() == 1,
+                    TID = uint.Parse(TB_TID.GetText()),
+                    SID = uint.Parse(TB_SID.GetText()),
+                    ChainLength = (int)NUD_ChainCount.GetValue(),
+                    Species = SpeciesNameToValue(CB_Species.GetText()),
+                    IsSync = CB_Lead.GetSelectedIndex() == 1,
+
+                    UseDelay = CB_Delay.GetIsChecked(),
+                    Delay = NUD_Delay.GetValue(),
+
+                    TargetMinIVs = [NUD_HP_Min.GetValue(), NUD_Atk_Min.GetValue(), NUD_Def_Min.GetValue(), NUD_SpA_Min.GetValue(), NUD_SpD_Min.GetValue(), NUD_Spe_Min.GetValue()],
+                    TargetMaxIVs = [NUD_HP_Max.GetValue(), NUD_Atk_Max.GetValue(), NUD_Def_Max.GetValue(), NUD_SpA_Max.GetValue(), NUD_SpD_Max.GetValue(), NUD_Spe_Max.GetValue()],
+                    SearchTypes = [GetIVSearchType(L_HPSpacer.GetText()), GetIVSearchType(L_AtkSpacer.GetText()), GetIVSearchType(L_DefSpacer.GetText()), GetIVSearchType(L_SpASpacer.GetText()), GetIVSearchType(L_SpDSpacer.GetText()), GetIVSearchType(L_SpeSpacer.GetText())],
+                    RareEC = CB_RareEC.GetIsChecked(),
+
+                    TargetShiny = GetFilterShinyType(CB_Filter_Shiny.GetSelectedIndex()),
+                    TargetScale = (ScaleType)CB_Filter_Height.GetSelectedIndex(),
+
+                    FiltersEnabled = CB_EnableFilters.GetIsChecked(),
+                };
+
+                List<PokemonFrame> results = [];
+
+                SetControlEnabledState(false, B_PokemonSearch);
+                results = await Core.RNG.ChainPokemon.Generate(s0, s1, initial, advances, cfg).ConfigureAwait(false);
+                SetControlVisibleState(cfg.Cluster > 1, DGV_ResultsPokemon.Columns[1]);
+                SetBindingSourceDataSource(results, ResultsSourcePokemon);
+                PokemonFrames = results;
+                SetControlEnabledState(true, B_PokemonSearch);
+
+                if (PokemonFrames.Count == 0)
+                {
+                    await ConnectionWrapper.DoTurboCommand("HOME", Source.Token).ConfigureAwait(false);
+                    await Task.Delay(4000).ConfigureAwait(false);
+                    await ConnectionWrapper.DoTurboCommand("X", Source.Token).ConfigureAwait(false);
+                    await Task.Delay(1000).ConfigureAwait(false);
+                    await ConnectionWrapper.DoTurboCommand("A", Source.Token).ConfigureAwait(false);
+                    await Task.Delay(1000).ConfigureAwait(false);
+                    for (var a = 0; a < 10; a++)
+                    {
+                        await ConnectionWrapper.DoTurboCommand("A", Source.Token).ConfigureAwait(false);
+                        await Task.Delay(1000).ConfigureAwait(false);
+                    }
+                }
+                else
+                {
+                    await ConnectionWrapper.DoTurboCommand("HOME", Source.Token).ConfigureAwait(false);
+                    readPause = false;
+                    break;
+                }
+            }
+        });
+
+    }
 
     public static readonly Font BoldFont = new("Microsoft Sans Serif", 8, FontStyle.Bold);
     private void DGV_ResultsPokemon_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
