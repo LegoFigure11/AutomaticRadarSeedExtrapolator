@@ -189,7 +189,7 @@ public partial class MainWindow : Form
                             if (forecast && !found)
                             {
                                 UpdateStatus("Forecasting...");
-                                _cfg.ContinueRate = GetRateFromComboBox(GetComboBoxSelectedIndex(CB_Rate));
+                                _cfg.ContinueRate = GetRateFromComboBox(CB_Rate.GetSelectedIndex());
                                 var num = NUD_SafeNum.GetValue();
                                 var (safe, dist) = Core.RNG.RadarContinuation.Forecast(s0, s1, num, _cfg, 0);
                                 if (safe)
@@ -219,10 +219,10 @@ public partial class MainWindow : Form
                                         if (remaining <= adv)
                                         {
                                             UpdateStatus("Continuing Chain...");
-                                            var action = GetTurboCommandFromComboBox(GetComboBoxSelectedIndex(CB_Action));
+                                            var action = GetTurboCommandFromComboBox(CB_Action.GetSelectedIndex());
                                             if (action != string.Empty)
                                             {
-                                                var actionTimes = GetNUDValue(NUD_ActionTimes);
+                                                var actionTimes = NUD_ActionTimes.GetValue();
                                                 for (var i = 0; i < actionTimes; i++)
                                                 {
                                                     await ConnectionWrapper.DoTurboCommand(action, token)
@@ -364,11 +364,6 @@ public partial class MainWindow : Form
         }
     }
 
-    public uint GetNUDValue(NumericUpDown c)
-    {
-        return (uint)(InvokeRequired ? Invoke(() => c.Value) : c.Value);
-    }
-
     public void SetNUDValue(decimal val, params NumericUpDown[] nuds)
     {
         foreach (var nud in nuds)
@@ -376,11 +371,6 @@ public partial class MainWindow : Form
             if (InvokeRequired) Invoke(() => nud.Value = val);
             else nud.Value = val;
         }
-    }
-
-    public int GetComboBoxSelectedIndex(ComboBox c)
-    {
-        return (InvokeRequired ? Invoke(() => c.SelectedIndex) : c.SelectedIndex);
     }
 
     public void SetComboBoxOption(string opt, params ComboBox[] cbs)
@@ -399,21 +389,6 @@ public partial class MainWindow : Form
             if (InvokeRequired) Invoke(() => cb.SelectedIndex = idx);
             else cb.SelectedIndex = idx;
         }
-    }
-
-    public string GetComboBoxSelectedText(ComboBox c)
-    {
-        return (InvokeRequired ? Invoke(() => c.SelectedText) : c.SelectedText);
-    }
-
-    public string GetControlText(Control c)
-    {
-        return (InvokeRequired ? Invoke(() => c.Text) : c.Text);
-    }
-
-    public bool GetCheckBoxCheckedState(CheckBox c)
-    {
-        return (InvokeRequired ? Invoke(() => c.Checked) : c.Checked);
     }
 
     private void B_Connect_Click(object sender, EventArgs e)
@@ -506,15 +481,15 @@ public partial class MainWindow : Form
         SetControlEnabledState(false, B_Search);
         ValidateInputs();
 
-        var initial = ulong.Parse(TB_Initial.Text);
-        var advances = ulong.Parse(TB_Advances.Text);
+        var initial = ulong.Parse(TB_Initial.GetText());
+        var advances = ulong.Parse(TB_Advances.GetText());
 
-        var s0 = ulong.Parse(TB_Seed0.Text, NumberStyles.AllowHexSpecifier);
-        var s1 = ulong.Parse(TB_Seed1.Text, NumberStyles.AllowHexSpecifier);
+        var s0 = ulong.Parse(TB_Seed0.GetText(), NumberStyles.AllowHexSpecifier);
+        var s1 = ulong.Parse(TB_Seed1.GetText(), NumberStyles.AllowHexSpecifier);
 
         RadarContinuationConfig cfg = new()
         {
-            ContinueRate = GetRateFromComboBox(GetComboBoxSelectedIndex(CB_Rate)),
+            ContinueRate = GetRateFromComboBox(CB_Rate.GetSelectedIndex()),
         };
 
         List<RadarContinuationFrame> results = [];
@@ -533,8 +508,8 @@ public partial class MainWindow : Form
             var fc = Core.RNG.RadarContinuation.ForecastMany(s0, s1, nud, cfg, initial, initial + 0xFFFFFFFF);
             SetControlText($"Next safe advance ({nud} in a row):", L_SafeDistance);
 
-            TextBox[] ctrls = [TB_SafeDistance, TB_SafeDistance1, TB_SafeDistance2, TB_SafeDistance3];
-            for (var i = 0; i < 4; i++) SetControlText(fc[i].found ? $"{(fc[i].advances + initial):N0}" : "None found", ctrls[i]);
+            TextBox[] tbs = [TB_SafeDistance, TB_SafeDistance1, TB_SafeDistance2, TB_SafeDistance3];
+            for (var i = 0; i < tbs.Length; i++) SetControlText(fc[i].found ? $"{(fc[i].advances + initial):N0}" : "None found", tbs[i]);
             SetControlEnabledState(true, B_Search);
         });
     }
@@ -554,35 +529,35 @@ public partial class MainWindow : Form
     {
         ValidateInputs();
 
-        var initial = ulong.Parse(TB_MonInitial.Text);
-        var advances = ulong.Parse(TB_MonAdv.Text);
+        var initial = ulong.Parse(TB_MonInitial.GetText());
+        var advances = ulong.Parse(TB_MonAdv.GetText());
 
-        var s0 = ulong.Parse(TB_Seed0.Text, NumberStyles.AllowHexSpecifier);
-        var s1 = ulong.Parse(TB_Seed1.Text, NumberStyles.AllowHexSpecifier);
+        var s0 = ulong.Parse(TB_Seed0.GetText(), NumberStyles.AllowHexSpecifier);
+        var s1 = ulong.Parse(TB_Seed1.GetText(), NumberStyles.AllowHexSpecifier);
 
         ChainPokemonConfig cfg = new()
         {
-            Cluster = (byte)GetNUDValue(NUD_Cluster),
-            ForceHiddenAbility = GetComboBoxSelectedIndex(CB_Patch) == 2,
-            IsShinyPatch = GetComboBoxSelectedIndex(CB_Patch) == 1,
-            TID = uint.Parse(GetControlText(TB_TID)),
-            SID = uint.Parse(GetControlText(TB_SID)),
-            ChainLength = (int)GetNUDValue(NUD_ChainCount),
-            Species = SpeciesNameToValue(GetControlText(CB_Species)),
-            IsSync = GetComboBoxSelectedIndex(CB_Lead) == 1,
+            Cluster = (byte)NUD_Cluster.GetValue(),
+            ForceHiddenAbility = CB_Patch.GetSelectedIndex() == 2,
+            IsShinyPatch = CB_Patch.GetSelectedIndex() == 1,
+            TID = uint.Parse(TB_TID.GetText()),
+            SID = uint.Parse(TB_SID.GetText()),
+            ChainLength = (int)NUD_ChainCount.GetValue(),
+            Species = SpeciesNameToValue(CB_Species.GetText()),
+            IsSync = CB_Lead.GetSelectedIndex() == 1,
 
             UseDelay = CB_Delay.GetIsChecked(),
             Delay = NUD_Delay.GetValue(),
 
-            TargetMinIVs = [GetNUDValue(NUD_HP_Min), GetNUDValue(NUD_Atk_Min), GetNUDValue(NUD_Def_Min), GetNUDValue(NUD_SpA_Min), GetNUDValue(NUD_SpD_Min), GetNUDValue(NUD_Spe_Min)],
-            TargetMaxIVs = [GetNUDValue(NUD_HP_Max), GetNUDValue(NUD_Atk_Max), GetNUDValue(NUD_Def_Max), GetNUDValue(NUD_SpA_Max), GetNUDValue(NUD_SpD_Max), GetNUDValue(NUD_Spe_Max)],
-            SearchTypes = [GetIVSearchType(GetControlText(L_HPSpacer)), GetIVSearchType(GetControlText(L_AtkSpacer)), GetIVSearchType(GetControlText(L_DefSpacer)), GetIVSearchType(GetControlText(L_SpASpacer)), GetIVSearchType(GetControlText(L_SpDSpacer)), GetIVSearchType(GetControlText(L_SpeSpacer))],
-            RareEC = GetCheckBoxCheckedState(CB_RareEC),
+            TargetMinIVs = [NUD_HP_Min.GetValue(), NUD_Atk_Min.GetValue(), NUD_Def_Min.GetValue(), NUD_SpA_Min.GetValue(), NUD_SpD_Min.GetValue(), NUD_Spe_Min.GetValue()],
+            TargetMaxIVs = [NUD_HP_Max.GetValue(), NUD_Atk_Max.GetValue(), NUD_Def_Max.GetValue(), NUD_SpA_Max.GetValue(), NUD_SpD_Max.GetValue(), NUD_Spe_Max.GetValue()],
+            SearchTypes = [GetIVSearchType(L_HPSpacer.GetText()), GetIVSearchType(L_AtkSpacer.GetText()), GetIVSearchType(L_DefSpacer.GetText()), GetIVSearchType(L_SpASpacer.GetText()), GetIVSearchType(L_SpDSpacer.GetText()), GetIVSearchType(L_SpeSpacer.GetText())],
+            RareEC = CB_RareEC.GetIsChecked(),
 
-            TargetShiny = GetFilterShinyType(GetComboBoxSelectedIndex(CB_Filter_Shiny)),
-            TargetScale = (ScaleType)(GetComboBoxSelectedIndex(CB_Filter_Height)),
+            TargetShiny = GetFilterShinyType(CB_Filter_Shiny.GetSelectedIndex()),
+            TargetScale = (ScaleType)CB_Filter_Height.GetSelectedIndex(),
 
-            FiltersEnabled = GetCheckBoxCheckedState(CB_EnableFilters),
+            FiltersEnabled = CB_EnableFilters.GetIsChecked(),
         };
 
         List<PokemonFrame> results = [];
@@ -815,9 +790,9 @@ public partial class MainWindow : Form
                     var val = await ConnectionWrapper.GetChainSpecies(Source.Token).ConfigureAwait(false);
                     readPause = false;
                     var species = ValueToSpeciesName(val);
-                    var lastIndex = GetComboBoxSelectedIndex(CB_Species);
+                    var lastIndex = CB_Species.GetSelectedIndex();
                     SetComboBoxOption(species, CB_Species);
-                    if (GetComboBoxSelectedIndex(CB_Species) == -1)
+                    if (CB_Species.GetSelectedIndex() == -1)
                     {
                         this.DisplayMessageBox($"{species} was not found in the current encounter table! Have you selected the right area?");
                         SetComboBoxSelectedIndex(lastIndex, CB_Species);
@@ -1116,6 +1091,7 @@ public partial class MainWindow : Form
         }
     }
 
+
     public static readonly Font BoldFont = new("Microsoft Sans Serif", 8, FontStyle.Bold);
     private void DGV_ResultsPokemon_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
     {
@@ -1124,7 +1100,7 @@ public partial class MainWindow : Form
         var row = DGV_ResultsPokemon.Rows[index];
         var result = PokemonFrames[index];
 
-        if (result.Shiny is "Square" && GetComboBoxSelectedIndex(CB_Patch) != 1) row.DefaultCellStyle.BackColor = Color.LightCyan;
+        if (result.Shiny is "Square" && CB_Patch.GetSelectedIndex() != 1) row.DefaultCellStyle.BackColor = Color.LightCyan;
         else if (result.Shiny.Contains("Star")) row.DefaultCellStyle.BackColor = Color.Aqua;
         else row.DefaultCellStyle.BackColor = row.Index % 2 == 0 ? Color.White : Color.WhiteSmoke;
 
