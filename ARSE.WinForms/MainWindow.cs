@@ -521,7 +521,11 @@ public partial class MainWindow : Form
         var row = DGV_ResultsContinuation.Rows[index];
         var result = ContinuationFrames[index];
 
-        if (result.Fail == '*') row.DefaultCellStyle.BackColor = Color.PaleVioletRed;
+        if (result.Fail == '*')
+        {
+            row.DefaultCellStyle.BackColor = Color.PaleVioletRed;
+            row.DefaultCellStyle.SelectionBackColor = Color.MediumVioletRed;
+        }
         else row.DefaultCellStyle.BackColor = row.Index % 2 == 0 ? Color.White : Color.WhiteSmoke;
     }
 
