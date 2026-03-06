@@ -28,7 +28,6 @@ public partial class MainWindow : Form
     private long total;
     private bool found;
     private ulong remaining;
-    private ulong targetAdvance;
 
     private PB8 _enc = new();
 
@@ -1457,7 +1456,7 @@ public partial class MainWindow : Form
                         SetNUDValue(Math.Max(0, (uint)idx), NUD_Delay);
                 }
             }
-            catch (Exception _)
+            catch (Exception)
             {
                 readPause = false;
             }
