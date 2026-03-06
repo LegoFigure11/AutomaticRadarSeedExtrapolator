@@ -514,6 +514,7 @@ public partial class MainWindow : Form
         });
     }
 
+    private readonly Color _defaultBackColor = Color.FromArgb(0, 120, 215);
     private void DGV_ResultsContinuation_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
     {
         var index = e.RowIndex;
@@ -526,7 +527,11 @@ public partial class MainWindow : Form
             row.DefaultCellStyle.BackColor = Color.PaleVioletRed;
             row.DefaultCellStyle.SelectionBackColor = Color.MediumVioletRed;
         }
-        else row.DefaultCellStyle.BackColor = row.Index % 2 == 0 ? Color.White : Color.WhiteSmoke;
+        else
+        {
+            row.DefaultCellStyle.BackColor = row.Index % 2 == 0 ? Color.White : Color.WhiteSmoke;
+            row.DefaultCellStyle.SelectionBackColor = _defaultBackColor;
+        }
     }
 
     private void B_PokemonSearch_Click(object sender, EventArgs e)
