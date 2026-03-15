@@ -28,6 +28,7 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
     private ulong SwayGrassOffset;
     private ulong WildPokemonOffset;
     private ulong RadarStepCounterOffset;
+    private ulong RepelStepCounterOffset;
 
     private const byte CHARGED_STEP_COUNT = 0x32;
 
@@ -72,11 +73,18 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
                 _                  => throw new Exception("Cannot detect Brilliant Diamond or Shining Pearl running on your switch!")
             };
 
-            var RadarStepCounterPointer = title switch
+            var radarStepCounterPointer = title switch
             {
                 BrilliantDiamondID => RadarStepCounterPointerBD,
                 ShiningPearlID     => RadarStepCounterPointerSP,
                 _                  => throw new Exception("Cannot detect Brilliant Diamond or Shining Pearl running on your switch!")
+            };
+
+            var repelStepCounterPointer = title switch
+            {
+                BrilliantDiamondID => RepelStepCounterPointerBD,
+                ShiningPearlID => RepelStepCounterPointerSP,
+                _ => throw new Exception("Cannot detect Brilliant Diamond or Shining Pearl running on your switch!")
             };
 
             StatusUpdate("Caching Pointers...");
@@ -85,7 +93,8 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
             MyStatusOffset = await Connection.PointerAll(myStatusPointer,  token).ConfigureAwait(false);
             SwayGrassOffset = await Connection.PointerAll(swayGrassPointer, token).ConfigureAwait(false);
             WildPokemonOffset = await Connection.PointerAll(wildPokemonPointer, token).ConfigureAwait(false);
-            RadarStepCounterOffset = await Connection.PointerAll(RadarStepCounterPointer, token).ConfigureAwait(false);
+            RadarStepCounterOffset = await Connection.PointerAll(radarStepCounterPointer, token).ConfigureAwait(false);
+            RepelStepCounterOffset = await Connection.PointerAll(repelStepCounterPointer, token).ConfigureAwait(false);
 
             StatusUpdate("Reading SAV...");
             var tid = await Connection.ReadBytesAbsoluteAsync(MyStatusOffset, 2, token).ConfigureAwait(false);
@@ -172,14 +181,29 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
         return new PB8(data);
     }
 
-    public async Task<byte> GetStepCount(CancellationToken token)
+    public async Task<byte> GetRepelStepCount(CancellationToken token)
+    {
+        return (await Connection.ReadBytesAbsoluteAsync(RepelStepCounterOffset, 1, token).ConfigureAwait(false))[0];
+    }
+
+    public async Task SetRepelStepCount(byte value, CancellationToken token)
+    {
+        await Connection.WriteBytesAbsoluteAsync([value], RepelStepCounterOffset, token).ConfigureAwait(false);
+    }
+
+    public async Task<byte> GetRadarStepCount(CancellationToken token)
     {
         return (await Connection.ReadBytesAbsoluteAsync(RadarStepCounterOffset, 1, token).ConfigureAwait(false))[0];
     }
 
+    public async Task SetRadarStepCount(byte value, CancellationToken token)
+    {
+        await Connection.WriteBytesAbsoluteAsync([value], RadarStepCounterOffset, token).ConfigureAwait(false);
+    }
+
     public async Task RechargeRadar(CancellationToken token)
     {
-        var i = await GetStepCount(token).ConfigureAwait(false);
+        var i = await GetRadarStepCount(token).ConfigureAwait(false);
         var d = true;
         for (; i < CHARGED_STEP_COUNT; i++)
         {

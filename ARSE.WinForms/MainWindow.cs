@@ -107,7 +107,7 @@ public partial class MainWindow : Form
         CB_Action.SelectedIndex = 1;
         SetComboBoxSelectedIndex(0, CB_Patch, CB_Lead, CB_Filter_Shiny, CB_Filter_Height);
 
-        SetControlText("0", TB_Seed0, TB_Seed1);
+        SetControlText("0", TB_Seed0, TB_Seed1, TB_RadarSteps, TB_RepelSteps);
         SetControlText(string.Empty, TB_CurrentAdvances, TB_AdvancesIncrease, TB_CurrentS0, TB_CurrentS1);
 
         TB_Status.Text = "Not Connected.";
@@ -170,7 +170,7 @@ public partial class MainWindow : Form
 
                 SetControlEnabledState(true, B_Disconnect, B_CopyToInitial, B_Forecast, B_ReadChainCount, B_ReadChainSpecies, findSafeAdvanceToolStripMenuItem, updateSeedsToolStripMenuItem, readEncounterToolStripMenuItem);
 #if DEBUG
-                SetControlVisibleState(true, B_A, B_B, B_X, B_Y, B_Up, B_Down, B_Left, B_Right, B_Minus, TB_Input);
+                SetControlVisibleState(true, B_A, B_B, B_X, B_Y, B_Up, B_Down, B_Left, B_Right, B_Minus, TB_Input, B_RadarRead, B_RadarWrite, B_RepelRead, B_RepelWrite, CB_EnableWrite, L_RadarSteps, L_RepelSteps, TB_RepelSteps, TB_RadarSteps);
 #endif
 
                 UpdateStatus("Monitoring RNG State...");
@@ -1062,7 +1062,7 @@ public partial class MainWindow : Form
                         case Keys.M:
                             await ConnectionWrapper.DoTurboCommand("A", Source.Token).ConfigureAwait(false);
                             break;
-                        case Keys.P:
+                        case Keys.Q:
                             readPause = true;
                             await Task.Delay(200, Source.Token).ConfigureAwait(false);
                             // BD Only
@@ -1088,6 +1088,13 @@ public partial class MainWindow : Form
                             break;
                         case Keys.S:
                             ResetSeeds();
+                            break;
+                        case Keys.O:
+                            var s = await ConnectionWrapper.GetRepelStepCount(Source.Token).ConfigureAwait(false);
+                            this.DisplayMessageBox($"Remaining Repel Steps: {s}");
+                            break;
+                        case Keys.P:
+                            await ConnectionWrapper.SetRepelStepCount(1, Source.Token).ConfigureAwait(false);
                             break;
                         default:
                             await ConnectionWrapper.DoTurboCommand(GetTurboCommandFromKey(e.KeyCode), Source.Token).ConfigureAwait(false);
@@ -1384,6 +1391,18 @@ public partial class MainWindow : Form
         if (string.IsNullOrEmpty(TB_SID.GetText())) SetControlText("0", TB_SID);
         SetControlText(TB_TID.GetText().PadLeft(5, '0'), TB_TID);
         SetControlText(TB_SID.GetText().PadLeft(5, '0'), TB_SID);
+
+        // Step Counts
+        if (string.IsNullOrEmpty(TB_RadarSteps.GetText())) SetControlText("0", TB_RadarSteps);
+        if (string.IsNullOrEmpty(TB_RepelSteps.GetText())) SetControlText("0", TB_RepelSteps);
+
+        if (!uint.TryParse(TB_RadarSteps.GetText(), null, out var s))
+            SetControlText("0", TB_RadarSteps);
+        if (s > 50) SetControlText("50", TB_RadarSteps);
+
+        if (!uint.TryParse(TB_RepelSteps.GetText(), null, out var r))
+            SetControlText("0", TB_RadarSteps);
+        if (r > 255) SetControlText("255", TB_RepelSteps);
     }
 
     private void CheckForUpdates()
@@ -1507,6 +1526,101 @@ public partial class MainWindow : Form
     private void readEncounterToolStripMenuItem_Click(object sender, EventArgs e)
     {
         if (B_ReadWildPokemon.Enabled) B_ReadWildPokemon_Click(sender, EventArgs.Empty);
+    }
+
+    private void CB_EnableWrite_CheckedChanged(object sender, EventArgs e)
+    {
+        SetControlEnabledState(CB_EnableWrite.Checked, B_RadarWrite, B_RepelWrite);
+    }
+
+    private void B_RadarRead_Click(object sender, EventArgs e)
+    {
+        Task.Run((async () =>
+        {
+            try
+            {
+                if (ConnectionWrapper.Connected)
+                {
+                    readPause = true;
+                    await Task.Delay(100, Source.Token).ConfigureAwait(false);
+                    var step = await ConnectionWrapper.GetRadarStepCount(Source.Token).ConfigureAwait(false);
+                    readPause = false;
+                    SetControlText($"{step}", TB_RadarSteps);
+                }
+            }
+            catch (Exception)
+            {
+                readPause = false;
+            }
+        }));
+    }
+
+    private void B_RepelRead_Click(object sender, EventArgs e)
+    {
+        Task.Run((async () =>
+        {
+            try
+            {
+                if (ConnectionWrapper.Connected)
+                {
+                    readPause = true;
+                    await Task.Delay(100, Source.Token).ConfigureAwait(false);
+                    var step = await ConnectionWrapper.GetRepelStepCount(Source.Token).ConfigureAwait(false);
+                    readPause = false;
+                    SetControlText($"{step}", TB_RepelSteps);
+                }
+            }
+            catch (Exception)
+            {
+                readPause = false;
+            }
+        }));
+    }
+
+    private void B_RadarWrite_Click(object sender, EventArgs e)
+    {
+        ValidateInputs();
+        Task.Run((async () =>
+        {
+            try
+            {
+                if (ConnectionWrapper.Connected)
+                {
+                    readPause = true;
+                    await Task.Delay(100, Source.Token).ConfigureAwait(false);
+                    var b = byte.Parse(TB_RadarSteps.Text);
+                    await ConnectionWrapper.SetRadarStepCount(b, Source.Token).ConfigureAwait(false);
+                    readPause = false;
+                }
+            }
+            catch (Exception)
+            {
+                readPause = false;
+            }
+        }));
+    }
+
+    private void B_RepelWrite_Click(object sender, EventArgs e)
+    {
+        ValidateInputs();
+        Task.Run((async () =>
+        {
+            try
+            {
+                if (ConnectionWrapper.Connected)
+                {
+                    readPause = true;
+                    await Task.Delay(100, Source.Token).ConfigureAwait(false);
+                    var b = byte.Parse(TB_RepelSteps.Text);
+                    await ConnectionWrapper.SetRepelStepCount(b, Source.Token).ConfigureAwait(false);
+                    readPause = false;
+                }
+            }
+            catch (Exception)
+            {
+                readPause = false;
+            }
+        }));
     }
 }
 

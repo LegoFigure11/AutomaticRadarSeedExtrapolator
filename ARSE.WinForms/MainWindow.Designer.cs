@@ -194,6 +194,15 @@ namespace ARSE.WinForms;
         TB_SafeDistance2 = new TextBox();
         TB_SafeDistance1 = new TextBox();
         B_CalcDelayManual = new Button();
+        TB_RadarSteps = new TextBox();
+        TB_RepelSteps = new TextBox();
+        L_RadarSteps = new Label();
+        L_RepelSteps = new Label();
+        B_RadarRead = new Button();
+        B_RadarWrite = new Button();
+        B_RepelWrite = new Button();
+        B_RepelRead = new Button();
+        CB_EnableWrite = new CheckBox();
         GB_Connection.SuspendLayout();
         GB_Seed.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
@@ -1929,11 +1938,124 @@ namespace ARSE.WinForms;
         B_CalcDelayManual.UseVisualStyleBackColor = true;
         B_CalcDelayManual.Click += B_CalcDelayManual_Click;
         // 
+        // TB_RadarSteps
+        // 
+        TB_RadarSteps.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        TB_RadarSteps.Location = new Point(1342, 19);
+        TB_RadarSteps.Name = "TB_RadarSteps";
+        TB_RadarSteps.Size = new Size(40, 22);
+        TB_RadarSteps.TabIndex = 145;
+        TB_RadarSteps.Text = "999";
+        TB_RadarSteps.TextAlign = HorizontalAlignment.Right;
+        TB_RadarSteps.Visible = false;
+        TB_RadarSteps.KeyDown += Dec_HandlePaste;
+        TB_RadarSteps.KeyPress += AllowOnlyNumerical_KeyPress;
+        // 
+        // TB_RepelSteps
+        // 
+        TB_RepelSteps.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        TB_RepelSteps.Location = new Point(1342, 44);
+        TB_RepelSteps.Name = "TB_RepelSteps";
+        TB_RepelSteps.Size = new Size(40, 22);
+        TB_RepelSteps.TabIndex = 146;
+        TB_RepelSteps.Text = "999";
+        TB_RepelSteps.TextAlign = HorizontalAlignment.Right;
+        TB_RepelSteps.Visible = false;
+        TB_RepelSteps.KeyDown += Dec_HandlePaste;
+        TB_RepelSteps.KeyPress += AllowOnlyNumerical_KeyPress;
+        // 
+        // L_RadarSteps
+        // 
+        L_RadarSteps.AutoSize = true;
+        L_RadarSteps.Location = new Point(1234, 23);
+        L_RadarSteps.Name = "L_RadarSteps";
+        L_RadarSteps.Size = new Size(102, 15);
+        L_RadarSteps.TabIndex = 147;
+        L_RadarSteps.Text = "Radar Step Count:";
+        L_RadarSteps.Visible = false;
+        // 
+        // L_RepelSteps
+        // 
+        L_RepelSteps.AutoSize = true;
+        L_RepelSteps.Location = new Point(1234, 47);
+        L_RepelSteps.Name = "L_RepelSteps";
+        L_RepelSteps.Size = new Size(101, 15);
+        L_RepelSteps.TabIndex = 148;
+        L_RepelSteps.Text = "Repel Step Count:";
+        L_RepelSteps.Visible = false;
+        // 
+        // B_RadarRead
+        // 
+        B_RadarRead.Location = new Point(1384, 18);
+        B_RadarRead.Name = "B_RadarRead";
+        B_RadarRead.Size = new Size(25, 25);
+        B_RadarRead.TabIndex = 149;
+        B_RadarRead.Text = "R";
+        B_RadarRead.UseVisualStyleBackColor = true;
+        B_RadarRead.Visible = false;
+        B_RadarRead.Click += B_RadarRead_Click;
+        // 
+        // B_RadarWrite
+        // 
+        B_RadarWrite.Enabled = false;
+        B_RadarWrite.Location = new Point(1409, 18);
+        B_RadarWrite.Name = "B_RadarWrite";
+        B_RadarWrite.Size = new Size(25, 25);
+        B_RadarWrite.TabIndex = 150;
+        B_RadarWrite.Text = "W";
+        B_RadarWrite.UseVisualStyleBackColor = true;
+        B_RadarWrite.Visible = false;
+        B_RadarWrite.Click += B_RadarWrite_Click;
+        // 
+        // B_RepelWrite
+        // 
+        B_RepelWrite.Enabled = false;
+        B_RepelWrite.Location = new Point(1409, 43);
+        B_RepelWrite.Name = "B_RepelWrite";
+        B_RepelWrite.Size = new Size(25, 25);
+        B_RepelWrite.TabIndex = 152;
+        B_RepelWrite.Text = "W";
+        B_RepelWrite.UseVisualStyleBackColor = true;
+        B_RepelWrite.Visible = false;
+        B_RepelWrite.Click += B_RepelWrite_Click;
+        // 
+        // B_RepelRead
+        // 
+        B_RepelRead.Location = new Point(1384, 43);
+        B_RepelRead.Name = "B_RepelRead";
+        B_RepelRead.Size = new Size(25, 25);
+        B_RepelRead.TabIndex = 151;
+        B_RepelRead.Text = "R";
+        B_RepelRead.UseVisualStyleBackColor = true;
+        B_RepelRead.Visible = false;
+        B_RepelRead.Click += B_RepelRead_Click;
+        // 
+        // CB_EnableWrite
+        // 
+        CB_EnableWrite.AutoSize = true;
+        CB_EnableWrite.Location = new Point(1234, 74);
+        CB_EnableWrite.Name = "CB_EnableWrite";
+        CB_EnableWrite.Size = new Size(108, 19);
+        CB_EnableWrite.TabIndex = 153;
+        CB_EnableWrite.Text = "Enable Writing?";
+        CB_EnableWrite.UseVisualStyleBackColor = true;
+        CB_EnableWrite.Visible = false;
+        CB_EnableWrite.CheckedChanged += CB_EnableWrite_CheckedChanged;
+        // 
         // MainWindow
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(1479, 627);
+        Controls.Add(CB_EnableWrite);
+        Controls.Add(B_RepelWrite);
+        Controls.Add(B_RepelRead);
+        Controls.Add(B_RadarWrite);
+        Controls.Add(B_RadarRead);
+        Controls.Add(L_RepelSteps);
+        Controls.Add(L_RadarSteps);
+        Controls.Add(TB_RepelSteps);
+        Controls.Add(TB_RadarSteps);
         Controls.Add(B_CalcDelayManual);
         Controls.Add(TB_SafeDistance1);
         Controls.Add(TB_SafeDistance2);
@@ -2186,5 +2308,14 @@ namespace ARSE.WinForms;
     private ToolStripMenuItem generateRadarContinuationToolStripMenuItem;
     private ToolStripMenuItem generateWildPokmonToolStripMenuItem;
     private ToolStripMenuItem readEncounterToolStripMenuItem;
+    private TextBox TB_RadarSteps;
+    private TextBox TB_RepelSteps;
+    private Label L_RadarSteps;
+    private Label L_RepelSteps;
+    private Button B_RadarRead;
+    private Button B_RadarWrite;
+    private Button B_RepelWrite;
+    private Button B_RepelRead;
+    private CheckBox CB_EnableWrite;
 }
 

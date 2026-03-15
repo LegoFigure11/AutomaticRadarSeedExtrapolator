@@ -19,5 +19,9 @@ public abstract class Offsets
 
     public static IReadOnlyList<long> RadarStepCounterPointerBD { get; } = [0x476BF50, 0xB8, 0x0, 0x2AE];
     // SP pointer is not actually correct, but never used outside of niche feature on debug build. I only have BD, so I don't need it to work ^^
-    public static IReadOnlyList<long> RadarStepCounterPointerSP { get; } = [0x4983028, 0xB8, 0x0, 0x2AE]; 
+    public static IReadOnlyList<long> RadarStepCounterPointerSP { get; } = [0x4983028, 0xB8, 0x0, 0x2AE];
+
+    public static IReadOnlyList<long> RepelStepCounterPointerBD { get; } = [0x476BF50, 0xB8, 0x0, 0x2AA];
+    // SP pointer is not actually correct, but never used outside of niche feature on debug build. I only have BD, so I don't need it to work ^^
+    public static IReadOnlyList<long> RepelStepCounterPointerSP { get; } = [0x4983028, 0xB8, 0x0, 0x2AA];
 }
