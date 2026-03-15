@@ -1250,7 +1250,11 @@ public partial class MainWindow : Form
     public void AllowOnlyIP_KeyPress(object sender, KeyPressEventArgs e)
     {
         var c = e.KeyChar;
-        if (c != (char)Keys.Back && !char.IsControl(c))
+        if (c == (char)Keys.Return)
+        {
+            B_Connect_Click(sender, EventArgs.Empty);
+        }
+        else if (c != (char)Keys.Back && !char.IsControl(c))
         {
             if (!c.IsDec(true))
             {
