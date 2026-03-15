@@ -555,6 +555,7 @@ namespace ARSE.WinForms;
         NUD_SafeNum.Size = new Size(38, 23);
         NUD_SafeNum.TabIndex = 0;
         NUD_SafeNum.Value = new decimal(new int[] { 100, 0, 0, 0 });
+        NUD_SafeNum.ValueChanged += NUD_SafeNum_ValueChanged;
         // 
         // L_SafeNum
         // 
@@ -788,6 +789,7 @@ namespace ARSE.WinForms;
         CB_Action.Name = "CB_Action";
         CB_Action.Size = new Size(116, 23);
         CB_Action.TabIndex = 1;
+        CB_Action.SelectedIndexChanged += CB_Action_SelectedIndexChanged;
         // 
         // label5
         // 
@@ -806,6 +808,7 @@ namespace ARSE.WinForms;
         NUD_ActionTimes.Size = new Size(38, 23);
         NUD_ActionTimes.TabIndex = 2;
         NUD_ActionTimes.Value = new decimal(new int[] { 1, 0, 0, 0 });
+        NUD_ActionTimes.ValueChanged += NUD_ActionTimes_ValueChanged;
         // 
         // label6
         // 

@@ -100,11 +100,14 @@ public partial class MainWindow : Form
         TB_TID.Text = $"{Config.TID:D5}";
         TB_SID.Text = $"{Config.SID:D5}";
 
+        NUD_SafeNum.Value = Math.Clamp(Config.MinSafeAdvances, NUD_SafeNum.Minimum, NUD_SafeNum.Maximum);
+
         CB_Game.SelectedIndex = Config.Game;
         UpdateEncounterSlotsAreas();
 
         CB_Rate.SelectedIndex = 4;
-        CB_Action.SelectedIndex = 1;
+        SetComboBoxSelectedIndex(Math.Clamp(Config.ActionAtTarget, 0, CB_Action.Items.Count), CB_Action);
+        SetNUDValue(Math.Clamp(Config.ActionTimes, NUD_ActionTimes.Minimum, NUD_ActionTimes.Maximum), NUD_ActionTimes);
         SetComboBoxSelectedIndex(0, CB_Patch, CB_Lead, CB_Filter_Shiny, CB_Filter_Height);
 
         SetControlText("0", TB_Seed0, TB_Seed1, TB_RadarSteps, TB_RepelSteps);
@@ -1476,7 +1479,7 @@ public partial class MainWindow : Form
                             : $"Delay: {idx}",
                         "Calibration Result");
                     if (idx >= 0)
-                        SetNUDValue(Math.Max(0, (uint)idx), NUD_Delay);
+                        SetNUDValue(Math.Clamp(idx, 0, NUD_Delay.Maximum), NUD_Delay);
                 }
             }
             catch (Exception)
@@ -1621,6 +1624,21 @@ public partial class MainWindow : Form
                 readPause = false;
             }
         }));
+    }
+
+    private void NUD_SafeNum_ValueChanged(object sender, EventArgs e)
+    {
+        Config.MinSafeAdvances = NUD_SafeNum.GetValue();
+    }
+
+    private void NUD_ActionTimes_ValueChanged(object sender, EventArgs e)
+    {
+        Config.ActionTimes = NUD_ActionTimes.GetValue();
+    }
+
+    private void CB_Action_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Config.ActionAtTarget = CB_Action.GetSelectedIndex();
     }
 }
 

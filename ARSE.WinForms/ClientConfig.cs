@@ -13,4 +13,7 @@ public class ClientConfig
     // Fields
     public int TID { get; set; } = 1337;
     public int SID { get; set; } = 1390;
+    public uint MinSafeAdvances { get; set; } = 100;
+    public int ActionAtTarget { get; set; } = 1;
+    public uint ActionTimes { get; set; } = 1;
 }
