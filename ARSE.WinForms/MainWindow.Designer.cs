@@ -29,8 +29,8 @@ namespace ARSE.WinForms;
     private void InitializeComponent()
     {
         components = new System.ComponentModel.Container();
-        DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-        DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+        DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+        DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
         GB_Connection = new GroupBox();
         TB_AdvancesIncrease = new TextBox();
@@ -203,6 +203,10 @@ namespace ARSE.WinForms;
         B_RepelWrite = new Button();
         B_RepelRead = new Button();
         CB_EnableWrite = new CheckBox();
+        TB_OutbreakSpecies = new TextBox();
+        B_Outbreak = new Button();
+        label3 = new Label();
+        L_OutbreakSpecies = new Label();
         GB_Connection.SuspendLayout();
         GB_Seed.SuspendLayout();
         GB_SAVInfo.SuspendLayout();
@@ -581,8 +585,8 @@ namespace ARSE.WinForms;
         // 
         DGV_ResultsContinuation.AllowUserToAddRows = false;
         DGV_ResultsContinuation.AllowUserToDeleteRows = false;
-        dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
-        DGV_ResultsContinuation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+        dataGridViewCellStyle3.BackColor = Color.FromArgb(224, 224, 224);
+        DGV_ResultsContinuation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
         DGV_ResultsContinuation.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
         DGV_ResultsContinuation.AutoGenerateColumns = false;
         DGV_ResultsContinuation.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -833,8 +837,8 @@ namespace ARSE.WinForms;
         // 
         DGV_ResultsPokemon.AllowUserToAddRows = false;
         DGV_ResultsPokemon.AllowUserToDeleteRows = false;
-        dataGridViewCellStyle2.BackColor = Color.FromArgb(224, 224, 224);
-        DGV_ResultsPokemon.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+        dataGridViewCellStyle4.BackColor = Color.FromArgb(224, 224, 224);
+        DGV_ResultsPokemon.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
         DGV_ResultsPokemon.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         DGV_ResultsPokemon.AutoGenerateColumns = false;
         DGV_ResultsPokemon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -2036,7 +2040,7 @@ namespace ARSE.WinForms;
         // CB_EnableWrite
         // 
         CB_EnableWrite.AutoSize = true;
-        CB_EnableWrite.Location = new Point(1234, 74);
+        CB_EnableWrite.Location = new Point(1234, 70);
         CB_EnableWrite.Name = "CB_EnableWrite";
         CB_EnableWrite.Size = new Size(108, 19);
         CB_EnableWrite.TabIndex = 153;
@@ -2045,11 +2049,59 @@ namespace ARSE.WinForms;
         CB_EnableWrite.Visible = false;
         CB_EnableWrite.CheckedChanged += CB_EnableWrite_CheckedChanged;
         // 
+        // TB_OutbreakSpecies
+        // 
+        TB_OutbreakSpecies.CharacterCasing = CharacterCasing.Upper;
+        TB_OutbreakSpecies.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        TB_OutbreakSpecies.Location = new Point(1304, 92);
+        TB_OutbreakSpecies.MaxLength = 16;
+        TB_OutbreakSpecies.Name = "TB_OutbreakSpecies";
+        TB_OutbreakSpecies.ReadOnly = true;
+        TB_OutbreakSpecies.Size = new Size(78, 22);
+        TB_OutbreakSpecies.TabIndex = 154;
+        TB_OutbreakSpecies.TextAlign = HorizontalAlignment.Right;
+        TB_OutbreakSpecies.Visible = false;
+        // 
+        // B_Outbreak
+        // 
+        B_Outbreak.Location = new Point(1384, 89);
+        B_Outbreak.Name = "B_Outbreak";
+        B_Outbreak.Size = new Size(25, 25);
+        B_Outbreak.TabIndex = 155;
+        B_Outbreak.Text = "R";
+        B_Outbreak.UseVisualStyleBackColor = true;
+        B_Outbreak.Visible = false;
+        B_Outbreak.Click += B_Outbreak_Click;
+        // 
+        // label3
+        // 
+        label3.AutoSize = true;
+        label3.Location = new Point(689, 306);
+        label3.Name = "label3";
+        label3.Size = new Size(101, 15);
+        label3.TabIndex = 156;
+        label3.Text = "Repel Step Count:";
+        label3.Visible = false;
+        // 
+        // L_OutbreakSpecies
+        // 
+        L_OutbreakSpecies.AutoSize = true;
+        L_OutbreakSpecies.Location = new Point(1234, 94);
+        L_OutbreakSpecies.Name = "L_OutbreakSpecies";
+        L_OutbreakSpecies.Size = new Size(59, 15);
+        L_OutbreakSpecies.TabIndex = 157;
+        L_OutbreakSpecies.Text = "Outbreak:";
+        L_OutbreakSpecies.Visible = false;
+        // 
         // MainWindow
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(1479, 627);
+        Controls.Add(L_OutbreakSpecies);
+        Controls.Add(label3);
+        Controls.Add(B_Outbreak);
+        Controls.Add(TB_OutbreakSpecies);
         Controls.Add(CB_EnableWrite);
         Controls.Add(B_RepelWrite);
         Controls.Add(B_RepelRead);
@@ -2320,5 +2372,9 @@ namespace ARSE.WinForms;
     private Button B_RepelWrite;
     private Button B_RepelRead;
     private CheckBox CB_EnableWrite;
+    private TextBox TB_OutbreakSpecies;
+    private Button B_Outbreak;
+    private Label label3;
+    private Label L_OutbreakSpecies;
 }
 

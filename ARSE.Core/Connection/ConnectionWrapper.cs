@@ -29,6 +29,7 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
     private ulong WildPokemonOffset;
     private ulong RadarStepCounterOffset;
     private ulong RepelStepCounterOffset;
+    private ulong MassOutbreakSpeciesOffset;
 
     private const byte CHARGED_STEP_COUNT = 0x32;
 
@@ -87,6 +88,13 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
                 _ => throw new Exception("Cannot detect Brilliant Diamond or Shining Pearl running on your switch!")
             };
 
+            var massOutbreakSpeciesPointer = title switch
+            {
+                BrilliantDiamondID => MassOutbreakSpeciesPointerBD,
+                ShiningPearlID => MassOutbreakSpeciesPointerSP,
+                _ => throw new Exception("Cannot detect Brilliant Diamond or Shining Pearl running on your switch!")
+            };
+
             StatusUpdate("Caching Pointers...");
 
             MainRNGOffset = await Connection.PointerAll(MainRNGPointer, token).ConfigureAwait(false);
@@ -95,6 +103,7 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
             WildPokemonOffset = await Connection.PointerAll(wildPokemonPointer, token).ConfigureAwait(false);
             RadarStepCounterOffset = await Connection.PointerAll(radarStepCounterPointer, token).ConfigureAwait(false);
             RepelStepCounterOffset = await Connection.PointerAll(repelStepCounterPointer, token).ConfigureAwait(false);
+            MassOutbreakSpeciesOffset = await Connection.PointerAll(massOutbreakSpeciesPointer, token).ConfigureAwait(false);
 
             StatusUpdate("Reading SAV...");
             var tid = await Connection.ReadBytesAbsoluteAsync(MyStatusOffset, 2, token).ConfigureAwait(false);
@@ -199,6 +208,12 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
     public async Task SetRadarStepCount(byte value, CancellationToken token)
     {
         await Connection.WriteBytesAbsoluteAsync([value], RadarStepCounterOffset, token).ConfigureAwait(false);
+    }
+
+    public async Task<ushort> GetOutbreakSpecies(CancellationToken token)
+    {
+        var bytes = await Connection.ReadBytesAbsoluteAsync(MassOutbreakSpeciesOffset, 2, token).ConfigureAwait(false);
+        return BitConverter.ToUInt16(bytes);
     }
 
     public async Task RechargeRadar(CancellationToken token)
