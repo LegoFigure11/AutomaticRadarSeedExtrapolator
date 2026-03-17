@@ -29,8 +29,8 @@ namespace ARSE.WinForms;
     private void InitializeComponent()
     {
         components = new System.ComponentModel.Container();
-        DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-        DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+        DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+        DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
         GB_Connection = new GroupBox();
         TB_AdvancesIncrease = new TextBox();
@@ -205,7 +205,6 @@ namespace ARSE.WinForms;
         CB_EnableWrite = new CheckBox();
         TB_OutbreakSpecies = new TextBox();
         B_Outbreak = new Button();
-        label3 = new Label();
         L_OutbreakSpecies = new Label();
         GB_Connection.SuspendLayout();
         GB_Seed.SuspendLayout();
@@ -585,8 +584,8 @@ namespace ARSE.WinForms;
         // 
         DGV_ResultsContinuation.AllowUserToAddRows = false;
         DGV_ResultsContinuation.AllowUserToDeleteRows = false;
-        dataGridViewCellStyle3.BackColor = Color.FromArgb(224, 224, 224);
-        DGV_ResultsContinuation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+        dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
+        DGV_ResultsContinuation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
         DGV_ResultsContinuation.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
         DGV_ResultsContinuation.AutoGenerateColumns = false;
         DGV_ResultsContinuation.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -837,8 +836,8 @@ namespace ARSE.WinForms;
         // 
         DGV_ResultsPokemon.AllowUserToAddRows = false;
         DGV_ResultsPokemon.AllowUserToDeleteRows = false;
-        dataGridViewCellStyle4.BackColor = Color.FromArgb(224, 224, 224);
-        DGV_ResultsPokemon.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+        dataGridViewCellStyle2.BackColor = Color.FromArgb(224, 224, 224);
+        DGV_ResultsPokemon.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
         DGV_ResultsPokemon.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         DGV_ResultsPokemon.AutoGenerateColumns = false;
         DGV_ResultsPokemon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -2073,16 +2072,6 @@ namespace ARSE.WinForms;
         B_Outbreak.Visible = false;
         B_Outbreak.Click += B_Outbreak_Click;
         // 
-        // label3
-        // 
-        label3.AutoSize = true;
-        label3.Location = new Point(689, 306);
-        label3.Name = "label3";
-        label3.Size = new Size(101, 15);
-        label3.TabIndex = 156;
-        label3.Text = "Repel Step Count:";
-        label3.Visible = false;
-        // 
         // L_OutbreakSpecies
         // 
         L_OutbreakSpecies.AutoSize = true;
@@ -2099,7 +2088,6 @@ namespace ARSE.WinForms;
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(1479, 627);
         Controls.Add(L_OutbreakSpecies);
-        Controls.Add(label3);
         Controls.Add(B_Outbreak);
         Controls.Add(TB_OutbreakSpecies);
         Controls.Add(CB_EnableWrite);
