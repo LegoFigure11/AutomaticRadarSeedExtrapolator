@@ -106,6 +106,8 @@ public static class ChainPokemon
                     PID = $"{pid:X8}",
                     EC = $"{ec:X8}",
 
+                    _mod100 = (byte)(ec % 100),
+
                     H = IVs[0],
                     A = IVs[1],
                     B = IVs[2],

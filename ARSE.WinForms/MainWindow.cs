@@ -578,7 +578,7 @@ public partial class MainWindow : Form
             SetControlEnabledState(false, B_PokemonSearch);
             results = await Core.RNG.ChainPokemon.Generate(s0, s1, initial, advances, cfg);
             SetControlVisibleState(cfg.Cluster > 1, DGV_ResultsPokemon.Columns[1]);
-            SetControlVisibleState(cfg.RareEC, DGV_ResultsPokemon.Columns[15]);
+            SetControlVisibleState(cfg.RareEC && cfg.Cluster == 0, DGV_ResultsPokemon.Columns[15]);
             SetBindingSourceDataSource(results, ResultsSourcePokemon);
             PokemonFrames = results;
             SetControlEnabledState(true, B_PokemonSearch);
@@ -1162,7 +1162,7 @@ public partial class MainWindow : Form
                 SetControlEnabledState(false, B_PokemonSearch);
                 results = await Core.RNG.ChainPokemon.Generate(s0, s1, initial, advances, cfg).ConfigureAwait(false);
                 SetControlVisibleState(cfg.Cluster > 1, DGV_ResultsPokemon.Columns[1]);
-                SetControlVisibleState(cfg.RareEC, DGV_ResultsPokemon.Columns[15]);
+                SetControlVisibleState(cfg.RareEC && cfg.Cluster == 0, DGV_ResultsPokemon.Columns[15]);
                 SetBindingSourceDataSource(results, ResultsSourcePokemon);
                 PokemonFrames = results;
                 SetControlEnabledState(true, B_PokemonSearch);
