@@ -46,6 +46,8 @@ public class PokemonFrame : IBasicFrame
     public string PID { get; set; } = string.Empty;
     public string Height { get; set; } = string.Empty;
 
+    public byte _mod100 => (byte)(uint.Parse(EC, System.Globalization.NumberStyles.AllowHexSpecifier) % 100); 
+
     public string Seed0 { get; set; } = string.Empty;
     public string Seed1 { get; set; } = string.Empty;
 }

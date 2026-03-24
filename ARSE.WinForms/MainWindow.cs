@@ -578,6 +578,7 @@ public partial class MainWindow : Form
             SetControlEnabledState(false, B_PokemonSearch);
             results = await Core.RNG.ChainPokemon.Generate(s0, s1, initial, advances, cfg);
             SetControlVisibleState(cfg.Cluster > 1, DGV_ResultsPokemon.Columns[1]);
+            SetControlVisibleState(cfg.RareEC, DGV_ResultsPokemon.Columns[15]);
             SetBindingSourceDataSource(results, ResultsSourcePokemon);
             PokemonFrames = results;
             SetControlEnabledState(true, B_PokemonSearch);
@@ -1161,6 +1162,7 @@ public partial class MainWindow : Form
                 SetControlEnabledState(false, B_PokemonSearch);
                 results = await Core.RNG.ChainPokemon.Generate(s0, s1, initial, advances, cfg).ConfigureAwait(false);
                 SetControlVisibleState(cfg.Cluster > 1, DGV_ResultsPokemon.Columns[1]);
+                SetControlVisibleState(cfg.RareEC, DGV_ResultsPokemon.Columns[15]);
                 SetBindingSourceDataSource(results, ResultsSourcePokemon);
                 PokemonFrames = results;
                 SetControlEnabledState(true, B_PokemonSearch);
@@ -1224,6 +1226,7 @@ public partial class MainWindow : Form
         }
 
         row.Cells[14].Style.Font = result.Height is not "XXXL (255)" and not "XXXS (0)" ? row.DefaultCellStyle.Font : BoldFont;
+        row.Cells[15].Style.Font = result._mod100 is not 0 ? row.DefaultCellStyle.Font : BoldFont;
     }
 
     private void findSafeAdvanceToolStripMenuItem_Click(object sender, EventArgs e)
