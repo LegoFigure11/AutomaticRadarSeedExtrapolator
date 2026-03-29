@@ -30,6 +30,7 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
     private ulong RadarStepCounterOffset;
     private ulong RepelStepCounterOffset;
     private ulong MassOutbreakSpeciesOffset;
+    private ulong GroupSeedOffset;
 
     private const byte CHARGED_STEP_COUNT = 0x32;
 
@@ -95,6 +96,13 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
                 _ => throw new Exception("Cannot detect Brilliant Diamond or Shining Pearl running on your switch!")
             };
 
+            var groupSeedPointer = title switch
+            {
+                BrilliantDiamondID => GroupSeedPointerBD,
+                ShiningPearlID => GroupSeedPointerSP,
+                _ => throw new Exception("Cannot detect Brilliant Diamond or Shining Pearl running on your switch!")
+            };
+
             StatusUpdate("Caching Pointers...");
 
             MainRNGOffset = await Connection.PointerAll(MainRNGPointer, token).ConfigureAwait(false);
@@ -104,6 +112,7 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
             RadarStepCounterOffset = await Connection.PointerAll(radarStepCounterPointer, token).ConfigureAwait(false);
             RepelStepCounterOffset = await Connection.PointerAll(repelStepCounterPointer, token).ConfigureAwait(false);
             MassOutbreakSpeciesOffset = await Connection.PointerAll(massOutbreakSpeciesPointer, token).ConfigureAwait(false);
+            GroupSeedOffset = await Connection.PointerAll(groupSeedPointer, token).ConfigureAwait(false);
 
             StatusUpdate("Reading SAV...");
             var tid = await Connection.ReadBytesAbsoluteAsync(MyStatusOffset, 2, token).ConfigureAwait(false);
@@ -214,6 +223,12 @@ public class ConnectionWrapperAsync(SwitchConnectionConfig Config, Action<string
     {
         var bytes = await Connection.ReadBytesAbsoluteAsync(MassOutbreakSpeciesOffset, 2, token).ConfigureAwait(false);
         return BitConverter.ToUInt16(bytes);
+    }
+
+    public async Task<ulong> GetGroupSeed(CancellationToken token)
+    {
+        var bytes = await Connection.ReadBytesAbsoluteAsync(GroupSeedOffset, 8, token).ConfigureAwait(false);
+        return BitConverter.ToUInt64(bytes);
     }
 
     public async Task RechargeRadar(CancellationToken token)

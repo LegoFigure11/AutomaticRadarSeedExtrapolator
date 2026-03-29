@@ -173,7 +173,7 @@ public partial class MainWindow : Form
 
                 SetControlEnabledState(true, B_Disconnect, B_CopyToInitial, B_Forecast, B_ReadChainCount, B_ReadChainSpecies, findSafeAdvanceToolStripMenuItem, updateSeedsToolStripMenuItem, readEncounterToolStripMenuItem);
 #if DEBUG
-                SetControlVisibleState(true, B_A, B_B, B_X, B_Y, B_Up, B_Down, B_Left, B_Right, B_Minus, TB_Input, B_RadarRead, B_RadarWrite, B_RepelRead, B_RepelWrite, CB_EnableWrite, L_RadarSteps, L_RepelSteps, TB_RepelSteps, TB_RadarSteps, L_OutbreakSpecies, TB_OutbreakSpecies, B_Outbreak);
+                SetControlVisibleState(true, L_GSOutbreak, CB_GSOutbreak, B_GSOutbreak, L_GroupSeed, TB_GroupSeed, B_ReadGroupSeed, B_A, B_B, B_X, B_Y, B_Up, B_Down, B_Left, B_Right, B_Minus, TB_Input, B_RadarRead, B_RadarWrite, B_RepelRead, B_RepelWrite, CB_EnableWrite, L_RadarSteps, L_RepelSteps, TB_RepelSteps, TB_RadarSteps, L_OutbreakSpecies, TB_OutbreakSpecies, B_Outbreak);
 #endif
 
                 UpdateStatus("Monitoring RNG State...");
@@ -1167,7 +1167,7 @@ public partial class MainWindow : Form
                 PokemonFrames = results;
                 SetControlEnabledState(true, B_PokemonSearch);
 
-                if (PokemonFrames.Count == 0)
+                if (PokemonFrames.Count < 1)
                 {
                     await ConnectionWrapper.DoTurboCommand("HOME", Source.Token).ConfigureAwait(false);
                     await Task.Delay(4000).ConfigureAwait(false);
@@ -1657,6 +1657,55 @@ public partial class MainWindow : Form
                     var s = await ConnectionWrapper.GetOutbreakSpecies(Source.Token).ConfigureAwait(false);
                     SetControlText(ValueToSpeciesName(s), TB_OutbreakSpecies);
                     readPause = false;
+                }
+            }
+            catch (Exception)
+            {
+                readPause = false;
+            }
+        }));
+    }
+
+    private void B_ReadGroupSeed_Click(object sender, EventArgs e)
+    {
+        Task.Run((async () =>
+        {
+            try
+            {
+                if (ConnectionWrapper.Connected)
+                {
+                    readPause = true;
+                    await Task.Delay(100, Source.Token).ConfigureAwait(false);
+                    var s = await ConnectionWrapper.GetGroupSeed(Source.Token).ConfigureAwait(false);
+                    SetControlText($"{s:X16}", TB_GroupSeed);
+                    readPause = false;
+                }
+            }
+            catch (Exception)
+            {
+                readPause = false;
+            }
+        }));
+    }
+
+    private void B_GSOutbreak_Click(object sender, EventArgs e)
+    {
+        Task.Run((async () =>
+        {
+            try
+            {
+                if (ConnectionWrapper.Connected)
+                {
+                    readPause = true;
+                    await Task.Delay(100, Source.Token).ConfigureAwait(false);
+                    var s = await ConnectionWrapper.GetGroupSeed(Source.Token).ConfigureAwait(false);
+                    SetControlText($"{s:X16}", TB_GroupSeed);
+                    readPause = false;
+
+                    var target = (uint)CB_GSOutbreak.GetSelectedIndex();
+
+                    var adv = await Core.RNG.Outbreak.Generate(s, target).ConfigureAwait(false);
+                    this.DisplayMessageBox($"Days until target outbreak: {adv}", "ARSE Result");
                 }
             }
             catch (Exception)

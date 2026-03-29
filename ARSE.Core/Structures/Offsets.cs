@@ -27,4 +27,8 @@ public abstract class Offsets
 
     public static IReadOnlyList<long> MassOutbreakSpeciesPointerBD { get; } = [0x4C55648, 0xB8, 0x78, 0x2A0];
     public static IReadOnlyList<long> MassOutbreakSpeciesPointerSP { get; } = [0x4C55648, 0xB8, 0x78, 0x2A0]; // Incorrect
+
+
+    public static IReadOnlyList<long> GroupSeedPointerBD { get; } = [0x4C59B58, 0xB8, 0x418, 0x78];
+    public static IReadOnlyList<long> GroupSeedPointerSP { get; } = [0x4C59B58, 0xB8, 0x418, 0x78]; // Incorrect
 }
